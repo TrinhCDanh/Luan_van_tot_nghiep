@@ -89,6 +89,8 @@
                     { icon: 'history', text: 'Quản lý thông tin ca', path: 'CaList' },
                     { icon: 'history', text: 'Quản lý thông tin phòng máy', path: 'PhongmayList' },
                     { icon: 'history', text: 'Quản lý thông tin máy', path: 'MayPhongmayList' },
+                    { icon: 'history', text: 'Quản lý thông danh sách lớp', path: 'LopList' },
+                    { icon: 'history', text: 'Quản lý thông tin môn học', path: 'MonhocList' },
                     // { icon: 'history', text }
                     // { icon: 'content_copy', text: 'Quản lý thông tin ca' },
                     // {

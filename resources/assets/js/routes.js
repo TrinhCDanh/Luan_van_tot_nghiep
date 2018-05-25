@@ -24,8 +24,17 @@ import PhongmayEdit from './components/phongmay/PhongmayEdit'
 //import MayListStatus from './components/may/MayListStatus'
 import MayList from './components/may/MayList'
 import MayPhongmayList from './components/may/MayPhongmayList';
-import MayListStatus from './components/may/MayListStatus';  
+import MayListStatus from './components/may/MayListStatus'; 
 
+// Quản lý thông tin ds lớp
+import LopList from './components/lop/LopList'
+import LopAdd from './components/lop/LopAdd'
+import LopEdit from './components/lop/LopEdit'
+
+// Quản lý thông tin môn học 
+import MonhocList from './components/monhoc/MonhocList'
+import MonhocAdd from './components/monhoc/MonhocAdd'
+import MonhocEdit from './components/monhoc/MonhocEdit'
 
 export const routes = [
 	{ path: '/', component: Layout, name: 'Layout', children: [
@@ -50,6 +59,14 @@ export const routes = [
 
 		{ path: 'admin/may', component: MayPhongmayList, name: 'MayPhongmayList'},
 		{ path: 'admin/may/phongmay/:idphong', component: MayListStatus, name: 'MayListStatus'},
+
+		{ path: '/admin/lop', component: LopList, name: 'LopList' },
+		{ path: '/admin/lop/add', component: LopAdd, name: 'LopAdd'},
+		{ path: '/admin/lop/edit/:id', component: LopEdit, name: 'LopEdit'},
+
+		{ path: '/admin/monhoc', component: MonhocList, name: 'MonhocList' },
+		{ path: '/admin/monhoc/add', component: MonhocAdd, name: 'MonhocAdd'},
+		{ path: '/admin/monhoc/edit/:id', component: MonhocEdit, name: 'MonhocEdit'},
 	]}
 	
 	// { path: '/admin/hocky/edit/:id', component: HockyEdit, name: 'HockyEdit'}

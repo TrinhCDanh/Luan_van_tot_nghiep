@@ -54156,6 +54156,18 @@ if (token) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_may_MayPhongmayList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__components_may_MayPhongmayList__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_may_MayListStatus__ = __webpack_require__(110);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_may_MayListStatus___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__components_may_MayListStatus__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_lop_LopList__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_lop_LopList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__components_lop_LopList__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_lop_LopAdd__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_lop_LopAdd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__components_lop_LopAdd__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_lop_LopEdit__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_lop_LopEdit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__components_lop_LopEdit__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_monhoc_MonhocList__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__components_monhoc_MonhocList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__components_monhoc_MonhocList__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_monhoc_MonhocAdd__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__components_monhoc_MonhocAdd___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__components_monhoc_MonhocAdd__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_monhoc_MonhocEdit__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__components_monhoc_MonhocEdit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__components_monhoc_MonhocEdit__);
 
 
 
@@ -54184,7 +54196,17 @@ if (token) {
 
 
 
-var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_Layout___default.a, name: 'Layout', children: [{ path: '/admin/home', component: __WEBPACK_IMPORTED_MODULE_1__components_trangchu_Home___default.a, name: 'Home' }, { path: '/admin/hocky', component: __WEBPACK_IMPORTED_MODULE_2__components_hocky_HockyList___default.a, name: 'HockyList' }, { path: '/admin/hocky/add', component: __WEBPACK_IMPORTED_MODULE_3__components_hocky_HockyAdd___default.a, name: 'HockyAdd' }, { path: '/admin/hocky/edit/:id', component: __WEBPACK_IMPORTED_MODULE_4__components_hocky_HockyEdit___default.a, name: 'HockyEdit' }, { path: '/admin/ca', component: __WEBPACK_IMPORTED_MODULE_5__components_ca_CaList___default.a, name: 'CaList' }, { path: '/admin/ca/add', component: __WEBPACK_IMPORTED_MODULE_6__components_ca_CaAdd___default.a, name: 'CaAdd' }, { path: '/admin/ca/edit/:id', component: __WEBPACK_IMPORTED_MODULE_7__components_ca_CaEdit___default.a, name: 'CaEdit' }, { path: '/admin/thu', component: __WEBPACK_IMPORTED_MODULE_8__components_thu_ThuList___default.a, name: 'ThuList' }, { path: '/admin/thu/add', component: __WEBPACK_IMPORTED_MODULE_9__components_thu_ThuAdd___default.a, name: 'ThuAdd' }, { path: '/admin/thu/edit/:id', component: __WEBPACK_IMPORTED_MODULE_10__components_thu_ThuEdit___default.a, name: 'ThuEdit' }, { path: '/admin/phongmay', component: __WEBPACK_IMPORTED_MODULE_11__components_phongmay_PhongmayList___default.a, name: 'PhongmayList' }, { path: '/admin/phongmay/add', component: __WEBPACK_IMPORTED_MODULE_12__components_phongmay_PhongmayAdd___default.a, name: 'PhongmayAdd' }, { path: '/admin/phongmay/edit/:id', component: __WEBPACK_IMPORTED_MODULE_13__components_phongmay_PhongmayEdit___default.a, name: 'PhongmayEdit' }, { path: '/admin/phongmay/may/:idphong', component: __WEBPACK_IMPORTED_MODULE_14__components_may_MayList___default.a, name: 'MayList' }, { path: 'admin/may', component: __WEBPACK_IMPORTED_MODULE_15__components_may_MayPhongmayList___default.a, name: 'MayPhongmayList' }, { path: 'admin/may/phongmay/:idphong', component: __WEBPACK_IMPORTED_MODULE_16__components_may_MayListStatus___default.a, name: 'MayListStatus' }]
+// Quản lý thông tin ds lớp
+
+
+
+
+// Quản lý thông tin môn học 
+
+
+
+
+var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_Layout___default.a, name: 'Layout', children: [{ path: '/admin/home', component: __WEBPACK_IMPORTED_MODULE_1__components_trangchu_Home___default.a, name: 'Home' }, { path: '/admin/hocky', component: __WEBPACK_IMPORTED_MODULE_2__components_hocky_HockyList___default.a, name: 'HockyList' }, { path: '/admin/hocky/add', component: __WEBPACK_IMPORTED_MODULE_3__components_hocky_HockyAdd___default.a, name: 'HockyAdd' }, { path: '/admin/hocky/edit/:id', component: __WEBPACK_IMPORTED_MODULE_4__components_hocky_HockyEdit___default.a, name: 'HockyEdit' }, { path: '/admin/ca', component: __WEBPACK_IMPORTED_MODULE_5__components_ca_CaList___default.a, name: 'CaList' }, { path: '/admin/ca/add', component: __WEBPACK_IMPORTED_MODULE_6__components_ca_CaAdd___default.a, name: 'CaAdd' }, { path: '/admin/ca/edit/:id', component: __WEBPACK_IMPORTED_MODULE_7__components_ca_CaEdit___default.a, name: 'CaEdit' }, { path: '/admin/thu', component: __WEBPACK_IMPORTED_MODULE_8__components_thu_ThuList___default.a, name: 'ThuList' }, { path: '/admin/thu/add', component: __WEBPACK_IMPORTED_MODULE_9__components_thu_ThuAdd___default.a, name: 'ThuAdd' }, { path: '/admin/thu/edit/:id', component: __WEBPACK_IMPORTED_MODULE_10__components_thu_ThuEdit___default.a, name: 'ThuEdit' }, { path: '/admin/phongmay', component: __WEBPACK_IMPORTED_MODULE_11__components_phongmay_PhongmayList___default.a, name: 'PhongmayList' }, { path: '/admin/phongmay/add', component: __WEBPACK_IMPORTED_MODULE_12__components_phongmay_PhongmayAdd___default.a, name: 'PhongmayAdd' }, { path: '/admin/phongmay/edit/:id', component: __WEBPACK_IMPORTED_MODULE_13__components_phongmay_PhongmayEdit___default.a, name: 'PhongmayEdit' }, { path: '/admin/phongmay/may/:idphong', component: __WEBPACK_IMPORTED_MODULE_14__components_may_MayList___default.a, name: 'MayList' }, { path: 'admin/may', component: __WEBPACK_IMPORTED_MODULE_15__components_may_MayPhongmayList___default.a, name: 'MayPhongmayList' }, { path: 'admin/may/phongmay/:idphong', component: __WEBPACK_IMPORTED_MODULE_16__components_may_MayListStatus___default.a, name: 'MayListStatus' }, { path: '/admin/lop', component: __WEBPACK_IMPORTED_MODULE_17__components_lop_LopList___default.a, name: 'LopList' }, { path: '/admin/lop/add', component: __WEBPACK_IMPORTED_MODULE_18__components_lop_LopAdd___default.a, name: 'LopAdd' }, { path: '/admin/lop/edit/:id', component: __WEBPACK_IMPORTED_MODULE_19__components_lop_LopEdit___default.a, name: 'LopEdit' }, { path: '/admin/monhoc', component: __WEBPACK_IMPORTED_MODULE_20__components_monhoc_MonhocList___default.a, name: 'MonhocList' }, { path: '/admin/monhoc/add', component: __WEBPACK_IMPORTED_MODULE_21__components_monhoc_MonhocAdd___default.a, name: 'MonhocAdd' }, { path: '/admin/monhoc/edit/:id', component: __WEBPACK_IMPORTED_MODULE_22__components_monhoc_MonhocEdit___default.a, name: 'MonhocEdit' }]
 
 		// { path: '/admin/hocky/edit/:id', component: HockyEdit, name: 'HockyEdit'}
 }];
@@ -54697,7 +54719,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             dialog: false,
             drawer: null,
-            items: [{ icon: 'contacts', text: 'Trang chủ', path: 'Home' }, { icon: 'history', text: 'Quản lý thông tin học kỳ', path: 'HockyList' }, { icon: 'history', text: 'Quản lý thông tin thứ', path: 'ThuList' }, { icon: 'history', text: 'Quản lý thông tin ca', path: 'CaList' }, { icon: 'history', text: 'Quản lý thông tin phòng máy', path: 'PhongmayList' }, { icon: 'history', text: 'Quản lý thông tin máy', path: 'MayPhongmayList' }]
+            items: [{ icon: 'contacts', text: 'Trang chủ', path: 'Home' }, { icon: 'history', text: 'Quản lý thông tin học kỳ', path: 'HockyList' }, { icon: 'history', text: 'Quản lý thông tin thứ', path: 'ThuList' }, { icon: 'history', text: 'Quản lý thông tin ca', path: 'CaList' }, { icon: 'history', text: 'Quản lý thông tin phòng máy', path: 'PhongmayList' }, { icon: 'history', text: 'Quản lý thông tin máy', path: 'MayPhongmayList' }, { icon: 'history', text: 'Quản lý thông danh sách lớp', path: 'LopList' }, { icon: 'history', text: 'Quản lý thông tin môn học', path: 'MonhocList' }]
         };
     },
 
@@ -61544,6 +61566,634 @@ return ImagesLoaded;
 
 });
 
+
+/***/ }),
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */,
+/* 152 */,
+/* 153 */,
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(155)
+/* template */
+var __vue_template__ = __webpack_require__(156)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\lop\\LopList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5b51d055", Component.options)
+  } else {
+    hotAPI.reload("data-v-5b51d055", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 155 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  created: function created() {},
+
+  methods: {},
+  computed: {}
+});
+
+/***/ }),
+/* 156 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("h1", [_vm._v("Đây là trang lớp")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5b51d055", module.exports)
+  }
+}
+
+/***/ }),
+/* 157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(158)
+/* template */
+var __vue_template__ = __webpack_require__(159)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\lop\\LopAdd.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4644f28c", Component.options)
+  } else {
+    hotAPI.reload("data-v-4644f28c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 158 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  created: function created() {},
+
+  methods: {},
+  computed: {}
+});
+
+/***/ }),
+/* 159 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("h1", [_vm._v("Đây là trang lớp")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4644f28c", module.exports)
+  }
+}
+
+/***/ }),
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(161)
+/* template */
+var __vue_template__ = __webpack_require__(162)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\lop\\LopEdit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6a99f7c1", Component.options)
+  } else {
+    hotAPI.reload("data-v-6a99f7c1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 161 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  created: function created() {},
+
+  methods: {},
+  computed: {}
+});
+
+/***/ }),
+/* 162 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("h1", [_vm._v("Đây là trang lớp")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6a99f7c1", module.exports)
+  }
+}
+
+/***/ }),
+/* 163 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(164)
+/* template */
+var __vue_template__ = __webpack_require__(165)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\monhoc\\MonhocList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-29ddb61a", Component.options)
+  } else {
+    hotAPI.reload("data-v-29ddb61a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 164 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  created: function created() {},
+
+  methods: {},
+  computed: {}
+});
+
+/***/ }),
+/* 165 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("h1", [_vm._v("Đây là trang môn học")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-29ddb61a", module.exports)
+  }
+}
+
+/***/ }),
+/* 166 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(167)
+/* template */
+var __vue_template__ = __webpack_require__(168)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\monhoc\\MonhocAdd.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b09bb348", Component.options)
+  } else {
+    hotAPI.reload("data-v-b09bb348", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 167 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  created: function created() {},
+
+  methods: {},
+  computed: {}
+});
+
+/***/ }),
+/* 168 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("h1", [_vm._v("Đây là trang môn học")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b09bb348", module.exports)
+  }
+}
+
+/***/ }),
+/* 169 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(170)
+/* template */
+var __vue_template__ = __webpack_require__(171)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\monhoc\\MonhocEdit.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0b4d6742", Component.options)
+  } else {
+    hotAPI.reload("data-v-0b4d6742", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 170 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  created: function created() {},
+
+  methods: {},
+  computed: {}
+});
+
+/***/ }),
+/* 171 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("h1", [_vm._v("Đây là trang môn học")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0b4d6742", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
