@@ -19,13 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['namespace' => 'GiangvienAuth', 'prefix' => 'giangvien'], function () {  
+Route::group(['namespace' => 'GiangvienAuth', 'prefix' => 'giangvien'], function () {
     Route::get('login', 'GiangvienAuthController@showLoginForm');
     Route::post('login', ['as' => 'giangvien.login','uses' => 'GiangvienAuthController@login']);
     Route::get('logout', ['as' => 'giangvien.logout','uses' => 'GiangvienAuthController@logout']);
 });
 
-Route::group(['namespace' => 'KythuatvienAuth', 'prefix' => 'kythuatvien'], function () {  
+Route::group(['namespace' => 'KythuatvienAuth', 'prefix' => 'kythuatvien'], function () {
     Route::get('login', 'KythuatvienAuthController@showLoginForm');
     Route::post('login', ['as' => 'kythuatvien.login','uses' => 'KythuatvienAuthController@login']);
     Route::get('logout', ['as' => 'kythuatvien.logout','uses' => 'KythuatvienAuthController@logout']);
@@ -49,7 +49,10 @@ Route::group(['middleware' => 'giangvien_auth', 'prefix' => 'giangvien', 'as' =>
 });
 
 Route::group(['middleware' => 'kythuatvien_auth', 'prefix' => 'kythuatvien', 'as' => 'kythuatvien.'], function () {
-	Route::get('home-kythuatvien', function() {
-		return view('home-kythuatvien');
-	});
+	//Route::get('/dashboard', 'Kythuatvien\DashboardController@index');
+	// Route::get('home-kythuatvien', function() {
+	// 	return view('home-kythuatvien');
+	// });
+    //Route::get('/{path}', function() { return view('home-kythuatvien'); })->where('path', '(.*)');
+    Route::get('/{path}', 'Kythuatvien\DashboardController@index')->where('path', '(.*)');
 });

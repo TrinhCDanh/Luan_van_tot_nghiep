@@ -1,19 +1,27 @@
 @extends('layouts.home')
 
 @section('cssstyle')
-	<link href="{{ asset('kythuatvien/css/app.css') }}" rel="stylesheet">
+	{{-- <link href="{{ asset('kythuatvien/css/app.css') }}" rel="stylesheet"> --}}
 @endsection
 
 @section('content')
-	<div class="container">
- 		<h3>Đây là trang kythuatvien</h3>
-	</div>
+    <?php
+        session_start();
+        $_SESSION['kythuatvien_id'] = Auth::guard('kythuatvien')->id();
+    ?>
 
-	<section id="app">
-		<router-view></router-view>
-	</section>
+    {{ $_SESSION['kythuatvien_id'] }}
+    <div class="content">
+        <div id="app">
+            <router-view></router-view>
+        </div>
+    </div>
 @endsection
 
 @section('script')
 	<script src="{{ asset('kythuatvien/js/app.js') }}"></script>
+    <script type="text/javascript">
+        var kythuatvien_id = <?php echo $_SESSION['kythuatvien_id']; ?>;
+        sessionStorage.setItem('kythuatvien_id', kythuatvien_id);
+    </script>
 @endsection

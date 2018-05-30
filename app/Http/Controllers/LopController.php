@@ -34,9 +34,8 @@ class LopController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $lop = new Lop;
-        $lop->id = str_slug($request->tenlop);
         $lop->tenlop = $request->tenlop;
         $lop->siso = $request->siso;
         $lop->save();
@@ -75,7 +74,6 @@ class LopController extends Controller
     public function update(Request $request, $id)
     {
         $lop = Lop::find($id);
-        $lop->id = str_slug($request->tenlop);
         $lop->tenlop = $request->tenlop;
         $lop->siso = $request->siso;
         $lop->save();

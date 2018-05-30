@@ -60,10 +60,22 @@ export default {
         deleteItem (item,id) {
             let url = location.origin + '/api/monhoc/';
             // const index = this.listMon.indexOf(item,id)
-            axios.delete(url+id).then((rep) => {
+            var xacnhanxoa = confirm('Are you sure you want to delete this item?');
+            if(xacnhanxoa) {
+              axios.delete(url+id).then((rep) => {
                 const index = this.listMon.indexOf(item)
-                confirm('Are you sure you want to delete this item?') && this.listMon.splice(index, 1); //xoa db
-            });
+                this.listMon.splice(index, 1); //xoa db
+              });
+            }
+
+            /*
+              Do đặt comfirm trong then() thì sau khi axios có chọn yes hay no gì nó cũng xóa pt trong csdl,
+              tại vì khi đặt confirm nằm trong then() có nghĩa là sau khi axiod gửi đi yêu cầu cho server thì server sẽ
+              xóa phần tử ở trong csdl đi và sẽ phản hồi lại respone .
+              then() có nghĩa là sau khi nhận respone thì nó sẽ làm gì tiếp theo đặt comfirm trong thì lúc đó nó đã xóa
+              xong rồi nó mới hỏi là có xóa hay ko
+            */
+
              //confirm('Are you sure you want to delete this item?') && this.listMon.splice(index, 1)
         },
 

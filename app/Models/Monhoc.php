@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Monhoc extends Model
 {
     protected $table = 'monhoc';
-    protected $fillable = ['id', 'tenmonhoc', 'ngaybatdau', 'ngayketthuc'];
+    protected $fillable = ['mamonhoc', 'tenmonhoc', 'ngaybatdau', 'ngayketthuc'];
 
     public $timestamps = false;
 }

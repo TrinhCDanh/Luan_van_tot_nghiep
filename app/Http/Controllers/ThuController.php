@@ -14,7 +14,7 @@ class ThuController extends Controller
      */
     public function index()
     {
-        return Thu::orderBy('id','DESC')->get();
+        return Thu::all();
     }
 
     /**

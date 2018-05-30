@@ -24,22 +24,33 @@ import PhongmayEdit from './components/phongmay/PhongmayEdit'
 //import MayListStatus from './components/may/MayListStatus'
 import MayList from './components/may/MayList'
 import MayPhongmayList from './components/may/MayPhongmayList';
-import MayListStatus from './components/may/MayListStatus'; 
+import MayListStatus from './components/may/MayListStatus';
 
 // Quản lý thông tin ds lớp
 import LopList from './components/lop/LopList'
 import LopAdd from './components/lop/LopAdd'
 import LopEdit from './components/lop/LopEdit'
 
-// Quản lý thông tin môn học 
+// Quản lý thông tin môn học
 import MonhocList from './components/monhoc/MonhocList'
 import MonhocAdd from './components/monhoc/MonhocAdd'
 import MonhocEdit from './components/monhoc/MonhocEdit'
 
+// Quản lý kỹ thuật viên
+import KythuatvienList from './components/kythuatvien/KythuatvienList'
+import KythuatvienAdd from './components/kythuatvien/KythuatvienAdd'
+//import KythuatvienEdit from './components/kythuatvien/KythuatvienEdit'
+
+// Quản lý lịch trực
+import LichtrucList from './components/lichtruc/LichtrucList'
+import LichtrucAdd from './components/lichtruc/LichtrucAdd'
+import LichtrucEdit from './components/lichtruc/LichtrucEdit'
+
+
 export const routes = [
 	{ path: '/', component: Layout, name: 'Layout', children: [
 		{ path: '/admin/home', component: Home, name: 'Home' },
-		
+
 		{ path: '/admin/hocky', component: HockyList, name: 'HockyList' },
 		{ path: '/admin/hocky/add', component: HockyAdd, name: 'HockyAdd'},
 		{ path: '/admin/hocky/edit/:id', component: HockyEdit, name: 'HockyEdit'},
@@ -67,7 +78,15 @@ export const routes = [
 		{ path: '/admin/monhoc', component: MonhocList, name: 'MonhocList' },
 		{ path: '/admin/monhoc/add', component: MonhocAdd, name: 'MonhocAdd'},
 		{ path: '/admin/monhoc/edit/:id', component: MonhocEdit, name: 'MonhocEdit'},
+
+		{ path: 'admin/kythuatvien', component: KythuatvienList, name: 'KythuatvienList' },
+		{ path: 'admin/kythuatvien/add', component: KythuatvienAdd, name: 'KythuatvienAdd' },
+		// { path: 'amdin/kythuatvien/edit/:id', component: KythuatvienEdit, name: 'KythuatvienEdit' },
+
+		{ path: 'admin/lichtruc', component: LichtrucList, name: 'LichtrucList' },
+		{ path: 'admin/lichtruc/add', component: LichtrucAdd, name: 'LichtrucAdd' },
+		{ path: 'admin/lichtruc/edit/:id', component: LichtrucEdit, name: 'LichtrucEdit' },
 	]}
-	
+
 	// { path: '/admin/hocky/edit/:id', component: HockyEdit, name: 'HockyEdit'}
 ];

@@ -14,7 +14,7 @@ class CaController extends Controller
      */
     public function index()
     {
-        return Ca::orderBy('id','DESC')->get();
+        return Ca::all();
     }
 
     /**

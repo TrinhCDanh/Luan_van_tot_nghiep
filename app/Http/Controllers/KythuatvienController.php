@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Monhoc;
+use App\Models\Kythuatvien;
+use Hash;
 
-class MonhocController extends Controller
+class KythuatvienController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class MonhocController extends Controller
      */
     public function index()
     {
-        return Monhoc::orderBy('id','DESC')->get();
+        return Kythuatvien::orderBy('id','DESC')->get();
     }
 
     /**
@@ -35,12 +36,14 @@ class MonhocController extends Controller
      */
     public function store(Request $request)
     {
-        $monhoc = new Monhoc;
-        $monhoc->mamonhoc = $request->id;
-        $monhoc->tenmonhoc = $request->tenmonhoc;
-        $monhoc->ngaybatdau = $request->ngaybatdau;
-        $monhoc->ngayketthuc = $request->ngayketthuc;
-        $monhoc->save();
+        $kythuatvien = new Kythuatvien;
+        //$kythuatvien->id = $request->id;
+        $kythuatvien->name = $request->name;
+        $kythuatvien->email = $request->email;
+        $kythuatvien->password = Hash::make($request->password);
+        $kythuatvien->status = 0;
+        $kythuatvien->remember_token = $request->_token; //csrf_token();
+        $kythuatvien->save();
         return 'ok';
     }
 
@@ -63,7 +66,7 @@ class MonhocController extends Controller
      */
     public function edit($id)
     {
-        return Monhoc::find($id);
+        return Lichtruc::find($id);
     }
 
     /**
@@ -75,13 +78,7 @@ class MonhocController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $monhoc = Monhoc::find($id);
-        $monhoc->mamonhoc = $request->id;
-        $monhoc->tenmonhoc = $request->tenmonhoc;
-        $monhoc->ngaybatdau = $request->ngaybatdau;
-        $monhoc->ngayketthuc = $request->ngayketthuc;
-        $monhoc->save();
-        return 'ok';
+        //
     }
 
     /**
@@ -92,7 +89,6 @@ class MonhocController extends Controller
      */
     public function destroy($id)
     {
-        $monhoc = Monhoc::find($id);
-        $monhoc->delete();
+        //
     }
 }
