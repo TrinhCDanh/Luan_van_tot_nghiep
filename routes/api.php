@@ -22,6 +22,6 @@ Route::resource('/thu', 'ThuController');
 Route::resource('/ca', 'CaController');
 Route::resource('/phongmay', 'PhongmayController');
 Route::resource('/may', 'MayController');
-
+Route::resource('/monhoc','MonhocController');
 // Orther function
 Route::get('/phongmay-have-may/{id}', 'PhongmayController@listMaybyPhongMay');
