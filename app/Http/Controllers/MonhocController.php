@@ -22,9 +22,16 @@ class MonhocController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $monhoc = new Monhoc;
+        $monhoc->id = $request->id;
+        $monhoc->tenmonhoc = $request->tenmonhoc;
+        $monhoc->ngaybatdau = $request->ngaybatdau;
+        $monhoc->ngayketthuc = $request->ngayketthuc;
+        $monhoc->save();
+        return 'ok';
     }
 
     /**
@@ -35,13 +42,13 @@ class MonhocController extends Controller
      */
     public function store(Request $request)
     {
-        $monhoc = new Monhoc;
-        $monhoc->mamonhoc = $request->id;
-        $monhoc->tenmonhoc = $request->tenmonhoc;
-        $monhoc->ngaybatdau = $request->ngaybatdau;
-        $monhoc->ngayketthuc = $request->ngayketthuc;
-        $monhoc->save();
-        return 'ok';
+//        $monhoc = new Monhoc;
+//        $monhoc->id = $request->id;
+//        $monhoc->tenmonhoc = $request->tenmonhoc;
+//        $monhoc->ngaybatdau = $request->ngaybatdau;
+//        $monhoc->ngayketthuc = $request->ngayketthuc;
+//        $monhoc->save();
+//        return 'ok';
     }
 
     /**
