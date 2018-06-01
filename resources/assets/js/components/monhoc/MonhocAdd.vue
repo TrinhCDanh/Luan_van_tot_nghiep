@@ -100,7 +100,7 @@
                 let url = location.origin + '/api/monhoc';
                 console.log(url);
                 axios.post(url, this.monhoc).then((rep) => {
-                    this.$router.push({name: 'MonhocList'})
+                    //this.$router.push({name: 'MonhocList'})
                     console.log(rep.data);
                 });
             }
