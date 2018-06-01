@@ -25,14 +25,14 @@ class MonhocController extends Controller
     public function create(Request $request)
     {
         //
-        $monhoc = new Monhoc;
-        $monhoc->id = $request->id;
-        $monhoc->tenmonhoc = $request->tenmonhoc;
-        $monhoc->ngaybatdau = $request->ngaybatdau;
-        $monhoc->ngayketthuc = $request->ngayketthuc;
-        $monhoc->save();
-        //return 'ok';
-        return "This is create";
+//        $monhoc = new Monhoc;
+//        $monhoc->id = $request->id;
+//        $monhoc->tenmonhoc = $request->tenmonhoc;
+//        $monhoc->ngaybatdau = $request->ngaybatdau;
+//        $monhoc->ngayketthuc = $request->ngayketthuc;
+//        $monhoc->save();
+//        //return 'ok';
+//        return "This is create";
     }
 
     /**
@@ -43,13 +43,13 @@ class MonhocController extends Controller
      */
     public function store(Request $request)
     {
-       // $monhoc = new Monhoc;
-       // $monhoc->mamonhoc = $request->id;
-       // $monhoc->tenmonhoc = $request->tenmonhoc;
-       // $monhoc->ngaybatdau = $request->ngaybatdau;
-       // $monhoc->ngayketthuc = $request->ngayketthuc;
-       // $monhoc->save();
-       // return 'ok';
+        $monhoc = new Monhoc;
+        $monhoc->mamonhoc = $request->id;
+        $monhoc->tenmonhoc = $request->tenmonhoc;
+        $monhoc->ngaybatdau = $request->ngaybatdau;
+        $monhoc->ngayketthuc = $request->ngayketthuc;
+        $monhoc->save();
+        return 'ok';
         return "This is store";
     }
 

@@ -95,7 +95,7 @@
         created() {
 
         },
-        methods: {
+        methods: { 
             createMonHoc: function () {
                 let url = location.origin + '/api/monhoc';
                 console.log(url);
