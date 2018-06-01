@@ -2,7 +2,7 @@
     <div class="row">
         <v-form v-model="valid" v-on:submit.prevent="createMonHoc" methods="POST">
             <v-text-field
-                    v-model="monhoc.id"
+                    v-model="monhoc.mamonhoc"
                     :rules="malRules"
                     label="Mã Môn Học"
                     required
@@ -76,7 +76,7 @@
         data: function () {
             return {
                 valid: false,
-                monhoc: {id: '', tenmonhoc: '', ngaybatdau: '', ngayketthuc: ''},
+                monhoc: {mamonhoc: '', tenmonhoc: '', ngaybatdau: '', ngayketthuc: ''},
                 date: null,
                 menu: false,
                 modal: false,
@@ -95,12 +95,12 @@
         created() {
 
         },
-        methods: { 
+        methods: {
             createMonHoc: function () {
                 let url = location.origin + '/api/monhoc';
                 console.log(url);
                 axios.post(url, this.monhoc).then((rep) => {
-                    //this.$router.push({name: 'MonhocList'})
+                    this.$router.push({name: 'MonhocList'})
                     console.log(rep.data);
                 });
             }

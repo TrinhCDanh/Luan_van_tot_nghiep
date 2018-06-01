@@ -1,6 +1,11 @@
 <template id="monhoc-list">
   <div class="row">
-    <h1>Đây là trang môn học</h1>
+    <v-btn class="pull-right" v-bind:to="{name: 'MonhocAdd'}">
+      <!-- <router-link class="btn btn-xs btn-primary" v-bind:to="{name: 'HockyAdd'}"> -->
+        <span class="glyphicon glyphicon-plus"></span>
+        Thêm thông tin môn học mới
+      <!-- </router-link> -->
+    </v-btn>
     <v-card>
       <v-card-title>
         Nutrition
@@ -23,7 +28,7 @@
           <td class="text-xs-left">{{ props.item.tenmonhoc }}</td>
           <td class="text-xs-left">{{ props.item.ngaybatdau }}</td>
           <td class="text-xs-left">{{ props.item.ngayketthuc }}</td>
-          <v-btn icon class="mx-0" @click="editItem(props.item)">
+          <v-btn icon class="mx-0" @click="editItem(props.item.id)">
             <v-icon color="teal">edit</v-icon>
           </v-btn>
           <v-btn icon class="mx-0" @click="deleteItem(props.item,props.item.id)">
@@ -57,16 +62,7 @@ export default {
         //     this.dialog = true
         // },
 
-        deleteItem (item,id) {
-            let url = location.origin + '/api/monhoc/';
-            // const index = this.listMon.indexOf(item,id)
-            var xacnhanxoa = confirm('Are you sure you want to delete this item?');
-            if(xacnhanxoa) {
-              axios.delete(url+id).then((rep) => {
-                const index = this.listMon.indexOf(item)
-                this.listMon.splice(index, 1); //xoa db
-              });
-            }
+
 
             /*
               Do đặt comfirm trong then() thì sau khi axios có chọn yes hay no gì nó cũng xóa pt trong csdl,
@@ -77,7 +73,6 @@ export default {
             */
 
              //confirm('Are you sure you want to delete this item?') && this.listMon.splice(index, 1)
-        },
 
     }
   },
@@ -90,6 +85,20 @@ export default {
 
   },
   methods: {
+    deleteItem (item,id) {
+      let url = location.origin + '/api/monhoc/';
+      // const index = this.listMon.indexOf(item,id)
+      var xacnhanxoa = confirm('Are you sure you want to delete this item?');
+      if(xacnhanxoa) {
+        axios.delete(url+id).then((rep) => {
+          const index = this.listMon.indexOf(item)
+          this.listMon.splice(index, 1); //xoa db
+        });
+      }
+    },
+      editItem (id) {
+            this.$router.push({ path: `/admin/monhoc/edit/${id}` });
+        },
 
   },
   computed: {

@@ -44,12 +44,12 @@ class MonhocController extends Controller
     public function store(Request $request)
     {
         $monhoc = new Monhoc;
-        $monhoc->mamonhoc = $request->id;
+        $monhoc->mamonhoc = $request->mamonhoc;
         $monhoc->tenmonhoc = $request->tenmonhoc;
         $monhoc->ngaybatdau = $request->ngaybatdau;
         $monhoc->ngayketthuc = $request->ngayketthuc;
         $monhoc->save();
-        return 'ok';
+        // return 'ok';
         return "This is store";
     }
 
@@ -85,7 +85,7 @@ class MonhocController extends Controller
     public function update(Request $request, $id)
     {
         $monhoc = Monhoc::find($id);
-        $monhoc->mamonhoc = $request->id;
+        $monhoc->mamonhoc = $request->mamonhoc;
         $monhoc->tenmonhoc = $request->tenmonhoc;
         $monhoc->ngaybatdau = $request->ngaybatdau;
         $monhoc->ngayketthuc = $request->ngayketthuc;
