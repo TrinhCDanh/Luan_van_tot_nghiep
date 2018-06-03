@@ -97,7 +97,7 @@ export default {
       }
     },
       editItem (id) {
-            this.$router.push({ path: `/admin/monhoc/edit/${id}` });
+            this.$router.push({ path: `/admin/monhoc/edit/`+id });
         },
 
   },
@@ -105,7 +105,7 @@ export default {
 
   },
     mounted() {
-        console.log(location.origin);
+        //console.log(location.origin);
     }
 }
 </script>

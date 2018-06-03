@@ -1,6 +1,6 @@
 <template id="monhoc-add">
     <div class="row">
-        <v-form v-model="valid" v-on:submit.prevent="editeMonHoc" methods="POST">
+        <v-form v-model="valid" v-on:submit.prevent="editMonHoc" methods="POST">
             <v-text-field
                     v-model="monhoc.mamonhoc"
                     :rules="malRules"
@@ -84,7 +84,7 @@
                 menuketthuc: false,
                 mamonhoc: '',
                 malRules: [
-                    v => !!v || 'Name is required',
+                    v => !!v || 'Mã Môn Học không để trống',
                 ],
                 tenmonhoc: '',
                 tenlRules: [
@@ -93,19 +93,28 @@
             };
         },
         created() {
-                let urlCurrent = window.location.href;
-              let monhoc_id = urlCurrent.slice(urlCurrent.lastIndexOf('edit/') + 5 , urlCurrent.length);
-              let uri = location.origin+'/api/monhoc/'+ monhoc_id + '/edit';
-              Axios.get(uri).then((response) => {
-                this.monhoc = response.data;
-              });
+            let urlCurrent = window.location.href;
+            let id_monhoc = urlCurrent.slice(urlCurrent.lastIndexOf('edit') + 5);
+            // API tra ve data
+            let url = location.origin + '/api/monhoc/' + id_monhoc + '/edit';
+            console.log(url);
+
+            axios.get(url).then((rep) =>{
+                this.monhoc = rep.data;
+            });
         },
         methods: {
-            editeMonHoc: function () {
-                let url = location.origin + '/api/monhoc/' + this.monhoc.id;
-                console.log(url);
-                axios.patch(url, this.monhoc).then((rep) => {
-                    this.$router.push({name: 'MonhocList'})
+            // editeMonHoc: function () {
+            //     let url = location.origin + '/api/monhoc/' + this.monhoc.id;
+            //     console.log(url);
+            //     axios.patch(url, this.monhoc).then((rep) => {
+            //         this.$router.push({name: 'MonhocList'})
+            //         console.log(rep.data);
+            //     });
+            // }
+            editMonHoc:function () {
+                let url = window.location.origin + '/api/monhoc/' + this.monhoc.id;
+                axios.patch(url,this.monhoc).then((rep) => {
                     console.log(rep.data);
                 });
             }

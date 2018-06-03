@@ -90,7 +90,7 @@ class MonhocController extends Controller
         $monhoc->ngaybatdau = $request->ngaybatdau;
         $monhoc->ngayketthuc = $request->ngayketthuc;
         $monhoc->save();
-        return 'ok';
+        return 'Luu thanh cong';
     }
 
     /**

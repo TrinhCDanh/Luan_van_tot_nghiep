@@ -55,19 +55,24 @@
       var _this = this;
       Axios.get(_this.urlCurrent+'/api/ca/' + this.$route.params.ca_id + '/edit').then((response) => {
          _this.lichtruc.ca_id = response.data.tenca;
+          console.log(_this.lichtruc.ca_id);
+
       });
 
       Axios.get(_this.urlCurrent+'/api/thu/' + this.$route.params.thu_id + '/edit').then((response) => {
          _this.lichtruc.thu_id = response.data.tenthu;
+          console.log(_this.lichtruc.thu_id);
       });
 
       Axios.get(_this.urlCurrent+'/api/hocky/' + this.$route.params.hocky_id + '/edit').then((response) => {
         _this.lichtruc.hocky_id = response.data.tenhocky + ' - ' + response.data.namhoc;
+          console.log(_this.lichtruc.tenhocky);
+
       });
 
       Axios.get(_this.urlCurrent+'/api/kythuatvien/').then((response) => {
         _this.kythuatvienList = response.data;
-        console.log(_this.kythuatvienList);
+        // console.log(_this.kythuatvienList);
       });
    },
    methods: {
@@ -83,7 +88,8 @@
        Axios.post(_this.urlCurrent + '/api/lichtruc', data).then((response) => {
           this.$router.push({name: 'LichtrucList'})
        });
-       console.log(data);
+       // console.log(data);
+       //    console.log(this.lichtruc.ca_id + 'fdfsfd');
      }
    }
  }

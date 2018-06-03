@@ -16,22 +16,25 @@
     <div class="lichtruc-data">
       <div class="col-ca">
         <div class="ca-content" style="height: 50px">
-
         </div>
+
         <div class="ca-content" v-for="( ca, key ) in caList">
           <p style="text-align: center; line-height: 100px; font-weight: bold">{{ ca.tenca }}</p>
         </div>
       </div>
+
       <div class="col-thu">
+
         <div class="row-thu">
           <div class="thu-content" v-for="( thu, key ) in thuList"><p style="text-align: center; line-height: 50px; font-weight: bold">{{ thu.tenthu }}</p></div>
         </div>
+
         <div class="lichtruc-content">
           <div v-for="( thu, key ) in thuList" style="width: 14.28%;">
             <div v-for="( ca, key ) in caList">
               <div style="border: 1px solid white; height: 100px; background-color: #eeeeee">
                 <div v-if=" checkLichtruc(ca.id, thu.id) == '' " class="lichtruc-detail">
-                  <!-- {{ ca.tenca }} - {{ thu.tenthu }} -->
+                   {{ ca.tenca }} - {{ thu.tenthu }}
                     <!-- <v-btn v-on:click="addItem(ca.id, thu.id)">+</v-btn> -->
                     <v-btn icon class="mx-0 btn-add" @click="addItem(ca.id, thu.id)">
                       <v-icon color="blue">add</v-icon>
