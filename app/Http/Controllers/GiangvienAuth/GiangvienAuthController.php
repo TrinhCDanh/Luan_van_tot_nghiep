@@ -48,10 +48,10 @@ class GiangvienAuthController extends Controller
       return Auth::guard('giangvien');
     }
 
-    public function username()
-    {
-        return 'username';
-    }
+    // public function username()
+    // {
+    //     return 'username';
+    // }
 
     // Hàm
     // protected function hasTooManyLoginAttempts(Request $request)

@@ -1,10 +1,8 @@
 <template id="hocky-list">
   <div class="row">
-    <v-btn class="pull-right" v-bind:to="{name: 'HockyAdd'}">
-      <!-- <router-link class="btn btn-xs btn-primary" v-bind:to="{name: 'HockyAdd'}"> -->
-        <span class="glyphicon glyphicon-plus"></span>
+    <v-btn round color="error" class="pull-right" v-bind:to="{name: 'HockyAdd'}">
+        <v-icon >add</v-icon>
         Thêm thông tin học kỳ mới
-      <!-- </router-link> -->
     </v-btn>
 
     </br></br>
@@ -20,7 +18,8 @@
           hide-details
         ></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="hockylist" :search="search">
+      <v-data-table :headers="headers" :items="hockylist" :search="search" :loading="isLoading">
+        <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
         <template slot="items" slot-scope="props">
           <td class="text-xs-left">{{ props.item.tenhocky }}</td>
           <td class="text-xs-left">{{ props.item.namhoc }}</td>
@@ -69,12 +68,13 @@ export default {
     return {
       hocky: '',
       search: '',
+      isLoading: false,
       headers: [
         { text: 'Tên học kỳ', value: 'tenhocky', sortable: false },
         { text: 'Năm học', value: 'namhoc' },
         { text: 'Ngày bắt đầu', value: 'ngaybatdau' },
         { text: 'Ngày kết thúc', value: 'ngayketthuc' },
-        { text: 'Actions', value: 'name', sortable: false }
+        { text: 'Actions', value: 'name', sortable: false, align: 'center' }
       ],
       hockylist: [
         // {
@@ -85,14 +85,18 @@ export default {
         //   ngayketthuc: 24
         // }
       ]
-    
+
     };
   },
   created: function() {
+    var _this = this;
+     _this.isLoading = true;
     let uri = location.origin+'/api/hocky';
     Axios.get(uri).then((response) => {
-      this.hockylist = response.data;
-      console.log(this.hockylist);
+      setTimeout(() => {
+          _this.isLoading = false;
+          this.hockylist = response.data;
+      }, 2000);
     });
   },
   methods: {
@@ -110,7 +114,7 @@ export default {
         const index = this.hockylist.indexOf(item)
         this.hockylist.splice(index, 1)
       });
-      // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') && 
+      // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') &&
     },
   },
   computed: {
@@ -118,7 +122,7 @@ export default {
       if(this.hockylist.length) {
         return this.hockylist;
       }
-    },    
+    },
   }
 }
 </script>

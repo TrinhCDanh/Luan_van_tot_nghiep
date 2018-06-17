@@ -55,10 +55,14 @@ export default {
   methods: {
 
     deleteItem (item,id) {
-      Axios.delete(location.origin+'/api/may/'+id).then((response) => {
+      // Axios.delete(location.origin+'/api/may/'+id).then((response) => {
+      //   const index = this.maylist.indexOf(item)
+      //   this.maylist.splice(index, 1)
+      // })
+      Axios.delete(location.origin+'/api/may/'+item.slug).then((response) => {
         const index = this.maylist.indexOf(item)
         this.maylist.splice(index, 1)
-      });
+      });;
       // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') && 
     },
   },

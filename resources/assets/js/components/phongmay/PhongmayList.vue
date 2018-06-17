@@ -1,13 +1,10 @@
 <template id="phongmay-list">
   <div class="row">
-    <v-btn class="pull-right" v-bind:to="{name: 'PhongmayAdd'}">
-      <!-- <router-link class="btn btn-xs btn-primary" v-bind:to="{name: 'phongmayAdd'}"> -->
-        <span class="glyphicon glyphicon-plus"></span>
+    <v-btn round color="error" class="pull-right" v-bind:to="{name: 'PhongmayAdd'}">
+        <v-icon >add</v-icon>
         Thêm thông tin phòng máy
-      <!-- </router-link> -->
     </v-btn>
-
-    </br></br>
+    <br><br>
     <v-card>
       <v-card-title>
         <p class="display-1">Danh sách phòng máy</p>
@@ -20,7 +17,8 @@
           hide-details
         ></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="phongmaylist" :search="search">
+      <v-data-table :headers="headers" :items="phongmaylist" :search="search" :loading="isLoading">
+        <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
         <template slot="items" slot-scope="props">
           <td class="text-xs-left">{{ props.item.tenphongmay }}</td>
           <td class="text-xs-left">{{ props.item.soluongmay }}</td>
@@ -47,6 +45,7 @@ export default {
     return {
       phongmay: '',
       search: '',
+      isLoading: false,
       headers: [
         { text: 'Tên phòng máy', value: 'tenphongmay', sortable: false },
         { text: 'Số lượng máy', value: 'soluongmay', sortable: false  },
@@ -57,9 +56,14 @@ export default {
     };
   },
   created: function() {
+    var _this = this;
+     _this.isLoading = true;
     let uri = location.origin+'/api/phongmay';
     Axios.get(uri).then((response) => {
-      this.phongmaylist = response.data;
+      setTimeout(() => {
+          _this.isLoading = false;
+          this.phongmaylist = response.data;
+      }, 2000); 
     });
   },
   methods: {

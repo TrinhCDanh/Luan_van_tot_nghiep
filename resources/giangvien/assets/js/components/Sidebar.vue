@@ -83,8 +83,17 @@
                 dialog: false,
                 drawer: null,
                 items: [
-                    { icon: 'contacts', text: 'Trang chủ', path: 'Home' },
-                    { icon: 'history', text: 'Quản lý thông tin học kỳ', path: 'HockyList' },
+                    { icon: 'dashboard', text: 'Trang chủ', path: 'Home' },
+                    { icon: 'chrome_reader_mode', text: 'Quản lý thông tin học kỳ', path: 'HockyList' },
+                    { icon: 'history', text: 'Quản lý thông tin thứ', path: 'ThuList' },
+                    { icon: 'history', text: 'Quản lý thông tin ca', path: 'CaList' },
+                    { icon: 'meeting_room', text: 'Quản lý thông tin phòng máy', path: 'PhongmayList' },
+                    { icon: 'computer', text: 'Quản lý thông tin máy', path: 'MayPhongmayList' },
+                    { icon: 'class', text: 'Quản lý thông danh sách lớp', path: 'LopList' },
+                    { icon: 'account_balance_wallet', text: 'Quản lý thông tin môn học', path: 'MonhocList' },
+                    { icon: 'account_box', text: 'Quản lý thông tin kỹ thuật viên', path: 'KythuatvienList' },
+                    { icon: 'calendar_today', text: 'Quản lý lịch trực', path: 'LichtrucList' },
+                    // { icon: 'history', text }
                     // { icon: 'content_copy', text: 'Quản lý thông tin ca' },
                     // {
                     //   icon: 'keyboard_arrow_up',

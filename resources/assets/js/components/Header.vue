@@ -27,7 +27,7 @@
             </v-avatar>
           </v-btn>
           <v-list>
-            <v-list-tile v-for="(item, i) in menuitems" :key="i" @click="">
+            <v-list-tile v-for="(item, i) in menuitems" :key="i" @click="test(item.action)">
               <v-list-tile-title>{{ item.title }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
@@ -44,8 +44,8 @@
                 dialog: false,
                 drawer: null,
                 menuitems: [
-                  { title: 'Đăng xuất' },
-                  { title: 'Click Me', func: 'test()' },
+                  { title: 'Đăng xuất', action: 'logout' },
+                  { title: 'Click Me' , action: 'gohome'},
                   { title: 'Click Me' },
                   { title: 'Click Me 2' }
                 ]
@@ -55,8 +55,11 @@
           onToggleSidebar (event) {
             this.$emit('clickedToggleSidebar');
           },
-          test() {
-            alert('hello');
+          test(action) {
+            if(action == 'logout')
+              alert(action);
+            if(action == 'gohome')
+              console.log(action);
           }
         },
         mounted() {

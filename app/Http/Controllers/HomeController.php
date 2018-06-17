@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,15 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function sendmail() {
+        $data = array('name'=>"Sam Jose", "body" => "Test mail");
+        Mail::send('emails.mail', $data, function($message) {
+            $message->to('trinhdanh04@gmail.com', 'Artisans Web')
+                    ->subject('Artisans Web Testing Mail');
+            $message->from('lmntrixno@gmail.com','Hello YOU');
+        });
+        return 'ok';
     }
 }

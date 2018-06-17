@@ -1,11 +1,10 @@
 <template id="lop-list">
     <div class="row">
-        <v-btn class="pull-right" v-bind:to="{name: 'LopAdd'}">
-            <!-- <router-link class="btn btn-xs btn-primary" v-bind:to="{name: 'HockyAdd'}"> -->
-            <span class="glyphicon glyphicon-plus"></span>
+        <v-btn round color="error" class="pull-right" v-bind:to="{name: 'LopAdd'}">
+            <v-icon >add</v-icon>
             Thêm thông tin lớp mới
-            <!-- </router-link> -->
         </v-btn>
+        <br><br>
         <v-card>
             <v-card-title>
                 Nutrition
@@ -22,7 +21,9 @@
                     :headers="headers"
                     :items="listLop"
                     :search="search"
+                    :loading="isLoading"
             >
+                <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
                 <template slot="items" slot-scope="props">
                     <td class="text-xs-left">{{ props.item.id }}</td>
                     <td class="text-xs-left">{{ props.item.tenlop }}</td>
@@ -48,7 +49,7 @@
             return {
                 search: '',
                 listLop: [],
-
+                isLoading: false,
                 headers: [
                     {text: 'id', value: 'id'},
                     {text: 'Tên Lớp', value: 'tenlop'},
@@ -58,9 +59,14 @@
             };
         },
         created() {
+            var _this = this;
+            _this.isLoading = true;
             let url = location.origin + '/api/lop';
             axios.get(url).then((rep) => {
-                this.listLop = rep.data;
+                setTimeout(() => {
+                    _this.isLoading = false;
+                    this.listLop = rep.data;
+                }, 2000); 
             });
         },
         methods: {

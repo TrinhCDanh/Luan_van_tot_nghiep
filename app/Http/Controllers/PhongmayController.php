@@ -40,13 +40,18 @@ class PhongmayController extends Controller
         $phongmay = new Phongmay;
         $phongmay->tenphongmay = $request->tenphongmay;
         $phongmay->soluongmay = $request->soluongmay;
+        $phongmay->slug = str_slug($phongmay->tenphongmay);
         $phongmay->save();
+
+        $tenphongmayArr = explode("M", $phongmay->tenphongmay);
+        $tenphongmay = $tenphongmayArr[0].$tenphongmayArr[1];
 
         for($i = 1; $i <= $phongmay->soluongmay; $i++) {
             $may = new May;
-            $may->sothutumay = $i;
+            $may->sothutumay = $tenphongmay. "_" .str_pad($i, 2, '0', STR_PAD_LEFT);
             $may->tinhtrang = 0;
             $may->phongmay_id = $phongmay->id;
+            $may->slug = str_slug($may->sothutumay);
             $may->save();
         }
 

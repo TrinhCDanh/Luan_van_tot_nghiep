@@ -1,11 +1,10 @@
 <template id="monhoc-list">
   <div class="row">
-    <v-btn class="pull-right" v-bind:to="{name: 'MonhocAdd'}">
-      <!-- <router-link class="btn btn-xs btn-primary" v-bind:to="{name: 'HockyAdd'}"> -->
-        <span class="glyphicon glyphicon-plus"></span>
+    <v-btn round color="error" class="pull-right" v-bind:to="{name: 'MonhocAdd'}">
+        <v-icon >add</v-icon>
         Thêm thông tin môn học mới
-      <!-- </router-link> -->
     </v-btn>
+    <br><br>
     <v-card>
       <v-card-title>
         Nutrition
@@ -22,7 +21,9 @@
               :headers="headers"
               :items="listMon"
               :search="search"
+              :loading="isLoading"
       >
+        <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
         <template slot="items" slot-scope="props">
           <td class="text-xs-left">{{ props.item.id }}</td>
           <td class="text-xs-left">{{ props.item.tenmonhoc }}</td>
@@ -48,6 +49,7 @@ export default {
   data:function(){
     return {
         search: '',
+        isLoading: false,
         headers: [
             { text: 'id', value: 'id' },
             { text: 'Tên môn học', value: 'Tên MH' },
@@ -77,9 +79,14 @@ export default {
     }
   },
   created() {
-       let url = location.origin + '/api/monhoc/';
+        var _this = this;
+        _this.isLoading = true;
+        let url = location.origin + '/api/monhoc/';
        axios.get(url).then((rep) => {
-         this.listMon = rep.data;
+         setTimeout(() => {
+              _this.isLoading = false;
+              this.listMon = rep.data;
+          }, 2000); 
            console.log(this.listMon);
        });
 

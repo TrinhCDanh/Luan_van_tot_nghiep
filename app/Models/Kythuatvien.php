@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Kythuatvien extends Authenticatable  
-{	
+class Kythuatvien extends Authenticatable
+{
 	use Notifiable;
     protected $table = 'kythuatvien';
     /**
@@ -16,7 +16,7 @@ class Kythuatvien extends Authenticatable
      * @var array
      */
     protected $fillable = [
-       'name', 'email', 'password', 'status'
+       'makythuatvien', 'image', 'name', 'email', 'password', 'status'
     ];
 
     /**

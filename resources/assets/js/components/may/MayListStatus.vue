@@ -1,10 +1,8 @@
 <template id="may-list-status">
   <div class="row">
     <v-btn class="pull-right" v-on:click="addItem()">
-      <!-- <router-link class="btn btn-xs btn-primary" v-bind:to="{name: 'HockyAdd'}"> -->
         <span class="glyphicon glyphicon-plus"></span>
         Thêm máy mới
-      <!-- </router-link> -->
     </v-btn>
 
     </br></br>
@@ -25,6 +23,9 @@
           <td class="text-xs-left">{{ props.item.sothutumay }}</td>
           <td class="text-xs-left">{{ props.item.tinhtrang == 0 ? 'Tốt' : 'Gặp vấn đề' }}</td>
           <td class="justify-center layout px-0">
+            <v-btn icon class="mx-0" @click="goListTinhtrangmay(props.item.id, props.item.slug)">
+              <v-icon color="teal">visibility</v-icon>
+            </v-btn>
             <v-btn icon class="mx-0" @click="deleteItem(props.item, props.item.id)">
               <v-icon color="pink">delete</v-icon>
             </v-btn>
@@ -65,28 +66,45 @@ export default {
   methods: {
 
     addItem() {
-      // Axios.post(location.origin + '/api/may', this.phongmay_id).then((response) => {
-          // this.$router.push({name: 'HockyList'})
-          // console.log(response.data);
-          //let lastMay = this.maylist.lastIndexOf(item);
-          let lastIndex = this.maylist.length - 1;
-          let nextIndex = this.maylist[lastIndex].sothutumay + 1;
-          let newItem = {
-            id: nextIndex,
-            sothutumay: nextIndex,
-            tinhtrang: 0,
-            phongmay_id: this.phongmay_id
-          }
-          this.maylist.push(newItem);
-       // })
+        // this.$router.push({name: 'HockyList'})
+        // console.log(response.data);
+        //let lastMay = this.maylist.lastIndexOf(item);
+        let lastIndex = this.maylist.length - 1;
+        let sothutumayPrev = this.maylist[lastIndex].sothutumay;
+        console.log(sothutumayPrev);
+
+        let sothutumayNextArr = sothutumayPrev.split("_");
+        //sothutumayPrev.slice(sothutumayPrev.lastIndexOf('_') + 1 , sothutumayPrev.length);
+        let test = parseInt(sothutumayNextArr[1]) + 1;
+
+        let sothutumayNext = sothutumayNextArr[0] + "_" + ('0' + test).slice(-2) ;
+
+        let slugNext = sothutumayNextArr[0].toLowerCase() + "-" + ('0' + test).slice(-2);
+        console.log(slugNext);
+
+        let newItem = {
+          sothutumay: sothutumayNext,
+          phongmay_id: this.phongmay_id,
+          tinhtrang: 0,
+          slug: slugNext
+        }
+
+        Axios.post(location.origin + '/api/may', newItem).then((response) => {
+            this.maylist.push(newItem);
+        });
     },
 
     deleteItem (item,id) {
-      Axios.delete(location.origin+'/api/may/'+id).then((response) => {
+      console.log(item.slug);
+      Axios.delete(location.origin+'/api/may/'+item.slug).then((response) => {
         const index = this.maylist.indexOf(item)
         this.maylist.splice(index, 1)
       });
-      // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') && 
+      // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') &&
+    },
+
+    goListTinhtrangmay(may_id, may_slug) {
+      this.$router.push({ path: `/admin/tinhtrangmay/${may_slug}` });
     }
 
   },
@@ -95,7 +113,7 @@ export default {
       if(this.maylist.length) {
         return this.maylist;
       }
-    },    
+    },
   }
 }
 </script>

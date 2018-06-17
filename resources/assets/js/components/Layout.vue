@@ -1,7 +1,7 @@
 <template>
   <div style="overflow: hidden;">
     <v-app id="inspire">
-      
+
       <LayoutSidebar></LayoutSidebar>
       <!-- <LayoutHeader></LayoutHeader> -->
       <!-- <transition name="fade"><router-view></router-view></transition> -->
@@ -11,7 +11,7 @@
           <transition name="fade"><router-view></router-view></transition>
         </v-container>
       </v-content>
-        
+
     </v-app>
   </div>
 </template>
@@ -45,5 +45,9 @@
 
 .fade-enter, .fade-leave-active {
   opacity: 0
+}
+
+.content--wrap {
+  position: relative;
 }
 </style>

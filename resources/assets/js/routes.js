@@ -39,17 +39,31 @@ import MonhocEdit from './components/monhoc/MonhocEdit'
 // Quản lý kỹ thuật viên
 import KythuatvienList from './components/kythuatvien/KythuatvienList'
 import KythuatvienAdd from './components/kythuatvien/KythuatvienAdd'
-//import KythuatvienEdit from './components/kythuatvien/KythuatvienEdit'
+import KythuatvienEdit from './components/kythuatvien/KythuatvienEdit'
 
 // Quản lý lịch trực
 import LichtrucList from './components/lichtruc/LichtrucList'
 import LichtrucAdd from './components/lichtruc/LichtrucAdd'
 import LichtrucEdit from './components/lichtruc/LichtrucEdit'
 
+// Quản lý tình trạng 
+import TinhtrangList from './components/tinhtrangmay/TinhtrangList'
+import TinhtrangAdd from './components/tinhtrangmay/TinhtrangAdd'
+import TinhtrangEdit from './components/tinhtrangmay/TinhtrangEdit'
+import TinhtrangView from './components/tinhtrangmay/TinhtrangView'
+
+// Quản lý lịch dạy
+import LichdayAdd from './components/lichday/LichdayAdd'
+import LichdayList from  './components/lichday/LichdayList'
+
+// Test
+import UploadImage from './components/trangchu/UploadImage';
+
 
 export const routes = [
 	{ path: '/', component: Layout, name: 'Layout', children: [
 		{ path: '/admin/home', component: Home, name: 'Home' },
+		{ path: '/admin/upload-image', component: UploadImage, name: 'UploadImage' },
 
 		{ path: '/admin/hocky', component: HockyList, name: 'HockyList' },
 		{ path: '/admin/hocky/add', component: HockyAdd, name: 'HockyAdd'},
@@ -79,13 +93,21 @@ export const routes = [
 		{ path: '/admin/monhoc/add', component: MonhocAdd, name: 'MonhocAdd'},
 		{ path: '/admin/monhoc/edit/:id', component: MonhocEdit, name: 'MonhocEdit'},
 
-		{ path: 'admin/kythuatvien', component: KythuatvienList, name: 'KythuatvienList' },
-		{ path: 'admin/kythuatvien/add', component: KythuatvienAdd, name: 'KythuatvienAdd' },
-		// { path: 'amdin/kythuatvien/edit/:id', component: KythuatvienEdit, name: 'KythuatvienEdit' },
+		{ path: '/admin/kythuatvien', component: KythuatvienList, name: 'KythuatvienList' },
+		{ path: '/admin/kythuatvien/add', component: KythuatvienAdd, name: 'KythuatvienAdd' },
+		{ path: '/admin/kythuatvien/edit/:id', component: KythuatvienEdit, name: 'KythuatvienEdit' },
 
-		{ path: 'admin/lichtruc', component: LichtrucList, name: 'LichtrucList' },
-		{ path: 'admin/lichtruc/add', component: LichtrucAdd, name: 'LichtrucAdd' },
-		{ path: 'admin/lichtruc/edit/:id', component: LichtrucEdit, name: 'LichtrucEdit' },
+		{ path: '/admin/lichtruc', component: LichtrucList, name: 'LichtrucList' },
+		{ path: '/admin/lichtruc/add', component: LichtrucAdd, name: 'LichtrucAdd' },
+		{ path: '/admin/lichtruc/edit/:id', component: LichtrucEdit, name: 'LichtrucEdit' },
+
+		{ path: '/admin/tinhtrangmay/:may_slug', component: TinhtrangList, name: 'TinhtrangList' },
+		{ path: '/admin/tinhtrangmay/:may_slug/add', component: TinhtrangAdd, name: 'TinhtrangAdd' },
+		{ path: '/admin/tinhtrangmay/:may_slug/edit/:id', component: TinhtrangEdit, name: 'TinhtrangEdit' },
+		{ path: '/admin/tinhtrangmay/:may_slug/view/:id', component: TinhtrangView, name: 'TinhtrangView' },
+
+		{ path: '/admin/lichday', component: LichdayList, name: 'LichdayList' },
+		{ path: '/admin/lichday/add', component: LichdayAdd, name: 'LichdayAdd' },
 	]}
 
 	// { path: '/admin/hocky/edit/:id', component: HockyEdit, name: 'HockyEdit'}

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\KythuatvienAuth;
 
-use Illuminate\Http\Request;  
-use App\Http\Controllers\Controller;  
-use Illuminate\Foundation\Auth\AuthenticatesUsers;  
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 
-class KythuatvienAuthController extends Controller  
+class KythuatvienAuthController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/kythuatvien/dashboard/';
+    protected $redirectTo = '/kythuatvien/home/';
 
     /**
      * Create a new authentication controller instance.

@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,3 +55,6 @@ Route::group(['middleware' => 'kythuatvien_auth', 'prefix' => 'kythuatvien', 'as
     //Route::get('/{path}', function() { return view('home-kythuatvien'); })->where('path', '(.*)');
     Route::get('/{path}', 'Kythuatvien\DashboardController@index')->where('path', '(.*)');
 });
+
+Route::get('/send-mail', 'HomeController@sendmail');
+Route::post('/image/store', 'ImageController@store');

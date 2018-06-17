@@ -1,5 +1,17 @@
 <template id="lichtruc-list">
-  <v-card class="lichtruc-box">
+  <div class="lichtruc-list-container" >
+
+    <div style="position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);text-align: center">
+      <v-progress-circular v-if="isLoading"  :size="70" :width="7" indeterminate color="blue">
+
+      </v-progress-circular>
+      <p class="error-text">{{ fetchError }}</p>
+    </div>
+
+    <v-card v-if="!isLoading" class="lichtruc-box">
     <v-card-title>
       <p class="display-1">Danh sách học kỳ</p>
       <v-spacer></v-spacer>
@@ -16,25 +28,22 @@
     <div class="lichtruc-data">
       <div class="col-ca">
         <div class="ca-content" style="height: 50px">
-        </div>
 
-        <div class="ca-content" v-for="( ca, key ) in caList">
+        </div>
+        <div class="ca-content" v-for="( ca, key ) in caList" :key="key">
           <p style="text-align: center; line-height: 100px; font-weight: bold">{{ ca.tenca }}</p>
         </div>
       </div>
-
       <div class="col-thu">
-
         <div class="row-thu">
-          <div class="thu-content" v-for="( thu, key ) in thuList"><p style="text-align: center; line-height: 50px; font-weight: bold">{{ thu.tenthu }}</p></div>
+          <div class="thu-content" v-for="( thu, key ) in thuList" :key="key"><p style="text-align: center; line-height: 50px; font-weight: bold">{{ thu.tenthu }}</p></div>
         </div>
-
         <div class="lichtruc-content">
-          <div v-for="( thu, key ) in thuList" style="width: 14.28%;">
-            <div v-for="( ca, key ) in caList">
+          <div v-for="( thu, key ) in thuList" :key="key" style="width: 14.28%;">
+            <div v-for="( ca, key ) in caList" :key="key">
               <div style="border: 1px solid white; height: 100px; background-color: #eeeeee">
                 <div v-if=" checkLichtruc(ca.id, thu.id) == '' " class="lichtruc-detail">
-                   {{ ca.tenca }} - {{ thu.tenthu }}
+                  <!-- {{ ca.tenca }} - {{ thu.tenthu }} -->
                     <!-- <v-btn v-on:click="addItem(ca.id, thu.id)">+</v-btn> -->
                     <v-btn icon class="mx-0 btn-add" @click="addItem(ca.id, thu.id)">
                       <v-icon color="blue">add</v-icon>
@@ -60,39 +69,23 @@
             </div>
           </div>
 
-
-            <!-- <div v-for="( thu, key ) in thuList" style="width: 14.28%;">
-              <div v-for="( ca, key ) in caList">
-                <div v-for="( lichtruc, key ) in lichtrucList" >
-                  <div
-                      v-if=" ca.id == lichtruc.ca_id && thu.id == lichtruc.thu_id "
-                      style="background-color: gold;  border: 1px solid white; height: 50px;"
-                  >
-                    {{ lichtruc.name }}
-                    <v-btn v-on:click="addItem(ca.id, thu.id)">E</v-btn>
-                  </div>
-
-                  <div v-if=" ca.id != lichtruc.ca_id && thu.id != lichtruc.thu_id " style="background-color: gold;  border: 1px solid white; height: 50px; ">
-                    {{ ca.tenca }} - {{ thu.tenthu }}
-                    <v-btn v-on:click="addItem(ca.id, thu.id)">+</v-btn>
-                  </div>
-
-                </div>
-              </div>
-            </div> -->
-
-
         </div>
 
       </div>
     </div>
   </v-card>
+
+  </div>
+
 </template>
 
 <script>
 export default {
   data:function(){
     return {
+      isLoading: false,
+      countLoading: 0,
+      fetchError: '',
       urlCurrent: location.origin,
       hockyList: [],
       caList: [],
@@ -114,39 +107,7 @@ export default {
     //   this.lichtruclist = response.data;
     //   console.log(this.lichtruclist);
     // });
-    Axios.get(_this.urlCurrent+'/api/ca').then((response) => {
-       _this.caList = response.data;
-       // console.log(_this.caList);
-    });
-
-    Axios.get(_this.urlCurrent+'/api/thu').then((response) => {
-       _this.thuList = response.data;
-       // console.log(_this.thuList);
-    });
-
-    Axios.get(_this.urlCurrent+'/api/hocky').then((response) => {
-      _this.hockyList = response.data;
-       // console.log(typeof _this.hockyList[0].ngaybatdau);
-       // var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
-       // console.log(utc);
-      //var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
-      // var ngayhientai = utc.getTime();
-      // console.log(ngayhientai);
-      var ngayhientai = Date.now();//new Date('2018-12-12');
-      for(var hocky of this.hockyList) {
-        var ngaybatdau = new Date(hocky.ngaybatdau).getTime();
-        var ngayketthuc = new Date(hocky.ngayketthuc).getTime();
-        if(ngaybatdau < ngayhientai && ngayhientai < ngayketthuc) {
-          _this.selectedHocky = hocky.id;
-          break;
-        }
-      }
-
-      Axios.get(_this.urlCurrent+'/api/lichtruc-hocky/' + _this.selectedHocky).then((response) => {
-         _this.lichtrucList = response.data;
-      });
-
-    });
+    _this.fetchData();
 
     // var startDate = parseDate("01/12/2011").getTime();
     // var endDate = parseDate("04/12/2011").getTime();
@@ -163,6 +124,60 @@ export default {
 
   },
   methods: {
+    fetchData() {
+      var _this = this;
+      _this.isLoading = true;
+      Axios.get(_this.urlCurrent+'/api/ca').then((response) => {
+         _this.caList = response.data;
+         _this.countLoading++;
+      }).catch(function (error) {
+        _this.fetchError = 'Xin lỗi, máy chủ gặp vấn đề! Vui lòng load lại trang';
+      });
+
+      Axios.get(_this.urlCurrent+'/api/thu').then((response) => {
+         _this.thuList = response.data;
+         _this.countLoading++;
+         // console.log(_this.thuList);
+      }).catch(function (error) {
+        _this.fetchError = 'Xin lỗi, máy chủ gặp vấn đề! Vui lòng load lại trang';
+      });
+
+      Axios.get(_this.urlCurrent+'/api/hocky').then((response) => {
+        _this.hockyList = response.data;
+        _this.countLoading++;
+         // console.log(typeof _this.hockyList[0].ngaybatdau);
+         // var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+         // console.log(utc);
+        //var utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+        // var ngayhientai = utc.getTime();
+        // console.log(ngayhientai);
+        var ngayhientai = Date.now();//new Date('2018-12-12');
+        for(var hocky of this.hockyList) {
+          var ngaybatdau = new Date(hocky.ngaybatdau).getTime();
+          var ngayketthuc = new Date(hocky.ngayketthuc).getTime();
+          if(ngaybatdau < ngayhientai && ngayhientai < ngayketthuc) {
+            _this.selectedHocky = hocky.id;
+            break;
+          }
+        }
+
+        Axios.get(_this.urlCurrent+'/api/lichtruc-hocky/' + _this.selectedHocky).then((response) => {
+           _this.lichtrucList = response.data;
+           _this.countLoading++;
+           if(_this.countLoading == 4) {
+              setTimeout(() => {
+                  _this.isLoading = false;
+              }, 2000);
+           }
+        }).catch(function (error) {
+          _this.fetchError = 'Xin lỗi, máy chủ gặp vấn đề! Vui lòng load lại trang';
+        });
+
+      }).catch(function (error) {
+        _this.fetchError = 'Xin lỗi, máy chủ gặp vấn đề! Vui lòng load lại trang';
+      });
+
+    },
     chooseHocky() {
       Axios.get(this.urlCurrent+'/api/lichtruc-hocky/' + this.selectedHocky).then((response) => {
         this.lichtrucList = response.data;
@@ -235,6 +250,9 @@ export default {
 </script>
 
 <style scope>
+  .lichtruc-box, .error-text {
+    animation: displayLoading 0.5s;
+  }
   .slt-hocky:focus {
     border: none;
   }
@@ -277,6 +295,10 @@ export default {
   }
   .name-ktv {
     font-size: 14px;
+  }
+  @keyframes displayLoading {
+    from { opacity: 0 }
+    to { opacity: 1 }
   }
   @media screen and (max-width: 1000px) {
     .lichtruc-box {

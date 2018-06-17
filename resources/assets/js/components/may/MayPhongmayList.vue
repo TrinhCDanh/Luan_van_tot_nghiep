@@ -5,7 +5,7 @@
 		    	<div class="room-content">
 		    		<h1>{{ item.tenphongmay }}</h1>
 		    		<v-btn class="border-radius" :to="{path: '/admin/may/phongmay/' + item.id}">Xem danh sách máy</v-btn>
-		    	</div>	
+		    	</div>
 		    </div>
 		</div>
 	</div>
@@ -36,7 +36,7 @@
 		padding: 10px;
 	}
 	.room-content {
-		background-color: gold;
+		background-color: #CDDC39 ;
 		text-align: center;
 		padding: 20px 0;
 		overflow: hidden;

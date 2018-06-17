@@ -109,7 +109,7 @@ class LichtrucController extends Controller
 
     public function lichtrucHocky($hocky_id) {
         $data = DB::select('
-                    SELECT chitiet_truc.id, chitiet_truc.ca_id, chitiet_truc.thu_id, kythuatvien.name, chitiet_truc.hocky_id
+                    SELECT chitiet_truc.id, chitiet_truc.ca_id, chitiet_truc.thu_id, kythuatvien.name, chitiet_truc.hocky_id, kythuatvien.id as kythuatvien_id
                     FROM (((chitiet_truc JOIN hocky ON chitiet_truc.hocky_id = hocky.id)
                     JOIN thu ON chitiet_truc.thu_id = thu.id) JOIN ca ON chitiet_truc.ca_id = ca.id)
                     JOIN kythuatvien ON chitiet_truc.kythuatvien_id = kythuatvien.id

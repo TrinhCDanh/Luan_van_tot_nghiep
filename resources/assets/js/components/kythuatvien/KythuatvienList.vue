@@ -1,13 +1,11 @@
 <template id="kythuatvien-list">
   <div class="row">
-    <v-btn class="pull-right" v-bind:to="{name: 'KythuatvienAdd'}">
-      <!-- <router-link class="btn btn-xs btn-primary" v-bind:to="{name: 'kythuatvienAdd'}"> -->
-        <span class="glyphicon glyphicon-plus"></span>
+    <v-btn round color="error" class="pull-right" v-bind:to="{name: 'KythuatvienAdd'}">
+        <v-icon >add</v-icon>
         Thêm kỹ thuật viên mới
-      <!-- </router-link> -->
     </v-btn>
 
-    </br></br>
+    <br><br>
     <v-card>
       <v-card-title>
         <p class="display-1">Danh sách kỹ thuật viên</p>
@@ -20,9 +18,10 @@
           hide-details
         ></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="kythuatvienlist" :search="search">
+      <v-data-table :headers="headers" :items="kythuatvienlist" :search="search" :loading="isLoading">
+        <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
         <template slot="items" slot-scope="props">
-          <td class="text-xs-left">{{ props.item.id }}</td>
+          <td class="text-xs-left">{{ props.item.makythuatvien }}</td>
           <td class="text-xs-left">{{ props.item.name }}</td>
           <td class="text-xs-left">{{ props.item.email }}</td>
           <td class="justify-center layout px-0">
@@ -39,26 +38,6 @@
         </v-alert>
       </v-data-table>
     </v-card>
-    <!-- <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Học kỳ</th>
-          <th>Năm học</th>
-          <th>Ngày bắt đầu</th>
-          <th>Ngày kết thúc</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(kythuatvien, index) in filteredkythuatvien" :key="index">
-          <td>{{ index + 1 }}</td>
-          <td>{{ kythuatvien.tenkythuatvien }}</td>
-          <td>{{ kythuatvien.namhoc }}</td>
-          <td>{{ kythuatvien.ngaybatdau }}</td>
-          <td>{{ kythuatvien.ngayketthuc }}</td>
-        </tr>
-      </tbody>
-    </table> -->
   </div>
 </template>
 
@@ -66,6 +45,7 @@
 export default {
   data:function(){
     return {
+      isLoading: false,
       kythuatvien: '',
       search: '',
       headers: [
@@ -75,29 +55,25 @@ export default {
         { text: 'Actions', value: 'name', sortable: false }
       ],
       kythuatvienlist: [
-        // {
-        //   id
-        //   tenkythuatvien: 'Frozen Yogurt',
-        //   namhoc: 159,
-        //   ngaybatdau: 6.0,
-        //   ngayketthuc: 24
-        // }
+
       ]
-    
+
     };
   },
   created: function() {
+    var _this = this;
+    _this.isLoading = true;
     let uri = location.origin+'/api/kythuatvien';
     Axios.get(uri).then((response) => {
-      this.kythuatvienlist = response.data;
-      console.log(this.kythuatvienlist);
+      setTimeout(() => {
+          _this.isLoading = false;
+          this.kythuatvienlist = response.data;
+      }, 2000);
     });
   },
   methods: {
     editItem (id) {
-      let path = '/admin/kythuatvien/edit/'+id;
-      let kythuatvien_id = id;
-      this.$router.push({ path: `/admin/kythuatvien/edit/${kythuatvien_id}` });
+      this.$router.push({ path: `/admin/kythuatvien/edit/${id}` });
     },
 
     deleteItem (item,id) {
@@ -105,7 +81,7 @@ export default {
         const index = this.kythuatvienlist.indexOf(item)
         this.kythuatvienlist.splice(index, 1)
       });
-      // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') && 
+      // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') &&
     },
   },
   computed: {
@@ -113,7 +89,7 @@ export default {
       if(this.kythuatvienlist.length) {
         return this.kythuatvienlist;
       }
-    },    
+    },
   }
 }
 </script>

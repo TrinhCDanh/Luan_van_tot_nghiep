@@ -8,10 +8,11 @@ window.Vue = require('vue');
 window.VueRouter=require('vue-router').default;
 window.VueAxios=require('vue-axios').default;
 window.Axios=require('axios').default;
-import Vuetify from 'vuetify'	
-
+import Vuetify from 'vuetify';
+import {VueMasonryPlugin} from 'vue-masonry';
 
 Vue.use(Vuetify);
+Vue.use(VueMasonryPlugin);	
 Vue.use(VueRouter, VueAxios, axios);
 
 let Layout= require('./components/Layout.vue');

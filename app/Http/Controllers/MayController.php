@@ -36,7 +36,18 @@ class MayController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $may = new May;
+        $may->sothutumay = $request->sothutumay;
+        $may->tinhtrang = 0;
+        $may->phongmay_id = $request->phongmay_id;
+        $may->slug = $request->slug;
+        $may->save();
+
+        $slMayCapnhat = May::where('phongmay_id', $may->phongmay_id)->count();
+        $phongmay = Phongmay::find($may->phongmay_id);
+        $phongmay->soluongmay = $slMayCapnhat;
+        $phongmay->save();
+
     }
 
     /**
@@ -47,7 +58,7 @@ class MayController extends Controller
      */
     public function show($id)
     {
-        //
+        return May::where('slug', $id)->first();
     }
 
     /**
@@ -81,14 +92,15 @@ class MayController extends Controller
      */
     public function destroy($id)
     {
-        $may = May::find($id);
-        $may->delete();
+        $may = May::where('slug', $id)->first();
+        May::destroy($may->id);
+
         $slMayConLai = May::where('phongmay_id', $may->phongmay_id)->count();
         $phongmay = Phongmay::find($may->phongmay_id);
         $phongmay->soluongmay = $slMayConLai;
         $phongmay->save();
-        return 'ok';
+        return $may;
     }
 
-    
+
 }

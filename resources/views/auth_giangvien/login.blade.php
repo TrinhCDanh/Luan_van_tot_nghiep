@@ -4,12 +4,12 @@
         <form role="form" method="POST" action="{{ route('giangvien.login') }}">
           {{ csrf_field() }}
           <div class="form-group has-feedback">
-            <input id="username" type="username" name="username" class="form-control" placeholder="username" value="{{ old('username') }}" required autofocus>
+            <input id="email" type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required autofocus>
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
-        @if ($errors->has('username'))
+        @if ($errors->has('email'))
         <span class="help-block">
-            <strong>{{ $errors->first('username') }}</strong>
+            <strong>{{ $errors->first('email') }}</strong>
         </span>
         @endif
         <div class="form-group has-feedback">
