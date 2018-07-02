@@ -6,12 +6,15 @@
                     <v-card-title>
                         <p class="display-1">Cập nhật thông tin học kỳ</p>
                     </v-card-title>
+                    <v-card-title v-if="error != ''">
+                        <p class="display-1" >{{ error }}</p>
+                    </v-card-title>
                     <v-form v-model="valid" v-on:submit.prevent="editHocky" method="POST">
                         <v-card-text>
 
                             <v-text-field v-model="hocky.tenhocky" :rules="nameRules" label="Tên học kỳ"
                                           required></v-text-field>
-                            <v-text-field v-model="hocky.namhoc" label="Năm học" required></v-text-field><!-- :rules="emailRules"
+                            <v-text-field v-model="hocky.namhoc" label="Năm học" :rules="hockyRules" required></v-text-field><!-- :rules="emailRules"
         -->
                             <v-layout row wrap>
                                 <v-flex xs12 sm6 md6>
@@ -88,6 +91,9 @@
                     v => !!v || 'Name is required',
                     v => v.length <= 10 || 'Name must be less than 10 characters'
                 ],
+                hockyRules: [
+                    v => !!v || 'Name is required',
+                ],
                 // email: '',
                 // emailRules: [
                 //   v => !!v || 'E-mail is required',
@@ -100,7 +106,8 @@
                 menu: false,
                 modal: false,
                 menuketthuc: false,
-                menubatdau: false
+                menubatdau: false,
+                error:'',
             }
         },
         methods: {
@@ -114,9 +121,20 @@
                 //   })
 
                 let url = location.origin + '/api/hocky/' + this.hocky.id;
-                axios.patch(url, this.hocky).then((rep) => {
-                    this.$router.push({name:'HockyList'})
-                })
+                let ngaybatdau = this.hocky.ngaybatdau;
+                let ngayketthuc = this.hocky.ngayketthuc;
+                let tenhocky = this.hocky.tenhocky;
+                let namhoc = this.hocky.namhoc;
+                if(ngaybatdau < ngayketthuc && tenhocky != '' && namhoc !=''){
+                        axios.patch(url, this.hocky).then((rep) => {
+                            this.$router.push({name: 'HockyList'})
+                            this.error = '';
+                        })
+                }else{
+                    this.error = 'Vui lòng kiểm tra lại thông tin';
+                }
+
+
             }
 
         },

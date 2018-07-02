@@ -16,6 +16,9 @@
           <v-card-title>
             <p class="display-1">Thêm thông tin kỹ thuật viên</p>
           </v-card-title>
+          <v-card-title v-if="error != ''">
+            <p class="display-1" >{{ error }}</p>
+          </v-card-title>
           <v-form v-model="valid" v-on:submit.prevent = "createkythuatvien" method="POST">
             <v-card-text>
 
@@ -23,7 +26,7 @@
               <v-text-field v-model="kythuatvien.makythuatvien" label="Mã số kỹ thuật viên" required></v-text-field>
               <v-text-field v-model="kythuatvien.name" :rules="nameRules" label="Tên kỹ thuật viên" required></v-text-field>
               <v-text-field v-model="kythuatvien.email" :rules="emailRules" label="Email" required></v-text-field><!-- :rules="emailRules" -->
-              <v-text-field type="password" v-model="kythuatvien.password" label="Mật khẩu" required></v-text-field>
+              <v-text-field type="password" v-model="kythuatvien.password"  label="Mật khẩu" required></v-text-field>
 
             </v-card-text>
             <v-divider class="mt-5"></v-divider>
@@ -55,14 +58,24 @@
           v => !!v || 'E-mail is required',
           v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
         ],
+        error : '',
      }
    },
    methods: {
      createkythuatvien: function() {
        let uri = location.origin + '/api/kythuatvien';
-       Axios.post(uri, this.kythuatvien).then((response) => {
-          this.$router.push({name: 'KythuatvienList'})
-       })
+        let email = this.kythuatvien.email;
+         let makythuatvien = this.kythuatvien.makythuatvien;
+         let name = this.kythuatvien.name;
+         let password = this.kythuatvien.password;
+         if(email != '' && makythuatvien != '' && name != '' && password != ''){
+             Axios.post(uri, this.kythuatvien).then((response) => {
+                 this.$router.push({name: 'KythuatvienList'})
+             })
+         }else{
+            this.error = 'Vui lòng kiểm tra lại thông tin'
+         }
+
      }
    }
  }

@@ -27,6 +27,9 @@
           <v-card-title>
             <p class="display-1">Thêm thông tin học kỳ mới</p>
           </v-card-title>
+          <v-card-title v-if="error != ''">
+            <p class="display-1" >{{ error }}</p>
+          </v-card-title>
           <v-form v-model="valid" v-on:submit.prevent = "createhocky" method="POST">
             <v-card-text>
 
@@ -101,6 +104,7 @@
         hocky: {tenhocky: '', namhoc: '', ngaybatdau: '', ngayketthuc: ''},
         valid: false,
         name: '',
+         error:'',
         nameRules: [
           v => !!v || 'Name is required',
           v => v.length <= 10 || 'Name must be less than 10 characters'
@@ -124,9 +128,20 @@
      createhocky: function() {
       //console.log(this.hocky);
        let url = location.origin + '/api/hocky'; // CHỈ CẦN DƯ DẤU / LÀ AXIOS SẼ HIỂU SAI PHƯƠNG THỨC TRUYỀN POST THÀNH GET
-         axios.post(url,this.hocky).then((rep) => {
-             this.$router.push({name:'HockyList'})
-         })
+
+         let ngaybatdau = this.hocky.ngaybatdau;
+         let ngayketthuc = this.hocky.ngayketthuc;
+         let tenhocky = this.hocky.tenhocky;
+         let namhoc = this.hocky.namhoc;
+         if(ngaybatdau < ngayketthuc && tenhocky != '' && namhoc !=''){
+             axios.post(url,this.hocky).then((rep) => {
+                 this.$router.push({name:'HockyList'})
+                 this.error = '';
+             })
+         }else{
+             this.error = 'Vui lòng kiểm tra lại thông tin';
+         }
+
      },
 
 

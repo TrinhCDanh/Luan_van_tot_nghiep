@@ -1,6 +1,9 @@
 <template id="monhoc-add">
     <div class="row">
         <v-form v-model="valid" v-on:submit.prevent="editMonHoc" methods="POST">
+            <v-card-title v-if="error != ''">
+                <p class="display-1" >{{ error }}</p>
+            </v-card-title>
             <v-text-field
                     v-model="monhoc.mamonhoc"
                     :rules="malRules"
@@ -89,7 +92,8 @@
                 tenmonhoc: '',
                 tenlRules: [
                     v => !!v || 'E-mail is required',
-                ]
+                ],
+                error:''
             };
         },
         created() {
@@ -104,9 +108,19 @@
 
             editMonHoc:function () {
                 let url = location.origin + '/api/monhoc/' + this.monhoc.id;
-                axios.patch(url,this.monhoc).then((rep) => {
-                    this.$router.push({name: 'MonhocList'})
-                })
+
+
+                var maMon = this.monhoc.mamonhoc;
+                var ngaybatdau = this.monhoc.ngaybatdau;
+                var ngayketthuc = this.monhoc.ngayketthuc;
+                var tenmonhoc = this.monhoc.tenmonhoc;
+                if(maMon !='' && tenmonhoc !='' && ngaybatdau < ngayketthuc){
+                    axios.patch(url,this.monhoc).then((rep) => {
+                        this.$router.push({name: 'MonhocList'})
+                    })
+                }else{
+                    this.error = 'Vui lòng kiểm tra lại thông tin'
+                }
             },
 
         },

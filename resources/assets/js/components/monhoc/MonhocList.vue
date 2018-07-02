@@ -18,11 +18,7 @@
                 ></v-text-field>
             </v-card-title>
             <v-data-table
-                    :headers="headers"
-                    :items="listMon"
-                    :search="search"
-                    :loading="isLoading"
-            >
+                    :headers="headers" :items="listMon" :search="search" :loading="isLoading">
                 <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
                 <template slot="items" slot-scope="props">
                     <td class="text-xs-left">{{ props.item.id }}</td>
@@ -49,7 +45,7 @@
         data: function () {
             return {
                 search: '',
-                // isLoading: false,
+                isLoading: false,
                 headers: [
                     {text: 'id', value: 'id'},
                     {text: 'Tên môn học', value: 'Tên MH'},

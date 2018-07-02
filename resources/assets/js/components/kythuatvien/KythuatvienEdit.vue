@@ -50,9 +50,17 @@
    methods: {
      editkythuatvien: function() {
        let uri = location.origin + '/api/kythuatvien/' + this.kythuatvien.id;
-       Axios.patch(uri, this.kythuatvien).then((response) => {
-          this.$router.push({name: 'KythuatvienList'})
-       })
+         let email = this.kythuatvien.email;
+         let makythuatvien = this.kythuatvien.makythuatvien;
+         let name = this.kythuatvien.name;
+         let password = this.kythuatvien.password;
+         if(email != '' && makythuatvien != '' && name != '' && password != ''){
+             Axios.patch(uri, this.kythuatvien).then((response) => {
+                 this.$router.push({name: 'KythuatvienList'})
+             })
+         }else{
+             this.error = 'Vui lòng kiểm tra lại thông tin'
+         }
      }
    },
    created: function() {
@@ -61,8 +69,10 @@
       let uri = location.origin+'/api/kythuatvien/'+ kythuatvien_id + '/edit';
       Axios.get(uri).then((response) => {
         this.kythuatvien = response.data;
-        console.log(this.kythuatvien);
       });
+
+
+
     }
  }
 </script>

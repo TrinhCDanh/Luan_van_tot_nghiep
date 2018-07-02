@@ -54,9 +54,7 @@ export default {
         { text: 'Email', value: 'email', sortable: false },
         { text: 'Actions', value: 'name', sortable: false }
       ],
-      kythuatvienlist: [
-
-      ]
+      kythuatvienlist: []
 
     };
   },

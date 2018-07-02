@@ -72,10 +72,14 @@
         methods: {
             deleteItem(item, id) {
                 let url = window.location.origin + '/api/lop/' + id;
-                axios.delete(url).then((rep) => {
-                    const index = this.listLop.indexOf(item);
-                    this.listLop.splice(index, 1);
-                });
+                var xacnhanxoa = confirm('Bạn muốn xóa máy ' + item.tenlop);
+                if(xacnhanxoa){
+                    axios.delete(url).then((rep) => {
+                        const index = this.listLop.indexOf(item);
+                        this.listLop.splice(index, 1);
+                    });
+                }
+
             },
             editItem(id){
                 this.$router.push({path:'/admin/lop/edit/' + id})
