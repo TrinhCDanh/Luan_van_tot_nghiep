@@ -15,7 +15,10 @@ class HockyController extends Controller
      */
     public function index()
     {
+        //hocky trong model
         return Hocky::orderBy('id','DESC')->get();
+
+//            return Hocky::select('tenhocky','namhoc')->get();
     }
 
     /**

@@ -61,7 +61,6 @@
                         ></v-text-field>
                         <v-date-picker v-model="monhoc.ngayketthuc"
                                        @input="$refs.menuketthuc.save(monhoc.ngayketthuc)"></v-date-picker>
-                        ư
                     </v-menu>
                 </v-flex>
             </v-layout>
@@ -97,12 +96,17 @@
         },
         methods: {
             createMonHoc: function () {
+                // let url = location.origin + '/api/monhoc';
+                // console.log(url);
+                // axios.post(url, this.monhoc).then((rep) => {
+                //     this.$router.push({name: 'MonhocList'})
+                //     console.log(rep.data);
+                // });
                 let url = location.origin + '/api/monhoc';
-                console.log(url);
-                axios.post(url, this.monhoc).then((rep) => {
-                    this.$router.push({name: 'MonhocList'})
-                    console.log(rep.data);
-                });
+                axios.post(url,this.monhoc).then((rep) =>{
+                    this.$router.push({path:'/admin/monhoc'})
+                })
+
             }
         },
         computed: {}

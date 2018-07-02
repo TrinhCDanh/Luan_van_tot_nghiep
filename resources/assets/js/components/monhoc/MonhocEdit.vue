@@ -93,31 +93,22 @@
             };
         },
         created() {
-            let urlCurrent = window.location.href;
+            let urlCurrent = location.href;
             let id_monhoc = urlCurrent.slice(urlCurrent.lastIndexOf('edit') + 5);
-            // API tra ve data
             let url = location.origin + '/api/monhoc/' + id_monhoc + '/edit';
-            console.log(url);
-
-            axios.get(url).then((rep) =>{
+            axios.get(url).then((rep) => {
                 this.monhoc = rep.data;
-            });
+            })
         },
         methods: {
-            // editeMonHoc: function () {
-            //     let url = location.origin + '/api/monhoc/' + this.monhoc.id;
-            //     console.log(url);
-            //     axios.patch(url, this.monhoc).then((rep) => {
-            //         this.$router.push({name: 'MonhocList'})
-            //         console.log(rep.data);
-            //     });
-            // }
+
             editMonHoc:function () {
-                let url = window.location.origin + '/api/monhoc/' + this.monhoc.id;
+                let url = location.origin + '/api/monhoc/' + this.monhoc.id;
                 axios.patch(url,this.monhoc).then((rep) => {
-                    console.log(rep.data);
-                });
-            }
+                    this.$router.push({name: 'MonhocList'})
+                })
+            },
+
         },
         computed: {}
     }

@@ -32,7 +32,7 @@ class LichtrucController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -50,7 +50,7 @@ class LichtrucController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -61,26 +61,29 @@ class LichtrucController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
+
+    // hien thi info đê sửa
     public function edit($id)
     {
-        $data = DB::select('
-                    SELECT chitiet_truc.id, chitiet_truc.ca_id, chitiet_truc.thu_id, kythuatvien.id as kythuatvien_id, kythuatvien.name, chitiet_truc.hocky_id, thu.tenthu, ca.tenca, hocky.tenhocky, hocky.namhoc
-                    FROM (((chitiet_truc JOIN hocky ON chitiet_truc.hocky_id = hocky.id)
-                    JOIN thu ON chitiet_truc.thu_id = thu.id) JOIN ca ON chitiet_truc.ca_id = ca.id)
-                    JOIN kythuatvien ON chitiet_truc.kythuatvien_id = kythuatvien.id
-                    WHERE chitiet_truc.id = ?', [$id]
-                );
+        $data = DB::select(' 
+                SELECT chitiet_truc.id,chitiet_truc.ca_id,chitiet_truc.thu_id,kythuatvien.id as kythuatvien_id,kythuatvien.name,chitiet_truc.hocky_id, thu.tenthu, ca.tenca, hocky.tenhocky, hocky.namhoc
+                FROM (((chitiet_truc JOIN hocky ON chitiet_truc.hocky_id = hocky.id)
+                JOIN ca ON chitiet_truc.ca_id = ca.id)
+                JOIN thu ON chitiet_truc.thu_id = thu.id)
+                JOIN kythuatvien ON chitiet_truc.kythuatvien_id = kythuatvien.id
+                WHERE chitiet_truc.id = ? ', [$id]
+        );
         return $data;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -98,7 +101,7 @@ class LichtrucController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -107,7 +110,8 @@ class LichtrucController extends Controller
         $lichtruc->delete();
     }
 
-    public function lichtrucHocky($hocky_id) {
+    public function lichtrucHocky($hocky_id)
+    {
         $data = DB::select('
                     SELECT chitiet_truc.id, chitiet_truc.ca_id, chitiet_truc.thu_id, kythuatvien.name, chitiet_truc.hocky_id, kythuatvien.id as kythuatvien_id
                     FROM (((chitiet_truc JOIN hocky ON chitiet_truc.hocky_id = hocky.id)
@@ -116,9 +120,22 @@ class LichtrucController extends Controller
                     WHERE hocky_id = ?', [$hocky_id]
                 );
         return $data;
+
+//        $data = DB::select('
+//                    SELECT  chitiet_truc.id, chitiet_truc.ca_id, chitiet_truc.thu_id, kythuatvien.name, chitiet_truc.hocky_id, kythuatvien.id as kythuatvien_id
+//                    FROM (((chitiet_truc JOIN hocky ON chitiet_truc.hocky_id = hocky.id)
+//                    JOIN thu ON chitiet_truc.thu_id = thu.id) JOIN ca ON chitiet_truc.ca_id = ca.id)
+//                    JOIN kythuatvien ON chitiet_truc.kythuatvien_id = kythuatvien.id
+//                    WHERE hocky_id = ?', [$hocky_id]
+//
+//        );
+//        return $data;
+
+
     }
 
-    public function lichtrucHockyKTV($hocky_id) {
+    public function lichtrucHockyKTV($hocky_id)
+    {
         $kythuatvien_current = Auth::guard('kythuatvien')->id();
         return $kythuatvien_current;
         // $data = DB::select('

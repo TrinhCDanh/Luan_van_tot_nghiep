@@ -123,13 +123,14 @@
    methods: {
      createhocky: function() {
       //console.log(this.hocky);
-       let uri = location.origin + '/api/hocky'; // CHỈ CẦN DƯ DẤU / LÀ AXIOS SẼ HIỂU SAI PHƯƠNG THỨC TRUYỀN POST THÀNH GET
-       console.log(uri);
-       Axios.post(uri, this.hocky).then((response) => {
-          this.$router.push({name: 'HockyList'})
-          // console.log(response.data);
-       })
-     }
+       let url = location.origin + '/api/hocky'; // CHỈ CẦN DƯ DẤU / LÀ AXIOS SẼ HIỂU SAI PHƯƠNG THỨC TRUYỀN POST THÀNH GET
+         axios.post(url,this.hocky).then((rep) => {
+             this.$router.push({name:'HockyList'})
+         })
+     },
+
+
+
    }
  }
 </script>
