@@ -23,11 +23,14 @@
           <td class="text-xs-left">{{ props.item.tenphongmay }}</td>
           <td class="text-xs-left">{{ props.item.soluongmay }}</td>
           <td class="justify-center layout px-0">
-            <v-btn icon class="mx-0" @click="editItem(props.item.id)">
+            <v-btn title="update" icon class="mx-0" @click="editItem(props.item.id)">
               <v-icon color="teal">edit</v-icon>
             </v-btn>
-            <v-btn icon class="mx-0" @click="deleteItem(props.item, props.item.id)">
+            <v-btn icon title="delete" class="mx-0" @click="deleteItem(props.item, props.item.id)">
               <v-icon color="pink">delete</v-icon>
+            </v-btn>
+            <v-btn title="detail" icon class="mx-0" @click="detailMay(props.item.id)">
+              <v-icon color="teal" >info</v-icon>
             </v-btn>
           </td>
         </template>
@@ -52,7 +55,8 @@ export default {
         { text: 'Actions', value: 'name', sortable: false }
       ],
       phongmaylist: [
-      ]
+      ],
+        test1:0
     };
   },
   created: function() {
@@ -64,17 +68,33 @@ export default {
           _this.isLoading = false;
           this.phongmaylist = response.data;
       }, 2000);
+
     });
   },
   methods: {
+
       deleteItem(item,id){
+          var _this = this;
         let url = location.origin + '/api/phongmay/' + id;
           var xacnhanxoa = confirm('Bạn muốn xóa máy ' + item.tenphongmay);
           if(xacnhanxoa){
-              const index = this.phongmaylist.indexOf(item);
-              this.phongmayList.splice(item);
+              axios.delete(url).then((rep) => {
+                  const index = this.phongmaylist.indexOf(item);
+                  this.phongmaylist.splice(item,1);
+              })
+
           }
-      }
+      },
+      editItem(id){
+          this.$router.push({
+              path:'/admin/phongmay/edit/' + id
+          })
+      },
+      detailMay(id){
+          this.$router.push({
+            path:'/admin/phongmay/may/' + id
+          })
+      },
     // editItem (id) {
     //   let path = '/admin/phongmay/edit/'+id;
     //   let phongmay_id = id;
@@ -88,6 +108,11 @@ export default {
     //     return this.phongmaylist;
     //   }
     // },
-  }
+  },
 }
 </script>
+<style scoped>
+  .btn__content:before{
+    z-index: -1 !important;
+  }
+</style>

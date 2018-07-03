@@ -43,6 +43,7 @@ class KythuatvienController extends Controller
         $kythuatvien->email = $request->email;
         $kythuatvien->password = Hash::make($request->password);
         $kythuatvien->status = 0;
+        // chua rõ
         $kythuatvien->remember_token = $request->_token; //csrf_token();
 
         $kythuatvien->save();

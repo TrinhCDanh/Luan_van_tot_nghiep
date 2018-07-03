@@ -46,7 +46,7 @@
  export default {
    data: function () {
      return {
-        kythuatvien: {makythuatvien: '', name: '', email: '', password: '', _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
+        kythuatvien: {makythuatvien: 'KTV', name: '', email: '', password: '', _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')},
         valid: false,
         name: '',
         nameRules: [
@@ -69,10 +69,9 @@
          let name = this.kythuatvien.name;
          let password = this.kythuatvien.password;
          if(email != '' && makythuatvien != '' && name != '' && password != ''){
-             // Axios.post(uri, this.kythuatvien).then((response) => {
-             //     this.$router.push({name: 'KythuatvienList'})
-             // })
-             console.log(this.kythuatvien);
+             Axios.post(uri, this.kythuatvien).then((response) => {
+                 this.$router.push({name: 'KythuatvienList'})
+             })
          }else{
             this.error = 'Vui lòng kiểm tra lại thông tin'
          }

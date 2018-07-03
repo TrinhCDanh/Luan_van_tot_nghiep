@@ -17,7 +17,8 @@
                         hide-details
                 ></v-text-field>
             </v-card-title>
-            <v-data-table :headers="headers" :items="hockylist" :search="search" :loading="isLoading">
+            <v-data-table v-bind:pagination.sync="pagination"
+                          :headers="headers" :items="hockylist" :search="search" :loading="isLoading" sort-field="field" sort-desc="false">
                 <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
                 <template slot="items" slot-scope="props">
                     <td class="text-xs-left">{{ props.item.tenhocky }}</td>
@@ -65,14 +66,15 @@
     export default {
         data: function () {
             return {
+                pagination : {'sortBy': 'column1', 'descending': true, 'rowsPerPage': -1},
                 search: '',
                 isLoading: false,
                 headers: [
-                    {text: 'Tên học kỳ', value: 'tenhocky', sortable: false},
+                    {text: 'Tên học kỳ', value: 'tenhocky'},
                     {text: 'Năm học', value: 'namhoc'},
                     {text: 'Ngày bắt đầu', value: 'ngaybatdau'},
                     {text: 'Ngày kết thúc', value: 'ngayketthuc'},
-                    {text: 'Actions', value: 'name', sortable: false, align: 'center'}
+                    {text: 'Actions', value: 'name', align: 'center'}
                 ],
                 hockylist: [
                     // {
@@ -82,7 +84,8 @@
                     //   ngaybatdau: 6.0,
                     //   ngayketthuc: 24
                     // }
-                ]
+                ],
+
 
             };
         },

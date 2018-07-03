@@ -47,9 +47,9 @@
                 isLoading: false,
                 headers: [
                     {text: 'id', value: 'id'},
-                    {text: 'Tên môn học', value: 'Tên MH',sortable: false},
-                    {text: 'Ngày bắt đầu ', value: 'Ngày bắt đầu'},
-                    {text: 'Ngày kết thúc ', value: 'Ngày kết thúc'},
+                    {text: 'Tên môn học', value: 'tenmonhoc'},
+                    {text: 'Ngày bắt đầu ', value: 'ngaybatdau'},
+                    {text: 'Ngày kết thúc ', value: 'ngayketthuc'},
                     {text: 'Option', value: 'Option'}
                 ],
                 listMon: [],

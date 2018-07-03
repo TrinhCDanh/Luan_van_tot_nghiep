@@ -49,10 +49,10 @@ export default {
       kythuatvien: '',
       search: '',
       headers: [
-        { text: 'Mã kỹ thuật viên', value: 'ngaybatdau', sortable: false },
-        { text: 'Tên kỹ thuật viên', value: 'tenkythuatvien', sortable: false },
-        { text: 'Email', value: 'email', sortable: false },
-        { text: 'Actions', value: 'name', sortable: false }
+        { text: 'Mã kỹ thuật viên', value: 'makythuatvien'},
+        { text: 'Tên kỹ thuật viên', value: 'tenkythuatvien'},
+        { text: 'Email', value: 'email'},
+        { text: 'Actions', value: 'name'}
       ],
       kythuatvienlist: []
 
@@ -81,7 +81,7 @@ export default {
 
       deleteItem (item,id){
         let url = location.origin + '/api/kythuatvien/' + id;
-         var xacnhan =  confirm('Bạn có chắc chắn muốn xóa dữ liệu này?');
+         var xacnhan =  confirm('Bạn muốn xóa kỹ thuật viên ' + item.name);
          if(xacnhan){
              axios.delete(url).then((rep) =>{
                  const  index = this.kythuatvienlist.indexOf(item)

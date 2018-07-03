@@ -74,6 +74,7 @@
 
    },
      mounted(){
+         console.log(this.kythuatvien);
      }
  }
 </script>
