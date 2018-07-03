@@ -4,7 +4,7 @@
 		    <div v-masonry-tile class="item room" v-for="(item, index) in phongmaylist">
 		    	<div class="room-content">
 		    		<h1>{{ item.tenphongmay }}</h1>
-		    		<v-btn class="border-radius" :to="{path: '/admin/may/phongmay/' + item.id}">Xem danh sách máy</v-btn>
+		    		<v-btn class="border-radius" :to="{path: '/admin/may/phongmay/' + item.id}">Xem danh sách máy 111</v-btn>
 		    	</div>
 		    </div>
 		</div>

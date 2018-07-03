@@ -44,6 +44,7 @@ class KythuatvienController extends Controller
         $kythuatvien->password = Hash::make($request->password);
         $kythuatvien->status = 0;
         $kythuatvien->remember_token = $request->_token; //csrf_token();
+
         $kythuatvien->save();
         return 'ok';
     }

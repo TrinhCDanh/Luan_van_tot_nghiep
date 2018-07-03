@@ -2,7 +2,7 @@
   <div class="row">
     <v-card>
       <v-card-title>
-        <p class="display-1">Danh sách máy của phòng máy </p>
+        <p class="display-1">Danh sách máy của phòng máy 1</p>
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"

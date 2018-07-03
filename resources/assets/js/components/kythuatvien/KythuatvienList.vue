@@ -59,28 +59,45 @@ export default {
     };
   },
   created: function() {
-    var _this = this;
-    _this.isLoading = true;
-    let uri = location.origin+'/api/kythuatvien';
-    Axios.get(uri).then((response) => {
-      setTimeout(() => {
-          _this.isLoading = false;
-          this.kythuatvienlist = response.data;
-      }, 2000);
-    });
+    // var _this = this;
+    // _this.isLoading = true;
+    // let uri = location.origin+'/api/kythuatvien';
+    // Axios.get(uri).then((response) => {
+    //   setTimeout(() => {
+    //       _this.isLoading = false;
+    //       this.kythuatvienlist = response.data;
+    //   }, 2000);
+    // });
+      var _this = this;
+      let url = location.origin + '/api/kythuatvien';
+      axios.get(url).then((rep) => {
+          this.kythuatvienlist = rep.data;
+      })
   },
   methods: {
     editItem (id) {
       this.$router.push({ path: `/admin/kythuatvien/edit/${id}` });
     },
 
-    deleteItem (item,id) {
-      Axios.delete(location.origin+'/api/kythuatvien/'+id).then((response) => {
-        const index = this.kythuatvienlist.indexOf(item)
-        this.kythuatvienlist.splice(index, 1)
-      });
-      // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') &&
-    },
+      deleteItem (item,id){
+        let url = location.origin + '/api/kythuatvien/' + id;
+         var xacnhan =  confirm('Bạn có chắc chắn muốn xóa dữ liệu này?');
+         if(xacnhan){
+             axios.delete(url).then((rep) =>{
+                 const  index = this.kythuatvienlist.indexOf(item)
+                 this.kythuatvienlist.splice(index,1)
+             })
+         }
+
+      }
+
+    // deleteItem (item,id) {
+    //   Axios.delete(location.origin+'/api/kythuatvien/'+id).then((response) => {
+    //     const index = this.kythuatvienlist.indexOf(item)
+    //     this.kythuatvienlist.splice(index, 1)
+    //   });
+    //   // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') &&
+    // },
   },
   computed: {
     filteredkythuatvien: function(){

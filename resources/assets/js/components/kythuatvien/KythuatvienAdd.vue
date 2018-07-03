@@ -69,9 +69,10 @@
          let name = this.kythuatvien.name;
          let password = this.kythuatvien.password;
          if(email != '' && makythuatvien != '' && name != '' && password != ''){
-             Axios.post(uri, this.kythuatvien).then((response) => {
-                 this.$router.push({name: 'KythuatvienList'})
-             })
+             // Axios.post(uri, this.kythuatvien).then((response) => {
+             //     this.$router.push({name: 'KythuatvienList'})
+             // })
+             console.log(this.kythuatvien);
          }else{
             this.error = 'Vui lòng kiểm tra lại thông tin'
          }

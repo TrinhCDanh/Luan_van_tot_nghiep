@@ -69,10 +69,11 @@
       let uri = location.origin+'/api/kythuatvien/'+ kythuatvien_id + '/edit';
       Axios.get(uri).then((response) => {
         this.kythuatvien = response.data;
+       console.log(response.data);
       });
 
-
-
-    }
+   },
+     mounted(){
+     }
  }
 </script>

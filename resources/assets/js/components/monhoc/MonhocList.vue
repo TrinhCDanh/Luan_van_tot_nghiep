@@ -7,7 +7,6 @@
         <br><br>
         <v-card>
             <v-card-title>
-                Nutrition
                 <v-spacer></v-spacer>
                 <v-text-field
                         v-model="search"
@@ -48,7 +47,7 @@
                 isLoading: false,
                 headers: [
                     {text: 'id', value: 'id'},
-                    {text: 'Tên môn học', value: 'Tên MH'},
+                    {text: 'Tên môn học', value: 'Tên MH',sortable: false},
                     {text: 'Ngày bắt đầu ', value: 'Ngày bắt đầu'},
                     {text: 'Ngày kết thúc ', value: 'Ngày kết thúc'},
                     {text: 'Option', value: 'Option'}
@@ -87,7 +86,7 @@
         methods: {
              deleteItem (item,id) {
                  let url = location.origin + '/api/monhoc/';
-                 var xacnhanxoa = confirm('Are you sure you want to delete this item?');
+                 var xacnhanxoa = confirm('Bạn muốn xóa môn học ' + item.tenmonhoc);
                  if(xacnhanxoa){
                      axios.delete(url + id).then((rep) =>{
                          const index = this.listMon.indexOf(item);
@@ -101,8 +100,10 @@
                 },
 
         },
-        computed: {},
         mounted() {
+
+        },
+        computed: {
 
         }
     }

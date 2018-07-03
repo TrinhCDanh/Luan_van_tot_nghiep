@@ -15,7 +15,8 @@ class PhongmayController extends Controller
      */
     public function index()
     {
-        return Phongmay::all();
+//        return Phongmay::all();
+        return Phongmay::orderBy('id','DESC')->get();
     }
 
     /**

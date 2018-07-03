@@ -15,6 +15,7 @@
             <v-card-title>
                 <p class="display-1">Danh sách học kỳ</p>
                 <v-spacer></v-spacer>
+                <p>Chọn học kỳ </p>
                 <select name="carlist" form="carform" class="slt-hocky" v-model="selectedHocky"
                         v-on:change="chooseHocky()">
                     <option

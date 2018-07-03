@@ -63,30 +63,31 @@ export default {
       setTimeout(() => {
           _this.isLoading = false;
           this.phongmaylist = response.data;
-      }, 2000); 
+      }, 2000);
     });
   },
   methods: {
-    editItem (id) {
-      let path = '/admin/phongmay/edit/'+id;
-      let phongmay_id = id;
-      this.$router.push({ path: `/admin/phongmay/edit/${phongmay_id}` });
-    },
-
-    deleteItem (item,id) {
-      Axios.delete(location.origin+'/api/phongmay/'+id).then((response) => {
-        const index = this.phongmaylist.indexOf(item)
-        this.phongmaylist.splice(index, 1)
-      });
-      // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') && 
-    },
+      deleteItem(item,id){
+        let url = location.origin + '/api/phongmay/' + id;
+          var xacnhanxoa = confirm('Bạn muốn xóa máy ' + item.tenphongmay);
+          if(xacnhanxoa){
+              const index = this.phongmaylist.indexOf(item);
+              this.phongmayList.splice(item);
+          }
+      }
+    // editItem (id) {
+    //   let path = '/admin/phongmay/edit/'+id;
+    //   let phongmay_id = id;
+    //   this.$router.push({ path: `/admin/phongmay/edit/${phongmay_id}` });
+    // },
+    //
   },
   computed: {
-    filteredphongmay: function(){
-      if(this.phongmaylist.length) {
-        return this.phongmaylist;
-      }
-    },    
+    // filteredphongmay: function(){
+    //   if(this.phongmaylist.length) {
+    //     return this.phongmaylist;
+    //   }
+    // },
   }
 }
 </script>

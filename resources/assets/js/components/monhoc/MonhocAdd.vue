@@ -118,7 +118,8 @@
                 }else{
                     this.error = 'Vui lòng kiểm tra lại thông tin'
                 }
-            }
+            },
+
         },
         computed: {}
     }

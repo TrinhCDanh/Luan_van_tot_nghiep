@@ -1,6 +1,9 @@
 <template id="lop-edit">
     <div class="row">
         <v-form v-model="valid" v-on:submit.prevent="editItem" methods="POST">
+            <v-card-title v-if="error != ''">
+                <p class="display-1" >{{ error }}</p>
+            </v-card-title>
             <v-text-field
                     v-model="lop.tenlop"
                     :rules="tenlRules"
@@ -30,7 +33,8 @@
                 ],
                 tenlRules: [
                     v => !!v || 'Tên lớp không để trống',
-                ]
+                ],
+                error:'',
             };
         },
         created() {
@@ -44,9 +48,17 @@
         methods: {
             editItem: function () {
                 let url = window.location.origin + '/api/lop/' + this.lop.id;
-                axios.patch(url, this.lop).then((rep) => {
-                    alert('Sửa thành công');
-                });
+                var siso = this.lop.siso;
+                var tenlop = this.lop.tenlop;
+                if(siso != '' && tenlop !=''){
+                    axios.patch(url, this.lop).then((rep) => {
+                        this.error = '';
+                        alert('Sửa thành công');
+                        this.$router.push({name: 'LopList'})
+                    });
+                }else{
+                    this.error = 'Vui lòng kiểm tra lại thông tin'
+                }
             }
         },
         computed: {}

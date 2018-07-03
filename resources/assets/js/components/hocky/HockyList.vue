@@ -65,7 +65,6 @@
     export default {
         data: function () {
             return {
-                hocky: '',
                 search: '',
                 isLoading: false,
                 headers: [
@@ -119,11 +118,11 @@
             },
         },
         computed: {
-            filteredhocky: function () {
-                if (this.hockylist.length) {
-                    return this.hockylist;
-                }
-            },
+            // filteredhocky: function () {
+            //     if (this.hockylist.length) {
+            //         return this.hockylist;
+            //     }
+            // },
         }
     }
 </script>
