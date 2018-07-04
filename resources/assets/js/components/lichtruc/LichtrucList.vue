@@ -15,7 +15,7 @@
             <v-card-title>
                 <p class="display-1">Danh sách học kỳ</p>
                 <v-spacer></v-spacer>
-                <p>Chọn học kỳ </p>
+                <label style="font-weight: bold">Chọn học kỳ : </label>
                 <select name="carlist" form="carform" class="slt-hocky" v-model="selectedHocky"
                         v-on:change="chooseHocky()">
                     <option
@@ -26,6 +26,19 @@
                         {{ hocky.tenhocky }} - {{ hocky.namhoc }}
                     </option>
                 </select>
+
+                <!--<v-select-->
+                        <!--v-model="selectedHocky"-->
+                        <!--:items="hockyList"-->
+                        <!--item-text="tenhocky"-->
+                        <!--item-value="id"-->
+                        <!--label="Select"-->
+                        <!--persistent-hint-->
+                        <!--return-object-->
+                        <!--single-line-->
+                <!--&gt;</v-select>-->
+
+
             </v-card-title>
             <div class="lichtruc-data">
                 <div class="col-ca">
@@ -87,7 +100,6 @@
                 caList: [],
                 thuList: [],
                 selectedHocky: 0,
-
                 lichtrucList: [
                     // { ca_id: 1, thu_id: 1, name: 'Kythuatvien Two' },
                     // { ca_id: 5, thu_id: 1, name: 'Kythuatvien Five'},

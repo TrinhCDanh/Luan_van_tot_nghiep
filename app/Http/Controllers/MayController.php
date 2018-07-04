@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Phongmay;
 use App\Models\May;
-
+use DB;
 class MayController extends Controller
 {
     /**
@@ -15,7 +15,7 @@ class MayController extends Controller
      */
     public function index()
     {
-        //
+        return May::orderBy('id','DESC')->get();
     }
 
     /**
@@ -47,7 +47,6 @@ class MayController extends Controller
         $phongmay = Phongmay::find($may->phongmay_id);
         $phongmay->soluongmay = $slMayCapnhat;
         $phongmay->save();
-
     }
 
     /**
@@ -69,7 +68,7 @@ class MayController extends Controller
      */
     public function edit($id)
     {
-        //
+        return May::find($id);
     }
 
     /**
@@ -101,6 +100,12 @@ class MayController extends Controller
         $phongmay->save();
         return $may;
     }
-
-
+    public function getTenPhongMay($id){
+        $data = DB::select('
+                    SELECT phongmay.tenphongmay
+                    FROM phongmay
+                    WHERE phongmay.id = ?', [$id]
+        );
+        return $data;
+    }
 }
