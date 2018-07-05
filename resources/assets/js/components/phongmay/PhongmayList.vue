@@ -56,7 +56,6 @@ export default {
       ],
       phongmaylist: [
       ],
-        test1:0
     };
   },
   created: function() {
@@ -72,7 +71,6 @@ export default {
     });
   },
   methods: {
-
       deleteItem(item,id){
           var _this = this;
         let url = location.origin + '/api/phongmay/' + id;

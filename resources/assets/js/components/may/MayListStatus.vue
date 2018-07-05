@@ -52,7 +52,9 @@
                     {text: 'Actions', value: 'name', sortable: false}
                 ],
                 maylist: [],
-                tenMay:'',
+                tenMay: '',
+                phongmay_soluong: '',
+
             };
         },
         created: function () {
@@ -66,17 +68,45 @@
 
             // chua rõ
             var id = window.location.href.slice(window.location.href.lastIndexOf('phongmay/') + 9);
-            let url = location.origin + '/api/may/' + id;
-            Axios.get(uri).then((response) => {
-                this.tenMay = response.data.tenMay;
-                console.log(this.tenMay);
+            let url = location.origin + '/api/phongmay/';
+            Axios.get(url).then((response) => {
+                this.tenMay = response.data;
+                for (var item of this.tenMay) {
+                    if (item.id == id) {
+                        this.tenMay = item.tenphongmay
+                    }
+                }
             });
+            this.fetchData()
         },
         methods: {
+            fetchData() {
+                // if(this.maylist.length == 0){
+                //     var _this = this;
+                //         this.phongmay_soluong = rep.data.soluongmay;
+                //         for (var i = 1; i <= this.phongmay_soluong; i++) {
+                //             var stringName = this.tenMay.slice(2);
+                //             var mayNext = 'P' + stringName + '_' +  i;
+                //             var slugNext = 'p' + stringName + '_' + i;
+                //             let newItem = {
+                //                 sothutumay: mayNext,
+                //                 phongmay_id: this.phongmay_id,
+                //                 tinhtrang: 0,
+                //                 slug: slugNext
+                //             }
+                //            setTimeout(function () {
+                //                Axios.post(location.origin + '/api/may', newItem).then((rep) => {
+                //                    this.maylist.push(newItem)
+                //                })
+                //            },500)
+                //         }
+                // }
+            },
             addItem() {
                 if (this.maylist.length == 0) {
-                    var mayNext = 'P' + this.phongmay_id + '_01';
-                    var slugNext = 'p' + this.phongmay_id + '_01';
+                    var stringName = this.tenMay.slice(2);
+                    var mayNext = 'P' + stringName + '_01';
+                    var slugNext = 'p' + stringName + '_01';
                 } else {
                     var index = this.maylist.length - 1;
                     var tenMay = this.maylist[index].sothutumay;
@@ -108,7 +138,6 @@
             goListTinhtrangmay(may_id, may_slug) {
                 this.$router.push({path: `/admin/tinhtrangmay/${may_slug}`});
             }
-
         },
         computed: {
             filteredmay: function () {
@@ -116,6 +145,7 @@
                     return this.maylist;
                 }
             },
-        }
+        },
+
     }
 </script>

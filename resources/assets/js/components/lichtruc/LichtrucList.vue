@@ -134,39 +134,60 @@
 
                 Axios.get(_this.urlCurrent + '/api/hocky').then((response) => {
                     _this.hockyList = response.data;
-                    _this.countLoading++;
-                    _this.selectedHocky = _this.hockyList.id;
+                    // _this.selectedHocky = _this.hockyList.id;
 
-                    // var ngayhientai = Date.now();//new Date('2018-12-12');
-                    // for (var hocky of this.hockyList) {
-                    //     var ngaybatdau = new Date(hocky.ngaybatdau).getTime();
-                    //     var ngayketthuc = new Date(hocky.ngayketthuc).getTime();
-                    //     if (ngaybatdau < ngayhientai && ngayhientai < ngayketthuc) {
-                    //         _this.selectedHocky = hocky.id;
-                    //         break;
-                    //     }
-                    //
-                    // }
-                }).catch(function (error) {
-                    _this.fetchError = 'Xin lỗi, máy chủ gặp vấn đề! Vui lòng load lại trang';
-                });
+                    var ngayhientai = Date.now();//new Date('2018-12-12');
 
+                    for (var hocky of this.hockyList) {
+                        var ngaybatdau = new Date(hocky.ngaybatdau).getTime();
+                        var ngayketthuc = new Date(hocky.ngayketthuc).getTime();
 
-                Axios.get(_this.urlCurrent + '/api/lichtruc-hocky/' + _this.selectedHocky).then((response) => {
-                    _this.countLoading++;
-                    if (_this.countLoading == 4) {
-                        setTimeout(() => {
-                            _this.lichtrucList = response.data;
-                            _this.isLoading = false;
-                        }, 2000);
+                        if (ngaybatdau < ngayhientai && ngayhientai < ngayketthuc) {
+                            _this.selectedHocky = hocky.id;
+                            _this.countLoading++;
+                            console.log(_this.selectedHocky);
+                            break;
+                        }
                     }
+                    Axios.get(_this.urlCurrent + '/api/lichtruc-hocky/' + _this.selectedHocky).then((response) => {
+                        _this.countLoading++;
+                        _this.lichtrucList = response.data;
+                        console.log(_this.lichtrucList);
+
+                        if (_this.countLoading == 4) {
+                            setTimeout(() => {
+                                _this.lichtrucList = response.data;
+                                _this.isLoading = false;
+                            }, 2000);
+                        }
+                    }).catch(function (error) {
+                        _this.fetchError = 'Xin lỗi, máy chủ gặp vấn đề! Vui lòng load lại trang';
+                    });
+
                 }).catch(function (error) {
                     _this.fetchError = 'Xin lỗi, máy chủ gặp vấn đề! Vui lòng load lại trang';
                 });
+
+
+                // Axios.get(_this.urlCurrent + '/api/lichtruc-hocky/' + _this.selectedHocky).then((response) => {
+                //     _this.countLoading++;
+                //     _this.lichtrucList = response.data;
+                //     console.log(_this.lichtrucList);
+                //
+                //     if (_this.countLoading == 4) {
+                //         setTimeout(() => {
+                //             _this.lichtrucList = response.data;
+                //             _this.isLoading = false;
+                //         }, 2000);
+                //     }
+                // }).catch(function (error) {
+                //     _this.fetchError = 'Xin lỗi, máy chủ gặp vấn đề! Vui lòng load lại trang';
+                // });
             },
             chooseHocky() {
                 Axios.get(this.urlCurrent + '/api/lichtruc-hocky/' + this.selectedHocky).then((response) => {
                     this.lichtrucList = response.data;
+                    console.log(this.lichtrucList);
                     // can select 1 cai dau tien
                 });
             },
