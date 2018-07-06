@@ -25,6 +25,8 @@ import PhongmayEdit from './components/phongmay/PhongmayEdit'
 import MayList from './components/may/MayList'
 import MayPhongmayList from './components/may/MayPhongmayList';
 import MayListStatus from './components/may/MayListStatus';
+import TinhtrangList from './components/may/TinhtrangList'
+import TinhtrangView from './components/may/TinhtrangView'
 
 // Quản lý thông tin ds lớp
 import LopList from './components/lop/LopList'
@@ -41,16 +43,21 @@ import KythuatvienList from './components/kythuatvien/KythuatvienList'
 import KythuatvienAdd from './components/kythuatvien/KythuatvienAdd'
 import KythuatvienEdit from './components/kythuatvien/KythuatvienEdit'
 
+// Quản lý giảng viên
+import GiangvienList from './components/giangvien/GiangvienList'
+import GiangvienAdd from './components/giangvien/GiangvienAdd'
+import GiangvienEdit from './components/giangvien/GiangvienEdit'
+
 // Quản lý lịch trực
 import LichtrucList from './components/lichtruc/LichtrucList'
 import LichtrucAdd from './components/lichtruc/LichtrucAdd'
 import LichtrucEdit from './components/lichtruc/LichtrucEdit'
 
 // Quản lý tình trạng 
-import TinhtrangList from './components/tinhtrangmay/TinhtrangList'
-import TinhtrangAdd from './components/tinhtrangmay/TinhtrangAdd'
-import TinhtrangEdit from './components/tinhtrangmay/TinhtrangEdit'
-import TinhtrangView from './components/tinhtrangmay/TinhtrangView'
+// import TinhtrangList from './components/tinhtrangmay/TinhtrangList'
+// import TinhtrangAdd from './components/tinhtrangmay/TinhtrangAdd'
+// import TinhtrangEdit from './components/tinhtrangmay/TinhtrangEdit'
+// import TinhtrangView from './components/tinhtrangmay/TinhtrangView'
 
 // Quản lý lịch dạy
 import LichdayAdd from './components/lichday/LichdayAdd'
@@ -82,8 +89,10 @@ export const routes = [
 		{ path: '/admin/phongmay/edit/:id', component: PhongmayEdit, name: 'PhongmayEdit' },
 		{ path: '/admin/phongmay/may/:idphong', component: MayList, name: 'MayList' },
 
-		{ path: 'admin/may', component: MayPhongmayList, name: 'MayPhongmayList'},
-		{ path: 'admin/may/phongmay/:idphong', component: MayListStatus, name: 'MayListStatus'},
+		{ path: '/admin/may', component: MayPhongmayList, name: 'MayPhongmayList'},
+		{ path: '/admin/may/phongmay/:idphong', component: MayListStatus, name: 'MayListStatus'},
+		{ path: '/admin/may/tinhtrangmay/:may_slug', component: TinhtrangList, name: 'TinhtrangList' },
+		{ path: '/admin/may/tinhtrangmay/:may_slug/view/:id', component: TinhtrangView, name: 'TinhtrangView' },
 
 		{ path: '/admin/lop', component: LopList, name: 'LopList' },
 		{ path: '/admin/lop/add', component: LopAdd, name: 'LopAdd'},
@@ -97,14 +106,18 @@ export const routes = [
 		{ path: '/admin/kythuatvien/add', component: KythuatvienAdd, name: 'KythuatvienAdd' },
 		{ path: '/admin/kythuatvien/edit/:id', component: KythuatvienEdit, name: 'KythuatvienEdit' },
 
+		{ path: '/admin/giangvien', component: GiangvienList, name: 'GiangvienList' },
+		{ path: '/admin/giangvien/add', component: GiangvienAdd, name: 'GiangvienAdd' },
+		{ path: '/admin/giangvien/edit/:id', component: GiangvienEdit, name: 'GiangvienEdit' },
+
 		{ path: '/admin/lichtruc', component: LichtrucList, name: 'LichtrucList' },
 		{ path: '/admin/lichtruc/add', component: LichtrucAdd, name: 'LichtrucAdd' },
 		{ path: '/admin/lichtruc/edit/:id', component: LichtrucEdit, name: 'LichtrucEdit' },
 
-		{ path: '/admin/tinhtrangmay/:may_slug', component: TinhtrangList, name: 'TinhtrangList' },
-		{ path: '/admin/tinhtrangmay/:may_slug/add', component: TinhtrangAdd, name: 'TinhtrangAdd' },
-		{ path: '/admin/tinhtrangmay/:may_slug/edit/:id', component: TinhtrangEdit, name: 'TinhtrangEdit' },
-		{ path: '/admin/tinhtrangmay/:may_slug/view/:id', component: TinhtrangView, name: 'TinhtrangView' },
+		// { path: '/admin/tinhtrangmay/:may_slug', component: TinhtrangList, name: 'TinhtrangList' },
+		// { path: '/admin/tinhtrangmay/:may_slug/add', component: TinhtrangAdd, name: 'TinhtrangAdd' },
+		// { path: '/admin/tinhtrangmay/:may_slug/edit/:id', component: TinhtrangEdit, name: 'TinhtrangEdit' },
+		// { path: '/admin/tinhtrangmay/:may_slug/view/:id', component: TinhtrangView, name: 'TinhtrangView' },
 
 		{ path: '/admin/lichday', component: LichdayList, name: 'LichdayList' },
 		{ path: '/admin/lichday/add', component: LichdayAdd, name: 'LichdayAdd' },

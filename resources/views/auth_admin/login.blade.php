@@ -12,8 +12,8 @@
       </div>
     </div>
 
-    <div class="form">
-      <form role="form" method="POST" action="{{ route('giangvien.login') }}" autocomplete="off">
+    <div class="form" style="border-radius: 30px;">
+      <form role="form" method="POST" action="{{ route('admin.login') }}" autocomplete="off">
         {{ csrf_field() }}
 
         @if ($errors->has('email'))
@@ -40,7 +40,7 @@
         </div>
         
         <div class="row">
-          <button class="btn waves-effect waves-light btn-login" type="submit" name="action">Đăng nhập</button>
+          <button class="btn waves-effect waves-light btn-login" type="submit" name="action" style="border-radius: 30px;">Đăng nhập</button>
         </div>
       </form>
     </div>

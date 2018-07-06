@@ -89,11 +89,12 @@
                     // { icon: 'history', text: 'Quản lý thông tin ca', path: 'CaList' },
                     { icon: 'meeting_room', text: 'Quản lý thông tin phòng máy', path: 'PhongmayList' },
                     { icon: 'computer', text: 'Quản lý thông tin máy', path: 'MayPhongmayList' },
-                    { icon: 'class', text: 'Quản lý thông danh sách lớp', path: 'LopList' },
+                    { icon: 'class', text: 'Quản lý thông tin nhóm lớp', path: 'LopList' },
                     { icon: 'account_balance_wallet', text: 'Quản lý thông tin môn học', path: 'MonhocList' },
                     { icon: 'account_box', text: 'Quản lý thông tin kỹ thuật viên', path: 'KythuatvienList' },
+                    { icon: 'account_box', text: 'Quản lý thông tin giảng viên', path: 'GiangvienList' },
                     { icon: 'calendar_today', text: 'Quản lý lịch trực', path: 'LichtrucList' },
-                    { icon: 'calendar_today', text: 'Quản lý lịch dạy', path: 'LichdayAdd' },
+                    { icon: 'calendar_today', text: 'Quản lý lịch dạy', path: 'LichdayList' },
                     // { icon: 'history', text }
                     // { icon: 'content_copy', text: 'Quản lý thông tin ca' },
                     // {

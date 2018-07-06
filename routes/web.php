@@ -30,8 +30,13 @@ Route::group(['namespace' => 'KythuatvienAuth', 'prefix' => 'kythuatvien'], func
     Route::get('logout', ['as' => 'kythuatvien.logout','uses' => 'KythuatvienAuthController@logout']);
 });
 
+Route::group(['namespace' => 'AdminAuth', 'prefix' => 'admin'], function () {  
+    Route::get('login', 'AuthController@showLoginForm');
+    Route::post('login', ['as' => 'admin.login','uses' => 'AuthController@login']);
+    Route::get('logout', ['as' => 'admin.logout','uses' => 'AuthController@logout']);
+});
 
-Route::group(['middleware' => 'auth', 'prefix' => 'admin', 'as' => 'admin.'], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.','middleware' => 'admin_auth'], function () {
 	// Route::get('home-admin', function() {
 	// 	return view('home-admin');
 	// });
@@ -44,7 +49,7 @@ Route::group(['middleware' => 'giangvien_auth', 'prefix' => 'giangvien', 'as' =>
 	// Route::get('home-giangvien', function() {
 	// 	return view('home-giangvien');
 	// });
-	Route::get('/{path}', function() { return view('home-giangvien'); })->where('path', '(.*)');
+	Route::get('/{path}', 'Giangvien\DashboardController@index')->where('path', '(.*)');
 });
 
 Route::group(['middleware' => 'kythuatvien_auth', 'prefix' => 'kythuatvien', 'as' => 'kythuatvien.'], function () {

@@ -1,41 +1,46 @@
 <template id="add-hocky">
   <div>
-    <!-- <form v-on:submit.prevent = "createhocky" method="POST">
-      <div class="form-group">
-        <label for="add-title">Tên học kỳ</label>
-        <input type="text" id="add-title" v-model="hocky.tenhocky" class="form-control" required placeholder="Học kỳ I, Học kỳ II, Học kỳ Hè" />
-      </div>
-      <div class="form-group">
-        <label for="add-body">Năm học</label>
-        <input type="text" id="add-title" v-model="hocky.namhoc" class="form-control" required />
-      </div>
-      <div class="form-group">
-        <label for="add-body">Ngày bắt đầu</label>
-        <input type="date" id="add-title" v-model="hocky.ngaybatdau" class="form-control" required />
-      </div>
-      <div class="form-group">
-        <label for="add-body">Ngày kết thúc</label>
-        <input type="date" id="add-title" v-model="hocky.ngayketthuc" class="form-control" required />
-      </div>
-      <v-btn style="background-color: gold " type="submit" class="btn btn-xs btn-primary">Create hocky</v-btn>
-      <router-link class="btn btn-xs btn-warning" v-bind:to="'/'">Cancel</router-link>
-    </form> -->
-  
     <v-layout justify-center>
       <v-flex xs12 sm10 md8 lg6>
         <v-card ref="form">
           <v-card-title>
             <p class="display-1">Thêm thông tin học kỳ mới</p>
           </v-card-title>
-          <v-card-title v-if="error != ''">
-            <p class="display-1" >{{ error }}</p>
-          </v-card-title>
           <v-form v-model="valid" v-on:submit.prevent = "createhocky" method="POST">
             <v-card-text>
+              
+              <v-alert :value="error" type="error" v-if="error != ''">
+                {{ error }}
+              </v-alert>
+              <!-- <v-text-field v-model="hocky.tenhocky" :rules="nameRules" label="Tên học kỳ" required></v-text-field> -->
 
-              <v-text-field v-model="hocky.tenhocky" :rules="nameRules" label="Tên học kỳ" required></v-text-field>
-              <v-text-field v-model="hocky.namhoc"  label="Năm học" required></v-text-field><!-- :rules="emailRules"
-        -->      <v-layout row wrap>
+              <v-select
+                :items="hockyNameList"
+                v-model="selectedHockyName"
+                label="Tên học kỳ"
+                single-line
+                item-text="name"
+                item-value="name"
+                return-object
+                persistent-hint
+                :rules="nameRules"
+                required
+              ></v-select>
+
+              <v-select
+                :items="namhocList"
+                v-model="selectedNamhoc"
+                label="Năm học"
+                single-line
+                item-text="name"
+                item-value="name"
+                return-object
+                persistent-hint
+                :rules="namhocRules"
+                required
+              ></v-select>
+
+              <v-layout row wrap>
                 <v-flex xs12 sm6 md6>
                   <v-menu
                     ref="menubatdau"
@@ -53,6 +58,7 @@
                       slot="activator"
                       v-model="hocky.ngaybatdau"
                       label="Ngày học kỳ bắt đầu"
+                      :rules="ngaybatdauRules"
                       readonly required
                     ></v-text-field>
                     <v-date-picker v-model="hocky.ngaybatdau" @input="$refs.menubatdau.save(hocky.ngaybatdau)"></v-date-picker>
@@ -76,7 +82,7 @@
                       v-model="hocky.ngayketthuc"
                       label="Ngày học kỳ kết thúc"
                       readonly required
-                      :rules="ngaybatdauRules"
+                      :rules="ngayketthucRules"
                     ></v-text-field>
                     <v-date-picker v-model="hocky.ngayketthuc" @input="$refs.menuketthuc.save(hocky.ngayketthuc)"></v-date-picker>
                   </v-menu>
@@ -98,54 +104,92 @@
 </template>
 
 <script>
- export default {
-   data: function () {
-     return {
-        hocky: {tenhocky: '', namhoc: '', ngaybatdau: '', ngayketthuc: ''},
-        valid: false,
-        name: '',
-         error:'',
-        nameRules: [
-          v => !!v || 'Name is required',
-          v => v.length <= 10 || 'Name must be less than 10 characters'
-        ],
-        // email: '',
-        // emailRules: [
-        //   v => !!v || 'E-mail is required',
-        //   v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-        // ],
-        ngaybatdauRules: [
-          v => !!v || 'Phải chọn ngày bắt đầu'
-        ],
-        date: null,
-        menu: false,
-        modal: false,
-        menuketthuc: false,
-        menubatdau: false
-     }
-   },
-   methods: {
-     createhocky: function() {
-      //console.log(this.hocky);
-       let url = location.origin + '/api/hocky'; // CHỈ CẦN DƯ DẤU / LÀ AXIOS SẼ HIỂU SAI PHƯƠNG THỨC TRUYỀN POST THÀNH GET
+  export default {
+    data: function () {
+      return {
+          hockyNameList: [
+            { id: 1, name: 'Học kỳ I' }, 
+            { id: 2, name: 'Học kỳ II' }, 
+            { id: 3, name: 'Học kỳ III' }
+          ],
+          selectedHockyName: {},
+          namhocList: [],
+          selectedNamhoc: {},
+          hocky: {tenhocky: '', namhoc: '', ngaybatdau: '', ngayketthuc: ''},
+          valid: false,
+          name: '',
+          error:'',
+          nameRules: [
+            v => !!v || 'Chưa chọn tên học kỳ'
+          ],
+          namhocRules: [
+            v => !!v || 'Chưa chọn tên năm học'
+          ],
+          ngaybatdauRules: [
+            v => !!v || 'Phải chọn ngày bắt đầu'
+          ],
+          ngayketthucRules: [
+            v => !!v || 'Phải chọn ngày kết thúc'
+          ],
+          date: null,
+          menu: false,
+          modal: false,
+          menuketthuc: false,
+          menubatdau: false
+      }
+    },
+    created() {
+      var _this = this;
+      var today = new Date(); // lấy ngày hiện tại
+      var currentYear = today.getFullYear(); // lấy năm hiện tại
+      var prevYear = currentYear - 1; // 
+      var namhoc = { id: 1, name: prevYear + " - " + currentYear }; // id không quan trọng
+      _this.namhocList.push(namhoc);
+      console.log(_this.namhocList);
+      for(var i = 2; i <= 4; i++) {
+        var nextYear = currentYear + 1;
+        namhoc = { id: i, name: currentYear + " - " + nextYear };
+        _this.namhocList.push(namhoc);
+        currentYear = nextYear;
+      }
+    },
+    methods: {
+      createhocky: function() {
+        var _this = this;
+        let url = location.origin + '/api/hocky'; // CHỈ CẦN DƯ DẤU / LÀ AXIOS SẼ HIỂU SAI PHƯƠNG THỨC TRUYỀN POST THÀNH GET
+        let ngaybatdau = _this.hocky.ngaybatdau;
+        let ngayketthuc = _this.hocky.ngayketthuc;
+        //console.log(new Date(ngaybatdau).getDay());
+        _this.hocky.tenhocky = _this.selectedHockyName.name || ""; // nếu có 1 thì 1 
+        _this.hocky.namhoc = _this.selectedNamhoc.name || "";
+        let tenhocky = _this.hocky.tenhocky;
+        let namhoc = _this.hocky.namhoc;
+        //console.log(this.hocky);
+        // console.log('hello' + tenhocky);
+        if(ngaybatdau == "" || ngayketthuc == "" || tenhocky == "" || namhoc == "")
+          _this.error = 'Chưa nhập đầy đủ thông tin';
+        else if(new Date(ngaybatdau).getDay() != 1)
+          _this.error = 'Ngày bắt đầu nên là Thứ hai';
+        else if(new Date(ngayketthuc).getDay() != 0)
+          _this.error = 'Ngày kết thúc nên là Chủ nhật';
+        else if(ngayketthuc < ngaybatdau)
+          _this.error = 'Ngày kết thúc phải lớn hơn ngày bắt đầu';
+        else 
+          _this.error = "";
 
-         let ngaybatdau = this.hocky.ngaybatdau;
-         let ngayketthuc = this.hocky.ngayketthuc;
-         let tenhocky = this.hocky.tenhocky;
-         let namhoc = this.hocky.namhoc;
-         if(ngaybatdau < ngayketthuc && tenhocky != '' && namhoc !=''){
-             axios.post(url,this.hocky).then((rep) => {
-                 this.$router.push({name:'HockyList'})
-                 this.error = '';
-             })
-         }else{
-             this.error = 'Vui lòng kiểm tra lại thông tin';
-         }
+        if(_this.error == ""){
+            axios.post(url,_this.hocky).then((rep) => {
+              if(rep.data.error) {
+                _this.error = rep.data.error;
+              }
+              else {
+                _this.$router.push({name:'HockyList'})
+                _this.error = '';
+              }   
+            });
+        }
 
-     },
-
-
-
-   }
+      }
+    }
  }
 </script>
