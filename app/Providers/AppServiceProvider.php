@@ -25,5 +25,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->bind(
+            'App\Repositories\Contracts\HockyRepositoryInterface',
+            'App\Repositories\Eloquents\HockyRepository'
+        );
     }
 }

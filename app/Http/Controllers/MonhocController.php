@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Monhoc;
+use App\Models\Lichtruc;
+use App\Models\Lichday;
 
 class MonhocController extends Controller
 {
@@ -24,6 +26,15 @@ class MonhocController extends Controller
      */
     public function create(Request $request)
     {
+        //
+//        $monhoc = new Monhoc;
+//        $monhoc->id = $request->id;
+//        $monhoc->tenmonhoc = $request->tenmonhoc;
+//        $monhoc->ngaybatdau = $request->ngaybatdau;
+//        $monhoc->ngayketthuc = $request->ngayketthuc;
+//        $monhoc->save();
+//        //return 'ok';
+//        return "This is create";
     }
 
     /**
@@ -34,14 +45,18 @@ class MonhocController extends Controller
      */
     public function store(Request $request)
     {
-        $monhoc = new Monhoc;
-        $monhoc->mamonhoc = $request->mamonhoc;
-        $monhoc->tenmonhoc = $request->tenmonhoc;
-        $monhoc->ngaybatdau = $request->ngaybatdau;
-        $monhoc->ngayketthuc = $request->ngayketthuc;
-        $monhoc->save();
-        // return 'ok';
-        return "This is store";
+        $monhocExists = Monhoc::where('tenmonhoc', $request->tenmonhoc)->orWhere('mamonhoc', $request->mamonhoc)->count();
+        if($monhocExists != 0)
+            return response()->json(['error' => 'Mã môn học hoặc tên môn học đã tồn tại'], 200);
+        else {
+            $monhoc = new Monhoc;
+            $monhoc->mamonhoc = $request->mamonhoc;
+            $monhoc->tenmonhoc = $request->tenmonhoc;
+            $monhoc->ngaybatdau = $request->ngaybatdau;
+            $monhoc->ngayketthuc = $request->ngayketthuc;
+            $monhoc->save();
+            return response()->json(['success' => 'Thêm thành công'], 200);
+        }
     }
 
     /**
@@ -74,14 +89,31 @@ class MonhocController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
         $monhoc = Monhoc::find($id);
-        $monhoc->mamonhoc = $request->mamonhoc;
-        $monhoc->tenmonhoc = $request->tenmonhoc;
-        $monhoc->ngaybatdau = $request->ngaybatdau;
-        $monhoc->ngayketthuc = $request->ngayketthuc;
-        $monhoc->save();
-        return 'Luu thanh cong';
+        $tenmonhocExists = $mamonhocExists = $monhocExists = 0;
+        if($monhoc->mamonhoc == $request->mamonhoc && $monhoc->tenmonhoc != $request->tenmonhoc)
+            $tenmonhocExists = Monhoc::where('tenmonhoc', $request->tenmonhoc)->count(); 
+        if($monhoc->tenmonhoc == $request->tenmonhoc && $monhoc->mamonhoc != $request->mamonhoc)
+            $mamonhocExists = Monhoc::where('mamonhoc', $request->mamonhoc)->count();
+        if($monhoc->mamonhoc != $request->mamonhoc && $monhoc->tenmonhoc != $request->tenmonhoc)
+            $monhocExists = Monhoc::where('tenmonhoc', $request->tenmonhoc)->orWhere('mamonhoc', $request->mamonhoc)->count();
+            
+        
+        if($tenmonhocExists != 0)
+            return response()->json(['error' => 'Tên môn học đã tồn tại'], 200);
+        else if($mamonhocExists != 0)
+            return response()->json(['error' => 'Mã môn học đã tồn tại'], 200);
+        else if($monhocExists != 0)
+            return response()->json(['error' => 'Mã môn học hoặc tên môn học đã tồn tại'], 200);
+        else {
+            $monhoc->mamonhoc = $request->mamonhoc;
+            $monhoc->tenmonhoc = $request->tenmonhoc;
+            $monhoc->ngaybatdau = $request->ngaybatdau;
+            $monhoc->ngayketthuc = $request->ngayketthuc;
+            $monhoc->save();
+            return response()->json(['success' => 'Cập nhật thành công'], 200);
+        }
     }
 
     /**
@@ -92,7 +124,12 @@ class MonhocController extends Controller
      */
     public function destroy($id)
     {
-        $monhoc = Monhoc::find($id);
-        $monhoc->delete();
+        $monhocLichday = Lichday::where('monhoc_id', $id)->count();
+        if($monhocLichday != 0)
+            return response()->json(['error' => 'Không xóa được môn học này'], 200);
+        else {
+            Monhoc::destroy($id); 
+            return response()->json(['success' => 'Xóa thành công'], 200);
+        }    
     }
 }

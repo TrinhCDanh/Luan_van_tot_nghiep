@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Hocky;
-use DateTime;
+// use App\Models\Hocky;
+// use DateTime;
+use App\Repositories\Contracts\HockyRepositoryInterface;
 
 class HockyController extends Controller
 {
+    protected $hockyRepository;
+
+    public function __construct(HockyRepositoryInterface $hockyRepository)
+    {
+        $this->hockyRepository = $hockyRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +22,7 @@ class HockyController extends Controller
      */
     public function index()
     {
-        //hocky trong model
-        return Hocky::orderBy('id','DESC')->get();
-//            return Hocky::select('tenhocky','namhoc')->get();
+        return $this->hockyRepository->all();
     }
 
     /**
@@ -38,15 +43,11 @@ class HockyController extends Controller
      */
     public function store(Request $request)
     {
-        // print_r($request->all());
-        //$hocky = new Hocky;
-        // $hocky->tenhocky = $request->tenhocky;
-        // $hocky->namhoc = $request->namhoc;
-        // $hocky->ngaybatdau = $request->ngaybatdau;
-        // $hocky->ngayketthuc = $request->ngayketthuc;
-        // $hocky->save();
-        // return 'ok';
-        return Hocky::create($request->all());
+        $add = $this->hockyRepository->add($request->all());
+        if($add == "error")
+            return response()->json(['error' => 'Học kỳ này đã tồn tại'], 200);
+        else
+            return response()->json(['success' => 'Thêm thành công'], 200);
     }
 
     /**
@@ -68,7 +69,7 @@ class HockyController extends Controller
      */
     public function edit($id)
     {
-        return Hocky::find($id);
+        return $this->hockyRepository->find($id);
     }
 
     /**
@@ -80,13 +81,11 @@ class HockyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $hocky = Hocky::find($id);
-        $hocky->tenhocky = $request->tenhocky;
-        $hocky->namhoc = $request->namhoc;
-        $hocky->ngaybatdau = $request->ngaybatdau;
-        $hocky->ngayketthuc = $request->ngayketthuc;
-        $hocky->save();
-        return 'ok';
+        $edit = $this->hockyRepository->edit($request->all(), $id);
+        if($edit == "error")
+            return response()->json(['error' => 'Học kỳ này đã tồn tại'], 200);
+        else
+            return response()->json(['success' => 'Thêm thành công'], 200);
     }
 
     /**
@@ -97,59 +96,14 @@ class HockyController extends Controller
      */
     public function destroy($id)
     {
-        $post = Hocky::find($id);
-        $post->delete();
+        $remove = $this->hockyRepository->remove($id);
+        if($remove == "error")
+            return response()->json(['error' => 'Không xóa được học kỳ này'], 200);
+        else
+            return response()->json(['success' => 'Xóa thành công'], 200);
     }
 
     public function tuanhoc($hocky_id) {
-        $hocky = Hocky::where('id', $hocky_id)->first();
-        $ngaybatdau = new DateTime($hocky->ngaybatdau);
-        $ngayketthuc = new DateTime($hocky->ngayketthuc);
-
-        // print_r($ngaybatdau);
-        // print_r($ngayketthuc);
-        
-        //$date= "2018/06/16";
-
-        //$myDate = new DateTime($date);
-
-        //$myDate->modify("+7 days"); // +7 ngày 
-
-       // echo $myDate->format("l, d, m, Y"); // Sunday 03rd, 12, 2017
-
-        $interval  = date_diff($ngaybatdau, $ngayketthuc);
-        $so_ngay_hoc_ky = ($interval ->days + 1) / 7;
-
-      
-        $dto = $ngaybatdau;
-        //$tuan_hoc = array();
-        $item = '';
-        // $ngaydautuan = $dto->format("l, d, m, Y");
-        // $dto->modify('+6 days');
-        // $ngaycuoituan = $dto->format("l, d, m, Y");
-        // echo $ngaydautuan;
-        // echo $ngaycuoituan;
-
-        for($i = 1; $i <= $so_ngay_hoc_ky; $i++) {
-            $ngaydautuan = $dto->format("Y-m-d");
-            $ngaydautuanText = $dto->format("d-m-Y");
-            $dto->modify('+6 days');
-            $ngaycuoituan = $dto->format("Y-m-d");
-            $ngaycuoituanText = $dto->format("d-m-Y");
-            if($i == $so_ngay_hoc_ky)
-                $item .= '{' . '"tuanthu":' . '"t' . $i . '", "ngaydautuan":' . '"' . $ngaydautuan . '", "ngaycuoituan":' . '"' . $ngaycuoituan . '", "ngaydautuanText":' . '"' . $ngaydautuanText . '", "ngaycuoituanText":' . '"' . $ngaycuoituanText . '"' . '}';
-            else $item .= '{' . '"tuanthu":' . '"t' . $i . '", "ngaydautuan":' . '"' . $ngaydautuan . '", "ngaycuoituan":' . '"' . $ngaycuoituan . '", "ngaydautuanText":' . '"' . $ngaydautuanText . '", "ngaycuoituanText":' . '"' . $ngaycuoituanText . '"' . '}' . ',';
-            
-            //array_push($tuan_hoc, $item);
-            $dto->modify('+1 days');
-            // echo $ngaydautuan . ' - ';
-            // echo $ngaycuoituan;
-            // echo "<br>";
-        }
-
-        //echo "<pre>";
-        $tuan_hoc = "[" . $item . "]";
-        return $tuan_hoc;
-        //print_r($tuan_hoc);
+        return $this->hockyRepository->tuanhoc($hocky_id);
     }
 }

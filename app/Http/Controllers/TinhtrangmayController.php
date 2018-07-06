@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\May;
 use App\Models\Tinhtrangmay;
 use App\Models\ChitietBaotri;
+use App\Models\ChitietGhinhan;
 use DB;
 
 class TinhtrangmayController extends Controller
@@ -47,10 +48,20 @@ class TinhtrangmayController extends Controller
         $tinhtrangmay->may_id = $may['id'];
         $tinhtrangmay->save();
 
-        $ct_baotri = new ChitietBaotri;
-        $ct_baotri->tinhtrangmay_id = $tinhtrangmay->id;
-        $ct_baotri->kythuatvien_id = $request->kythuatvien_id;
-        $ct_baotri->save();
+        if($request->mota_kythuatvien != '') {
+            $ct_baotri = new ChitietBaotri;
+            $ct_baotri->tinhtrangmay_id = $tinhtrangmay->id;
+            $ct_baotri->kythuatvien_id = $request->kythuatvien_id;
+            $ct_baotri->save();
+        }
+
+        if($request->mota_giangvien != '') {
+            $ct_ghinhan = new ChitietGhinhan;
+            $ct_ghinhan->tinhtrangmay_id = $tinhtrangmay->id;
+            $ct_ghinhan->giangvien_id = $request->giangvien_id;
+            $ct_ghinhan->save();
+        }
+        
 
         $may->tinhtrang = $request->tinhtrang;
         $may->save();
@@ -122,7 +133,7 @@ class TinhtrangmayController extends Controller
     public function listTinhtrangmay($may_slug) {
         $data = DB::select('SELECT kythuatvien.name as tenkythuatvien, giangvien.username as tengiangvien,
                 tinhtrangmay.ngayghinhan, tinhtrangmay.mota_kythuatvien, tinhtrangmay.mota_giangvien,
-                tinhtrangmay.id, kythuatvien.id as kythuatvien_id
+                tinhtrangmay.id, kythuatvien.id as kythuatvien_id, may.sothutumay
                 FROM ((((may JOIN tinhtrangmay on may.id = tinhtrangmay.may_id)
                 LEFT JOIN chitiet_ghinhan on tinhtrangmay.id = chitiet_ghinhan.tinhtrangmay_id)
                 LEFT JOIN chitiet_baotri on tinhtrangmay.id = chitiet_baotri.tinhtrangmay_id)

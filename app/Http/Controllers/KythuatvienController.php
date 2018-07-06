@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kythuatvien;
+use App\Models\Lichtruc;
+use App\Models\ChitietBaotri;
 use Hash;
 use Validator;
 
@@ -36,18 +38,21 @@ class KythuatvienController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $kythuatvien = new Kythuatvien;
-        $kythuatvien->makythuatvien = $request->makythuatvien;
-        $kythuatvien->name = $request->name;
-        $kythuatvien->email = $request->email;
-        $kythuatvien->password = Hash::make($request->password);
-        $kythuatvien->status = 0;
-        // chua rõ
-        $kythuatvien->remember_token = $request->_token; //csrf_token();
-
-        $kythuatvien->save();
-        return 'ok';
+    {   
+        $kythuatvienExists = Kythuatvien::where('email', $request->email)->orWhere('makythuatvien', $request->makythuatvien)->count();
+        if($kythuatvienExists != 0)
+            return response()->json(['error' => 'Mã kỹ thuật viên hoặc email đã tồn tại'], 200);
+        else {
+            $kythuatvien = new Kythuatvien;
+            $kythuatvien->makythuatvien = $request->makythuatvien;
+            $kythuatvien->name = $request->name;
+            $kythuatvien->email = $request->email;
+            $kythuatvien->password = Hash::make($request->password);
+            $kythuatvien->status = 0;
+            $kythuatvien->remember_token = $request->_token; //csrf_token();
+            $kythuatvien->save();
+            return response()->json(['success' => 'Thêm thành công'], 200);
+        }
     }
 
     /**
@@ -82,15 +87,31 @@ class KythuatvienController extends Controller
     public function update(Request $request, $id)
     {
         $kythuatvien = Kythuatvien::find($id);
-        $kythuatvien->makythuatvien = $request->makythuatvien;
-        $kythuatvien->name = $request->name;
-        $kythuatvien->email = $request->email;
-        if($request->password != '')
-            $kythuatvien->password = Hash::make($request->password);
-        //$kythuatvien->status = 0;
-        $kythuatvien->remember_token = $request->_token; //csrf_token();
-        $kythuatvien->save();
-        return 'ok';
+        $maKtvExists = $emailKtvExists = $kythuatvienExists = 0;
+        
+        if($kythuatvien->makythuatvien == $request->makythuatvien && $kythuatvien->email != $request->email)
+            $emailKtvExists = Kythuatvien::where('email', $request->email)->count(); 
+        if($kythuatvien->makythuatvien != $request->makythuatvien && $kythuatvien->email == $request->email)
+            $maKtvExists = Kythuatvien::where('makythuatvien', $request->makythuatvien)->count();
+        if($kythuatvien->makythuatvien != $request->makythuatvien && $kythuatvien->email != $request->email)
+            $kythuatvienExists = Kythuatvien::where('email', $request->email)->orWhere('makythuatvien', $request->makythuatvien)->count();
+
+        if($emailKtvExists != 0)
+            return response()->json(['error' => 'Email này đã tồn tại'], 200);
+        else if($maKtvExists != 0)
+            return response()->json(['error' => 'Mã kỹ thuật viên này đã tồn tại'], 200);
+        else if($kythuatvienExists != 0)
+            return response()->json(['error' => 'Mã kỹ thuật viên hoặc email đã tồn tại'], 200);
+        else {
+            $kythuatvien->makythuatvien = $request->makythuatvien;
+            $kythuatvien->name = $request->name;
+            $kythuatvien->email = $request->email;
+            if($request->password != '')
+                $kythuatvien->password = Hash::make($request->password);
+            $kythuatvien->remember_token = $request->_token; //csrf_token();
+            $kythuatvien->save();
+            return response()->json(['success' => 'Cập nhật thành công'], 200);
+        }
     }
 
     /**
@@ -101,8 +122,15 @@ class KythuatvienController extends Controller
      */
     public function destroy($id)
     {
-        $kythuatvien = Kythuatvien::find($id);
-        $kythuatvien->delete();
+        $ktvLichtruc = Lichtruc::where('kythuatvien_id', $id)->count();
+        $ktvBaotri = ChitietBaotri::where('kythuatvien_id', $id)->count();
+
+        if($ktvLichtruc != 0 || $ktvBaotri != 0)
+            return response()->json(['error' => 'Không xóa được kỹ thuật viên này'], 200);
+        else {
+            Kythuatvien::destroy($id); 
+            return response()->json(['success' => 'Xóa thành công'], 200);
+        }  
     }
 
     public function updateKythuatvien(Request $request, $id) {
