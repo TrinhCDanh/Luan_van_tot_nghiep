@@ -31,8 +31,10 @@ Route::resource('/tinhtrangmay', 'TinhtrangmayController');
 Route::resource('/lichday', 'LichdayController');
 
 // Orther api function
-Route::get('/phongmay-have-may/{id}', 'PhongmayController@listMaybyPhongMay');
+Route::get('ten-phongmay/{id}','MayController@getTenPhongMay');
 Route::get('/lichtruc-hocky/{hocky_id}', 'LichtrucController@lichtrucHocky');
+//Route::get('/lichtruc-hocky/{hocky_id}','LichtrucController@lichtrucHocky');
+Route::get('/phongmay-have-may/{id}', 'PhongmayController@listMaybyPhongMay');
 Route::get('/lichtruc-kythuatvien/{hocky_id}/{kythuatvien_current_id}', 'Kythuatvien\DashboardController@lichtrucHockyKTV');
 Route::get('/tinhtrang-may-list/{may_slug}', 'TinhtrangmayController@listTinhtrangmay');
 Route::get('/tinhtrangmay-loi', 'TinhtrangmayController@soMayLoi');
