@@ -11,27 +11,29 @@
         <span class="hidden-sm-and-down">Trung tâm máy tính</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>apps</v-icon>
-      </v-btn>
-      <v-btn icon href="https://vuetifyjs.com/en/components/menus">
-          <v-icon>notifications</v-icon>
-      </v-btn>
+      <v-dialog v-model="dialog" persistent max-width="290">
+        <v-btn slot="activator" icon><v-icon color="white">power_settings_new</v-icon></v-btn>
+        <v-card>
+          <v-card-title class="headline">Are you sure?</v-card-title>
+          <v-card-text>Bạn có chắc chắn muốn thoát khỏi phiên làm việc?</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" flat @click="logout(), dialog = false">Yes</v-btn>
+            <v-btn color="green darken-1" flat @click.native="dialog = false">No</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-menu bottom left>
-          <v-btn slot="activator" icon large>
-            <v-avatar size="32px" tile>
-              <img
-                src="https://vuetifyjs.com/static/doc-images/logo.svg"
-                alt="Vuetify"
-              >
-            </v-avatar>
-          </v-btn>
-          <v-list>
-            <v-list-tile v-for="(item, i) in menuitems" :key="i" @click="test(item.action)">
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
+        <v-btn slot="activator" icon large v-bind:to="{ name: 'TaikhoanEdit' }">
+          <v-avatar size="32px" tile>
+            <img
+              class="avatar"
+              :src="image"
+              alt="Vuetify"
+            >
+          </v-avatar>
+        </v-btn>
+      </v-menu>
     </v-toolbar>
 </template>
 <script>
@@ -41,8 +43,10 @@
         name: "layout-header",
         data() {
             return {
+                urlCurrent: location.origin,
                 dialog: false,
                 drawer: null,
+                image: 'https://vuetifyjs.com/static/doc-images/logo.svg',
                 menuitems: [
                   { title: 'Đăng xuất', action: 'logout' },
                   { title: 'Click Me' , action: 'gohome'},
@@ -60,6 +64,9 @@
               alert(action);
             if(action == 'gohome')
               console.log(action);
+          },
+          logout() {
+            window.open(this.urlCurrent + '/admin/logout', '_self');
           }
         },
         mounted() {

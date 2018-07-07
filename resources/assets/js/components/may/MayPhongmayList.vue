@@ -1,10 +1,10 @@
 <template>
 	<div id="list-may-phongmay">
 		<div v-masonry transition-duration="0.3s" item-selector=".item">
-		    <div v-masonry-tile class="item room" v-for="(item, index) in phongmaylist">
+		    <div v-masonry-tile class="item room" v-for="(item, index) in phongmaylist" :key="index">
 		    	<div class="room-content">
 		    		<h1>{{ item.tenphongmay }}</h1>
-		    		<v-btn class="border-radius" :to="{path: '/admin/may/phongmay/' + item.id,params: { tenphongmay: item.tenphongmay }}">Xem danh sách máy</v-btn>
+		    		<v-btn class="border-radius" :to="{path: '/admin/may/phongmay/' + item.id}">Xem danh sách máy</v-btn>
 		    	</div>
 		    </div>
 		</div>
@@ -36,7 +36,7 @@
 		padding: 10px;
 	}
 	.room-content {
-		background-color: #CDDC39 ;
+		background-color: #0091EA /*#CDDC39*/;
 		text-align: center;
 		padding: 20px 0;
 		overflow: hidden;

@@ -281,6 +281,7 @@ class LichdayController extends Controller
 
     public function getLichdayGV($hocky_id, $giangvien_current_id) {
         $data = DB::select(' SELECT 
+                chitiet_lichday.id as chitiet_lichday_id,
                 phongmay.id as phongmay_id, phongmay.tenphongmay, 
                 giangvien.id as giangvien_id, giangvien.username as tengiangvien, 
                 thu.id as thu_id, thu.tenthu, 

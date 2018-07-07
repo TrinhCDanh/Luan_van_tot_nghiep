@@ -29,6 +29,9 @@ class DashboardController extends Controller
     	// $ktv->save();
      //    print_r($id_current);
         $kythuatvien_current = Auth::guard('kythuatvien')->id();
+        $kythuatvien = Kythuatvien::find($kythuatvien_current);
+        $kythuatvien->status = 1;
+        $kythuatvien->save();
         //print_r($this->kythuatvien_current_id);
         //return view('kythuatvien.index');
         return view('home-kythuatvien', compact('kythuatvien_current'));

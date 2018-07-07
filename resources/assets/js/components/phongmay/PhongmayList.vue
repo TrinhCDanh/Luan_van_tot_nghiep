@@ -4,7 +4,11 @@
         <v-icon >add</v-icon>
         Thêm thông tin phòng máy
     </v-btn>
-    <br><br>
+    <br>
+      <v-alert :value="error" type="error" v-if="error != ''" style="margin-top: 20px">
+          {{ error }}
+      </v-alert>
+    <br>
     <v-card>
       <v-card-title>
         <p class="display-1">Danh sách phòng máy</p>
@@ -17,20 +21,17 @@
           hide-details
         ></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="phongmaylist" :search="search" :loading="isLoading">
+      <v-data-table :headers="headers" :items="phongmaylist" :search="search" :loading="isLoading" :rows-per-page-items='[10, 20, 30, { text: "All", value: -1 }]'>
         <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
         <template slot="items" slot-scope="props">
           <td class="text-xs-left">{{ props.item.tenphongmay }}</td>
           <td class="text-xs-left">{{ props.item.soluongmay }}</td>
           <td class="justify-center layout px-0">
-            <v-btn title="update" icon class="mx-0" @click="editItem(props.item.id)">
+            <v-btn icon class="mx-0" @click="editItem(props.item.id)">
               <v-icon color="teal">edit</v-icon>
             </v-btn>
-            <v-btn icon title="delete" class="mx-0" @click="deleteItem(props.item, props.item.id)">
+            <v-btn icon class="mx-0" @click="xacnhanxoa(props.item)">
               <v-icon color="pink">delete</v-icon>
-            </v-btn>
-            <v-btn title="detail" icon class="mx-0" @click="detailMay(props.item.id)">
-              <v-icon color="teal" >info</v-icon>
             </v-btn>
           </td>
         </template>
@@ -39,6 +40,21 @@
         </v-alert>
       </v-data-table>
     </v-card>
+
+    <v-layout row justify-center>
+      <v-dialog v-model="dialog" persistent max-width="290">
+        <v-card>
+        <v-card-title class="headline">Are you sure?</v-card-title>
+        <v-card-text>Bạn có chắc chắn muốn xóa dữ liệu này?</v-card-text>
+        <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" flat @click.native="dialog = false">No</v-btn>
+            <v-btn color="green darken-1" flat @click.native="deleteItem(selectedPhongmay, selectedPhongmay.id), dialog = false">Yes</v-btn>
+        </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-layout>
+
   </div>
 </template>
 
@@ -49,13 +65,15 @@ export default {
       phongmay: '',
       search: '',
       isLoading: false,
+      dialog: false,
+      error: '',
       headers: [
         { text: 'Tên phòng máy', value: 'tenphongmay', sortable: false },
         { text: 'Số lượng máy', value: 'soluongmay', sortable: false  },
-        { text: 'Actions', value: 'name', sortable: false }
+        { text: 'Actions', value: 'name', sortable: false, align: 'center' }
       ],
-      phongmaylist: [
-      ],
+      phongmaylist: [],
+      selectedPhongmay: {}
     };
   },
   created: function() {
@@ -66,51 +84,43 @@ export default {
       setTimeout(() => {
           _this.isLoading = false;
           this.phongmaylist = response.data;
-      }, 2000);
-
+      }, 2000); 
     });
   },
   methods: {
-      deleteItem(item,id){
-          var _this = this;
-        let url = location.origin + '/api/phongmay/' + id;
-          var xacnhanxoa = confirm('Bạn muốn xóa máy ' + item.tenphongmay);
-          if(xacnhanxoa){
-              axios.delete(url).then((rep) => {
-                  const index = this.phongmaylist.indexOf(item);
-                  this.phongmaylist.splice(item,1);
-              })
+    xacnhanxoa(item) {
+      var _this = this;
+      _this.selectedPhongmay = item;
+      _this.dialog = true;
+    },
+    editItem (id) {
+      let path = '/admin/phongmay/edit/'+id;
+      let phongmay_id = id;
+      this.$router.push({ path: `/admin/phongmay/edit/${phongmay_id}` });
+    },
 
-          }
-      },
-      editItem(id){
-          this.$router.push({
-              path:'/admin/phongmay/edit/' + id
-          })
-      },
-      detailMay(id){
-          this.$router.push({
-            path:'/admin/phongmay/may/' + id
-          })
-      },
-    // editItem (id) {
-    //   let path = '/admin/phongmay/edit/'+id;
-    //   let phongmay_id = id;
-    //   this.$router.push({ path: `/admin/phongmay/edit/${phongmay_id}` });
-    // },
-    //
+    deleteItem (item,id) {
+      Axios.delete(location.origin+'/api/phongmay/'+id).then((response) => {
+        const index = this.phongmaylist.indexOf(item)
+        if(response.data.error) {
+            this.error = response.data.error;
+            setTimeout(() => {
+                this.error = "";
+            }, 5000);
+        }
+        else {
+          this.phongmaylist.splice(index, 1);
+        }
+      });
+      // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') && 
+    },
   },
   computed: {
-    // filteredphongmay: function(){
-    //   if(this.phongmaylist.length) {
-    //     return this.phongmaylist;
-    //   }
-    // },
-  },
+    filteredphongmay: function(){
+      if(this.phongmaylist.length) {
+        return this.phongmaylist;
+      }
+    },    
+  }
 }
 </script>
-<style scoped>
-  .btn__content:before{
-    z-index: -1 !important;
-  }
-</style>

@@ -1,10 +1,10 @@
 {{-- <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form role="form" method="POST" action="{{ route('kythuatvien.login') }}">
+        <form role="form" method="POST" action="{{ route('kythuatvien.login') }}" autocomplete="off">
           {{ csrf_field() }}
           <div class="form-group has-feedback">
-            <input id="email" type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required autofocus>
+            <input id="email" type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required autofocus autocomplete="off">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         @if ($errors->has('email'))
@@ -45,7 +45,7 @@
     </div>
 
     <div class="form">
-      <form role="form" method="POST" action="{{ route('kythuatvien.login') }}">
+      <form role="form" method="POST" action="{{ route('kythuatvien.login') }}" autocomplete="off">
         {{ csrf_field() }}
 
         @if ($errors->has('email'))
@@ -62,7 +62,7 @@
         
         <div class="input-field col">
           <!-- <input id="email" type="email" name="email" class="form-control" value="{{ old('email') }}" required autofocus> -->
-          <input id="email" type="email" name="email"  value="{{ old('email') }}" required autofocus>
+          <input id="email" type="email" name="email"  value="{{ old('email') }}" required autofocus autocomplete="off">
           <label for="email">Email</label>
         </div>
         

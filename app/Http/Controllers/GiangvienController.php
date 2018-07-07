@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Giangvien;
+use App\Models\Lichday;
+use App\Models\ChitietGhinhan;
 use Hash;
 use Validator;
 
@@ -37,15 +39,20 @@ class GiangvienController extends Controller
      */
     public function store(Request $request)
     {
-        $giangvien = new giangvien;
-        $giangvien->magiangvien = $request->magiangvien;
-        $giangvien->name = $request->name;
-        $giangvien->email = $request->email;
-        $giangvien->password = Hash::make($request->password);
-        $giangvien->status = 0;
-        $giangvien->remember_token = $request->_token; //csrf_token();
-        $giangvien->save();
-        return 'ok';
+        $giangvienExists = Giangvien::where('email', $request->email)->orWhere('magiangvien', $request->magiangvien)->count();
+        if($giangvienExists != 0)
+            return response()->json(['error' => 'Mã giảng viên hoặc email đã tồn tại'], 200);
+        else {
+            $giangvien = new Giangvien;
+            $giangvien->magiangvien = $request->magiangvien;
+            $giangvien->username = $request->username;
+            $giangvien->email = $request->email;
+            $giangvien->password = Hash::make($request->password);
+            $giangvien->status = 0;
+            $giangvien->remember_token = $request->_token; //csrf_token();
+            $giangvien->save();
+            return response()->json(['success' => 'Thêm thành công'], 200);
+        }
     }
 
     /**
@@ -79,16 +86,33 @@ class GiangvienController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $giangvien = giangvien::find($id);
-        $giangvien->magiangvien = $request->magiangvien;
-        $giangvien->name = $request->name;
-        $giangvien->email = $request->email;
-        if($request->password != '')
-            $giangvien->password = Hash::make($request->password);
-        //$giangvien->status = 0;
-        $giangvien->remember_token = $request->_token; //csrf_token();
-        $giangvien->save();
-        return 'ok';
+        $maGvExists = $emailGvExists = $giangvienExists = 0;
+        
+        if($giangvien->magiangvien == $request->magiangvien && $giangvien->email != $request->email)
+            $emailGvExists = giangvien::where('email', $request->email)->count(); 
+        if($giangvien->magiangvien != $request->magiangvien && $giangvien->email == $request->email)
+            $maGvExists = giangvien::where('magiangvien', $request->magiangvien)->count();
+        if($giangvien->magiangvien != $request->magiangvien && $giangvien->email != $request->email)
+            $giangvienExists = giangvien::where('email', $request->email)->orWhere('magiangvien', $request->magiangvien)->count();
+
+        if($emailGvExists != 0)
+            return response()->json(['error' => 'Email này đã tồn tại'], 200);
+        else if($maGvExists != 0)
+            return response()->json(['error' => 'Mã kỹ thuật viên này đã tồn tại'], 200);
+        else if($giangvienExists != 0)
+            return response()->json(['error' => 'Mã kỹ thuật viên hoặc email đã tồn tại'], 200);
+        else {
+            $giangvien->magiangvien = $request->magiangvien;
+            $giangvien->username = $request->username;
+            $giangvien->email = $request->email;
+            if($request->password != '')
+                $giangvien->password = Hash::make($request->password);
+            $giangvien->remember_token = $request->_token;
+            $giangvien->save();
+            return response()->json(['success' => 'Cập nhật thành công'], 200);
+        }
     }
 
     /**
@@ -101,14 +125,24 @@ class GiangvienController extends Controller
     {
         $giangvien = giangvien::find($id);
         $giangvien->delete();
+
+        $gvLichday = Lichday::where('giangvien_id', $id)->count();
+        $gvGhinhan = ChitietGhinhan::where('giangvien_id', $id)->count();
+
+        if($gvLichday != 0 || $gvGhinhan != 0)
+            return response()->json(['error' => 'Không xóa được giảng viên này'], 200);
+        else {
+            Kythuatvien::destroy($id); 
+            return response()->json(['success' => 'Xóa thành công'], 200);
+        }  
     }
 
-    public function updategiangvien(Request $request, $id) {
+    public function updateGiangvien(Request $request, $id) {
         $giangvien = giangvien::find($id);
 
         //$old_pass = Hash::make($request->oldpassword);
         $giangvien->magiangvien = $request->magiangvien;
-        $giangvien->name = $request->name;
+        $giangvien->username = $request->username;
 
         if($request->oldpassword == '') {
             $giangvien->save();
@@ -142,7 +176,7 @@ class GiangvienController extends Controller
         
     }
 
-    public function uploadAvatarKTV(Request $request, $id) {
+    public function uploadAvatarGV(Request $request, $id) {
         $giangvien = giangvien::find($id);
 
         $file = $request->image;

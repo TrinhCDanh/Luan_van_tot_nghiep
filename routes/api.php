@@ -29,6 +29,9 @@ Route::resource('/giangvien', 'GiangvienController');
 Route::resource('/lichtruc', 'LichtrucController');
 Route::resource('/tinhtrangmay', 'TinhtrangmayController');
 Route::resource('/lichday', 'LichdayController');
+Route::resource('/dangkynghi', 'DangkynghiController');
+Route::resource('/dangkybu', 'DangkybuController');
+Route::resource('/nhomlop', 'NhomlopController');
 
 // Orther api function
 Route::get('ten-phongmay/{id}','MayController@getTenPhongMay');
@@ -54,3 +57,8 @@ Route::get('/lich-bu-ngay-bu/{hocky_id}', 'DangkybuController@getNgayBu');
 Route::get('/lichday-giangvien/{hocky_id}/{giangvien_current_id}', 'LichdayController@getLichdayGV');
 Route::get('/lich-nghi-ngay-nghi/giangvien/{hocky_id}/{giangvien_current_id}', 'DangkynghiController@getNgayNghiGV');
 Route::get('/lich-bu-ngay-bu/giangvien/{hocky_id}/{giangvien_current_id}', 'DangkybuController@getNgayBuGV');
+
+Route::post('/giangvien-edit-mycount/{id}', 'GiangvienController@updateGiangvien');
+Route::post('/giangvien-upload-avatar/{id}', 'GiangvienController@uploadAvatarGV');
+
+Route::get('/nhomlop-hocky/{hocky_id}', 'NhomlopController@nhomlopHocky');

@@ -6,17 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Kythuatvien extends Authenticatable
+class Admin extends Authenticatable
 {
-	use Notifiable;
-    protected $table = 'kythuatvien';
+    use Notifiable;
+    protected $table = 'admins';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-       'makythuatvien', 'image', 'name', 'email', 'password', 'status'
+       'image', 'name', 'email', 'password', 'status'
     ];
 
     /**

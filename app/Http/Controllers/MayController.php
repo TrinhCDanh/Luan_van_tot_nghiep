@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Phongmay;
 use App\Models\May;
-use DB;
+use App\Models\Tinhtrangmay;
+use App\Models\ChitietGhinhan;
+
 class MayController extends Controller
 {
     /**
@@ -15,7 +17,7 @@ class MayController extends Controller
      */
     public function index()
     {
-        return May::orderBy('id','DESC')->get();
+        //
     }
 
     /**
@@ -47,6 +49,7 @@ class MayController extends Controller
         $phongmay = Phongmay::find($may->phongmay_id);
         $phongmay->soluongmay = $slMayCapnhat;
         $phongmay->save();
+
     }
 
     /**
@@ -68,7 +71,7 @@ class MayController extends Controller
      */
     public function edit($id)
     {
-        return May::find($id);
+        //
     }
 
     /**
@@ -93,6 +96,13 @@ class MayController extends Controller
     {
         $may = May::where('slug', $id)->first();
         May::destroy($may->id);
+        
+        $tinhtrangList = Tinhtrangmay::where('may_id', $may->id)->get()->toArray();
+        foreach($tinhtrangList as $tinhtrangItem) {
+            Tinhtrangmay::destroy($tinhtrangItem['id']);
+            ChitietGhinhan::where('tinhtrangmay_id', $tinhtrangItem['id'])->delete();
+        }
+        // Tinhtrangmay::where('may_id', $may->id)->delete();
 
         $slMayConLai = May::where('phongmay_id', $may->phongmay_id)->count();
         $phongmay = Phongmay::find($may->phongmay_id);
@@ -100,12 +110,6 @@ class MayController extends Controller
         $phongmay->save();
         return $may;
     }
-    public function getTenPhongMay($id){
-        $data = DB::select('
-                    SELECT phongmay.tenphongmay
-                    FROM phongmay
-                    WHERE phongmay.id = ?', [$id]
-        );
-        return $data;
-    }
+
+
 }
