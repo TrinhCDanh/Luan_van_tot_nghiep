@@ -55,6 +55,11 @@ return [
             'driver' => 'session',
             'provider' => 'kythuatviens',
         ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
     ],
 
     /*
@@ -93,6 +98,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Kythuatvien::class,
         ],
+
+        'admins' => [  
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
     ],
 
     /*
@@ -116,6 +126,13 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+
+        'admins' => [  
+            'provider' => 'admins',
+            'email' => 'auth.emails.password',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ], 
     ],
 
 ];

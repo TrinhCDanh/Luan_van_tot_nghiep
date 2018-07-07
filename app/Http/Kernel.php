@@ -63,5 +63,7 @@ class Kernel extends HttpKernel
         'giangvien_guest' => \App\Http\Middleware\Giangvien\RedirectIfAuthenticated::class,
         'kythuatvien_auth' => \App\Http\Middleware\Kythuatvien\Authenticate::class,  
         'kythuatvien_guest' => \App\Http\Middleware\Kythuatvien\RedirectIfAuthenticated::class,
+        'admin_auth' => \App\Http\Middleware\Admin\Authenticate::class,  
+        'admin_guest' => \App\Http\Middleware\Admin\RedirectIfAuthenticated::class,
     ];
 }
