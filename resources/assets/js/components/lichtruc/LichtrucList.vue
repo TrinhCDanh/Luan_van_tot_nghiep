@@ -139,13 +139,14 @@
                     var ngayhientai = Date.now();//new Date('2018-12-12');
 
                     for (var hocky of this.hockyList) {
+
                         var ngaybatdau = new Date(hocky.ngaybatdau).getTime();
                         var ngayketthuc = new Date(hocky.ngayketthuc).getTime();
 
                         if (ngaybatdau < ngayhientai && ngayhientai < ngayketthuc) {
                             _this.selectedHocky = hocky.id;
                             _this.countLoading++;
-                            console.log(_this.selectedHocky);
+                            // console.log(_this.selectedHocky);
                             break;
                         }
                     }
@@ -257,7 +258,6 @@
                     }
                     if (dem == 1) {
                         result = item;
-
                     }
                 }
                 return result;

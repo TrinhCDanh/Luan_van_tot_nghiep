@@ -95,7 +95,7 @@ export default {
           _this.isLoading = false;
           this.listMon = rep.data;
       }, 2000); 
-        console.log(this.listMon);
+        // console.log(this.listMon);
     });
 
   },

@@ -1,7 +1,7 @@
 <template id="lop-list">
     <div class="row">
         <v-btn round color="error" class="pull-right" v-bind:to="{name: 'LopAdd'}">
-            <v-icon >add</v-icon>
+            <v-icon>add</v-icon>
             Thêm thông tin lớp mới
         </v-btn>
         <br>
@@ -16,28 +16,28 @@
                 <v-layout wrap>
                     <v-flex xs12 sm6 md6>
                         <v-select
-                            :items="hockyList"
-                            v-model="selectedHocky"
-                            label="Học kỳ"
-                            single-line
-                            item-text="tenhocky"
-                            item-value="id"
-                            return-object
-                            persistent-hint
-                            v-on:change="chooseHocky()"
+                                :items="hockyList"
+                                v-model="selectedHocky"
+                                label="Học kỳ"
+                                single-line
+                                item-text="tenhocky"
+                                item-value="id"
+                                return-object
+                                persistent-hint
+                                v-on:change="chooseHocky()"
                         ></v-select>
                     </v-flex>
                     <v-flex xs12 sm6 md6>
                         <v-text-field
-                            v-model="search"
-                            append-icon="search"
-                            label="Search"
-                            single-line
-                            hide-details
+                                v-model="search"
+                                append-icon="search"
+                                label="Search"
+                                single-line
+                                hide-details
                         ></v-text-field>
                     </v-flex>
                 </v-layout>
-                
+
             </v-card-title>
             <v-data-table
                     :headers="headers"
@@ -69,13 +69,15 @@
         <v-layout row justify-center>
             <v-dialog v-model="dialog" persistent max-width="290">
                 <v-card>
-                <v-card-title class="headline">Are you sure?</v-card-title>
-                <v-card-text>Bạn có chắc chắn muốn xóa dữ liệu này?</v-card-text>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="green darken-1" flat @click.native="dialog = false">No</v-btn>
-                    <v-btn color="green darken-1" flat @click.native="deleteItem(selectedNhomlop, selectedNhomlop.id), dialog = false">Yes</v-btn>
-                </v-card-actions>
+                    <v-card-title class="headline">Are you sure?</v-card-title>
+                    <v-card-text>Bạn có chắc chắn muốn xóa dữ liệu này?</v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="green darken-1" flat @click.native="dialog = false">No</v-btn>
+                        <v-btn color="green darken-1" flat
+                               @click.native="deleteItem(selectedNhomlop, selectedNhomlop.id), dialog = false">Yes
+                        </v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-dialog>
         </v-layout>
@@ -106,48 +108,47 @@
         created() {
             var _this = this;
             _this.isLoading = true;
-
-            Axios.get(_this.urlCurrent+'/api/hocky').then((response) => {
-                for(var hocky of response.data) {
-                    let hockyItem = { id: hocky.id, tenhocky: hocky.tenhocky + ' - ' + hocky.namhoc, ngaybatdau: hocky.ngaybatdau, ngayketthuc: hocky.ngayketthuc }
+            axios.get(_this.urlCurrent + '/api/hocky').then((rep) => {
+                for (var hocky of rep.data) {
+                    let hockyItem = {
+                        id: hocky.id,
+                        tenhocky: hocky.tenhocky + '-' + hocky.namhoc,
+                        ngaybatdau: hocky.ngaybatdau,
+                        ngayketthuc: hocky.ngayketthuc
+                    }
                     _this.hockyList.push(hockyItem);
                 }
-
-                var today = new Date();
-                var date =  today.getFullYear()  + '-' + ('0' + (today.getMonth()+1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
-                var ngayhientai = new Date(date).getTime();
-
-                for(var hocky of this.hockyList) {
+                var ngayhientai =  Date.now();
+                for (var hocky of this.hockyList){
                     var ngaybatdau = new Date(hocky.ngaybatdau).getTime();
                     var ngayketthuc = new Date(hocky.ngayketthuc).getTime();
-                    if(ngaybatdau < ngayhientai && ngayhientai < ngayketthuc) {
+                    if(ngaybatdau < ngayhientai && ngayhientai < ngayketthuc){
                         _this.selectedHocky = hocky.id;
                         break;
                     }
                 }
-
-                axios.get(_this.urlCurrent + '/api/nhomlop-hocky/' +  _this.selectedHocky).then((rep) => {
-                    setTimeout(() => {
+                setTimeout(function () {
+                    axios.get(_this.urlCurrent + '/api/nhomlop-hocky/' + _this.selectedHocky).then((rep) =>{
                         _this.isLoading = false;
-                        this.listLop = rep.data;
-                    }, 2000); 
-                });
-            }).catch(function (error) {
-                _this.fetchError = 'Xin lỗi, máy chủ gặp vấn đề! Vui lòng load lại trang';
-            });
+                        _this.listLop = rep.data;
+                    })
+                },2000)
 
+            }).catch(function (error) {
+                    _this.fetchError = 'Xin lỗi, máy chủ gặp vấn đề! Vui lòng load lại trang';
+            });
         },
         methods: {
             xacnhanxoa(item) {
-                 var _this = this;
+                var _this = this;
                 _this.selectedNhomlop = item;
-                _this.dialog = true; 
+                _this.dialog = true;
             },
             deleteItem(item, id) {
                 let url = window.location.origin + '/api/nhomlop/' + id;
                 axios.delete(url).then((rep) => {
                     const index = this.listLop.indexOf(item);
-                    if(rep.data.error) {
+                    if (rep.data.error) {
                         this.error = rep.data.error;
                         setTimeout(() => {
                             this.error = "";
@@ -158,24 +159,22 @@
                     }
                 });
             },
-            editItem(id){
-                this.$router.push({path:'/admin/lop/edit/' + id})
+            editItem(id) {
+                this.$router.push({path: '/admin/lop/edit/' + id})
             },
             chooseHocky() {
                 var _this = this;
-                var hocky_id = "";
+                var hocky_id = '';
                 _this.isLoading = true;
-                _this.listLop = [];  
-
-                setTimeout(() => {
+                _this.listLop = [];
+                setTimeout(function () {
                     hocky_id = _this.selectedHocky.id;
-            
-                    axios.get(_this.urlCurrent + '/api/nhomlop-hocky/' + hocky_id).then((rep) => {
-                        setTimeout(() => {
+                    setTimeout(function () {
+                        axios.get(_this.urlCurrent + '/api/nhomlop-hocky/' + hocky_id).then((rep) => {
                             _this.isLoading = false;
-                            this.listLop = rep.data;
-                        }, 1000); 
-                    });
+                            _this.listLop = rep.data;
+                        })
+                    }, 1000)
                 }, 1000)
             }
         },

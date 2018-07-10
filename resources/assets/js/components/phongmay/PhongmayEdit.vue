@@ -13,10 +13,8 @@
                 {{ error }}
               </v-alert>
               <br>
-
               <v-text-field v-model="phongmay.tenphongmay" :rules="nameRules" label="Tên phòng máy" required></v-text-field>
               <v-btn @click="showMayList(phongmay.id)" style="margin-left: 0; color: white" color="blue" light>Số lượng máy có trong phòng: {{phongmay.soluongmay}}</v-btn>
-
             </v-card-text>
             <v-divider class="mt-5"></v-divider>
             <v-card-actions>
@@ -53,7 +51,7 @@
      editphongmay: function() {
        var _this = this;
        let uri = location.origin + '/api/phongmay/' + _this.phongmay.id; 
-       console.log(_this.phongmay);
+       // console.log(_this.phongmay);
        Axios.patch(uri, _this.phongmay).then((response) => {
           if(response.data.error) {
             _this.error = response.data.error;
@@ -68,13 +66,13 @@
         this.$router.push({ path: `/admin/phongmay/may/${phongmay_id}` });
      }
    },
-   created: function() {
-      let urlCurrent = window.location.href;
-      let phongmay_id = urlCurrent.slice(urlCurrent.lastIndexOf('edit/') + 5 , urlCurrent.length);
-      let uri = location.origin+'/api/phongmay/'+ phongmay_id + '/edit';
-      Axios.get(uri).then((response) => {
-        this.phongmay = response.data;
-      });
-    }
+     created: function () {
+         let urlCurrent = window.location.href;
+         let phongmay_id = urlCurrent.slice(urlCurrent.lastIndexOf('edit/') + 5, urlCurrent.length);
+         let uri = location.origin + '/api/phongmay/' + phongmay_id + '/edit';
+         Axios.get(uri).then((response) => {
+             this.phongmay = response.data;
+         });
+     }
  }
 </script>

@@ -103,17 +103,19 @@
                     _this.hockyList.push(hockyItem);
                 }
 
-                var today = new Date();
-                var date =  today.getFullYear()  + '-' + ('0' + (today.getMonth()+1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
-                var ngayhientai = new Date(date).getTime();
+                // var today = new Date();
+                // var date =  today.getFullYear()  + '-' + ('0' + (today.getMonth()+1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+                // var ngayhientai = new Date(date).getTime();
 
                 for(var hocky of this.hockyList) {
-                    var ngaybatdau = new Date(hocky.ngaybatdau).getTime();
-                    var ngayketthuc = new Date(hocky.ngayketthuc).getTime();
-                    if(ngaybatdau < ngayhientai && ngayhientai < ngayketthuc) {
-                        _this.selectedHocky = hocky.id;
-                        break;
-                    }
+                    // var ngaybatdau = new Date(hocky.ngaybatdau).getTime();
+                    // var ngayketthuc = new Date(hocky.ngayketthuc).getTime();
+                    // if(ngaybatdau < ngayhientai && ngayhientai < ngayketthuc) {
+                    //     _this.selectedHocky = hocky.id;
+                    //     break;
+                    // }
+                    _this.selectedHocky = hocky.id;
+                    break;
                 }
 
             }).catch(function (error) {
@@ -123,35 +125,67 @@
         methods: {
             createItem: function () {
                 var _this = this;
-                var hocky_id = "";
-                if(typeof _this.selectedHocky == 'number')
-                    hocky_id = _this.selectedHocky;
-                else 
+                var hocky_id = '';
+                setTimeout(function () {
                     hocky_id = _this.selectedHocky.id;
-
-                var nhomlopItem = {
-                    nhomlop: _this.lop.nhomlop,
-                    siso: _this.lop.siso,
-                    hocky_id: hocky_id
-                }
-                console.log(nhomlopItem);
-
-                if(nhomlopItem.nhomlop == '' || nhomlopItem.siso == '') 
-                    _this.error = 'Chưa nhập đầy đủ thông tin';
-                else
-                    _this.error = '';
-                    
-                if(_this.error == ""){
-                    axios.post(_this.urlCurrent+ '/api/nhomlop', nhomlopItem).then((rep) => {
-                    if(rep.data.error) {
-                        _this.error = rep.data.error;
+                },1000)
+                setTimeout(function () {
+                    var nhomlopItem = {
+                        nhomlop : _this.lop.nhomlop,
+                        siso : _this.lop.siso,
+                        hocky_id:hocky_id
                     }
-                    else {
-                        _this.$router.push({name:'LopList'})
+                    if(nhomlopItem.nhomlop == '' || nhomlopItem.siso == ''){
+                        _this.error = 'Chưa nhập đầy đủ thông tin';
+                    }else{
                         _this.error = '';
-                    }   
-                    });
-                }
+                    }
+                    if(_this.error == ''){
+                        axios.post(_this.urlCurrent + '/api/nhomlop',nhomlopItem).then((rep) =>{
+                            if(rep.data.error){
+                                _this.error = rep.data.error
+                            }else{
+                                _this.$router.push({name:'LopList'})
+                                _this.error = '';
+                            }
+                        })
+                    }
+                },1100)
+            //     var _this = this;
+            //     var hocky_id = "";
+            //     if(typeof _this.selectedHocky == 'number'){
+            //         hocky_id = _this.selectedHocky;
+            //         // console.log(hocky_id);
+            //     }
+            //      else
+            //     {
+            //         hocky_id = _this.selectedHocky.id;
+            //         // console.log(hocky_id);
+            //     }
+            //
+            //     var nhomlopItem = {
+            //         nhomlop: _this.lop.nhomlop,
+            //         siso: _this.lop.siso,
+            //         hocky_id: hocky_id
+            //     }
+            //     console.log(nhomlopItem);
+            //
+            //     if(nhomlopItem.nhomlop == '' || nhomlopItem.siso == '')
+            //         _this.error = 'Chưa nhập đầy đủ thông tin';
+            //     else
+            //         _this.error = '';
+            //
+            //     if(_this.error == ""){
+            //         axios.post(_this.urlCurrent+ '/api/nhomlop', nhomlopItem).then((rep) => {
+            //         if(rep.data.error) {
+            //             _this.error = rep.data.error;
+            //         }
+            //         else {
+            //             _this.$router.push({name:'LopList'})
+            //             _this.error = '';
+            //         }
+            //         });
+            //     }
             }
         },
         computed: {},

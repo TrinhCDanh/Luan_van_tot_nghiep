@@ -27,7 +27,7 @@
           <td class="text-xs-left">{{ props.item.makythuatvien }}</td>
           <td class="text-xs-left">{{ props.item.name }}</td>
           <td class="text-xs-left">{{ props.item.email }}</td>
-          <td class="text-xs-left">{{ props.item.status == 0 ? 'Chưa kích hoạt' : 'Đã kích hoạt'}}</td>
+          <td class="text-xs-left">{{ props.item.status == 0 ? 'Chưa kích hoạt' : 'Đã kích hoạt' }}</td>
           <td class="justify-center layout px-0">
             <v-btn icon class="mx-0" @click="editItem(props.item.id)" v-if="props.item.status == 0">
               <v-icon color="teal">edit</v-icon>
@@ -82,15 +82,15 @@ export default {
     };
   },
   created: function() {
-    var _this = this;
-    _this.isLoading = true;
-    let uri = location.origin+'/api/kythuatvien';
-    Axios.get(uri).then((response) => {
-      setTimeout(() => {
-          _this.isLoading = false;
-          this.kythuatvienlist = response.data;
-      }, 2000);
-    });
+
+      var _this = this;
+      _this.isLoading = true;
+      axios.get(location.origin + '/api/kythuatvien').then((rep) =>{
+          setTimeout(function () {
+              _this.isLoading =false;
+              _this.kythuatvienlist = rep.data;
+          },2000)
+      })
   },
   methods: {
     xacnhanxoa(item) {

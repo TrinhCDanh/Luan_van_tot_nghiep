@@ -16,7 +16,7 @@ class MonhocController extends Controller
      */
     public function index()
     {
-        return Monhoc::orderBy('id','DESC')->get();
+        return Monhoc::orderBy('id', 'DESC')->get();
     }
 
     /**
@@ -40,15 +40,16 @@ class MonhocController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $monhocExists = Monhoc::where('tenmonhoc', $request->tenmonhoc)->orWhere('mamonhoc', $request->mamonhoc)->count();
-        if($monhocExists != 0)
+        $monhocExists = Monhoc::where('tenmonhoc', $request->tenmonhoc)
+            ->orWhere('mamonhoc', $request->mamonhoc)->count();
+        if ($monhocExists != 0) {
             return response()->json(['error' => 'Mã môn học hoặc tên môn học đã tồn tại'], 200);
-        else {
+        } else {
             $monhoc = new Monhoc;
             $monhoc->mamonhoc = $request->mamonhoc;
             $monhoc->tenmonhoc = $request->tenmonhoc;
@@ -62,7 +63,7 @@ class MonhocController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -73,7 +74,7 @@ class MonhocController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -84,52 +85,56 @@ class MonhocController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
         $monhoc = Monhoc::find($id);
-        $tenmonhocExists = $mamonhocExists = $monhocExists = 0;
-        if($monhoc->mamonhoc == $request->mamonhoc && $monhoc->tenmonhoc != $request->tenmonhoc)
-            $tenmonhocExists = Monhoc::where('tenmonhoc', $request->tenmonhoc)->count(); 
-        if($monhoc->tenmonhoc == $request->tenmonhoc && $monhoc->mamonhoc != $request->mamonhoc)
-            $mamonhocExists = Monhoc::where('mamonhoc', $request->mamonhoc)->count();
-        if($monhoc->mamonhoc != $request->mamonhoc && $monhoc->tenmonhoc != $request->tenmonhoc)
-            $monhocExists = Monhoc::where('tenmonhoc', $request->tenmonhoc)->orWhere('mamonhoc', $request->mamonhoc)->count();
-            
-        
-        if($tenmonhocExists != 0)
-            return response()->json(['error' => 'Tên môn học đã tồn tại'], 200);
-        else if($mamonhocExists != 0)
+        $tenMH = $maMH = $ten_maMH = $ten_maMH2 = 0;
+        if ($monhoc->tenmonhoc == $request->tenmonhoc && $monhoc->mamonhoc != $request->mamonhoc)
+            $maMH = Monhoc::where('mamonhoc', $request->mamonhoc)->count();
+        if ($monhoc->tenmonhoc != $request->tenmonhoc && $monhoc->mamonhoc == $request->mamonhoc)
+            $tenMH = Monhoc::where('tenmonhoc', $request->tenmonhoc)->count();
+        if ($monhoc->mamonhoc != $request->mamonhoc && $monhoc->tenmonhoc != $request->tenmonhoc) {
+            $ten_maMH = Monhoc::where('tenmonhoc', $request->tenmonhoc)->count();
+            $ten_maMH2 = Monhoc::where('mamonhoc', $request->mamonhoc)->count();
+        }
+        if ($maMH != 0)
             return response()->json(['error' => 'Mã môn học đã tồn tại'], 200);
-        else if($monhocExists != 0)
-            return response()->json(['error' => 'Mã môn học hoặc tên môn học đã tồn tại'], 200);
+        else if ($tenMH != 0)
+            return response()->json(['error' => 'Tên môn học đã tồn tại'], 200);
+        else if ($ten_maMH != 0 AND $ten_maMH2 == 0)
+            return response()->json(['error' => 'Tên môn học đã tồn tại'], 200);
+        else if ($ten_maMH2 != 0 AND $ten_maMH == 0){
+            return response()->json(['error' => 'Mã môn học đã tồn tại'], 200);
+        }else if($ten_maMH2 !=0 AND $ten_maMH != 0){
+            return response()->json(['error' => 'Tên môn học và mã môn học đã tồn tại'], 200);
+        }
         else {
             $monhoc->mamonhoc = $request->mamonhoc;
             $monhoc->tenmonhoc = $request->tenmonhoc;
             $monhoc->ngaybatdau = $request->ngaybatdau;
             $monhoc->ngayketthuc = $request->ngayketthuc;
             $monhoc->save();
-            return response()->json(['success' => 'Cập nhật thành công'], 200);
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $monhocLichday = Lichday::where('monhoc_id', $id)->count();
-        if($monhocLichday != 0)
+        if ($monhocLichday != 0)
             return response()->json(['error' => 'Không xóa được môn học này'], 200);
         else {
-            Monhoc::destroy($id); 
+            Monhoc::destroy($id);
             return response()->json(['success' => 'Xóa thành công'], 200);
-        }    
+        }
     }
 }

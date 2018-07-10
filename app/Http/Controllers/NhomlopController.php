@@ -31,20 +31,33 @@ class NhomlopController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+//        $nhomlopExists = Nhomlop::where('nhomlop', $request->nhomlop)->where('hocky_id', $request->hocky_id)->count();
+//        if ($nhomlopExists != 0)
+//            return response()->json(['error' => 'Thông tin nhóm lớp đã tồn tại'], 200);
+//        else {
+//            $nhomlop = new Nhomlop;
+//            $nhomlop->nhomlop = $request->nhomlop;
+//            $nhomlop->siso = $request->siso;
+//            $nhomlop->hocky_id = $request->hocky_id;
+//            $nhomlop->save();
+//            return response()->json(['success' => 'Thêm thành công'], 200);
+//        }
+
         $nhomlopExists = Nhomlop::where('nhomlop', $request->nhomlop)->where('hocky_id', $request->hocky_id)->count();
-        if($nhomlopExists != 0)
+        if ($nhomlopExists != 0) {
             return response()->json(['error' => 'Thông tin nhóm lớp đã tồn tại'], 200);
-        else {
+        } else {
             $nhomlop = new Nhomlop;
-            $nhomlop->nhomlop = $request->nhomlop;
+            $nhomlop ->nhomlop = $request->nhomlop;
             $nhomlop->siso = $request->siso;
             $nhomlop->hocky_id = $request->hocky_id;
             $nhomlop->save();
+            echo $nhomlop;
             return response()->json(['success' => 'Thêm thành công'], 200);
         }
     }
@@ -52,7 +65,7 @@ class NhomlopController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -63,7 +76,7 @@ class NhomlopController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -74,8 +87,8 @@ class NhomlopController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -83,12 +96,12 @@ class NhomlopController extends Controller
         $nhomlop = Nhomlop::find($id);
         $nhomlopExists = 0;
 
-        if(trim($nhomlop->nhomlop," ") == $request->nhomlop  && $nhomlop->hocky_id == $request->hocky_id)
+        if (trim($nhomlop->nhomlop, " ") == $request->nhomlop && $nhomlop->hocky_id == $request->hocky_id)
             $nhomlopExists = 0;
-        if(trim($nhomlop->nhomlop," ") != $request->nhomlop || $nhomlop->hocky_id != $request->hocky_id)
+        if (trim($nhomlop->nhomlop, " ") != $request->nhomlop || $nhomlop->hocky_id != $request->hocky_id)
             $nhomlopExists = Nhomlop::where('nhomlop', $request->nhomlop)->where('hocky_id', $request->hocky_id)->count();
 
-        if($nhomlopExists != 0)
+        if ($nhomlopExists != 0)
             return response()->json(['error' => 'Thông tin nhóm lớp đã tồn tại'], 200);
         else {
             $nhomlop->nhomlop = $request->nhomlop;
@@ -102,21 +115,22 @@ class NhomlopController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $nhomlopLichday = Lichday::where('nhomlop_id', $id)->count();
-        if($nhomlopLichday != 0)
+        if ($nhomlopLichday != 0)
             return response()->json(['error' => 'Không xóa được nhóm lớp này'], 200);
         else {
-            Nhomlop::destroy($id); 
+            Nhomlop::destroy($id);
             return response()->json(['success' => 'Xóa thành công'], 200);
-        } 
+        }
     }
 
-    public function nhomlopHocky($hocky_id) {
+    public function nhomlopHocky($hocky_id)
+    {
         return Nhomlop::where('hocky_id', $hocky_id)->get();
     }
 }

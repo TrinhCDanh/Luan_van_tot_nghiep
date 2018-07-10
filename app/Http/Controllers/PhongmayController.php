@@ -108,9 +108,7 @@ class PhongmayController extends Controller
 
             $tenphongmayArr = explode("M", $phongmay->tenphongmay);
             $tenphongmay = $tenphongmayArr[0].$tenphongmayArr[1];
-
             $mayList = May::where('phongmay_id', $phongmay->id)->get()->toArray();
-
             foreach($mayList as $mayItem) {
                 $may = May::find($mayItem['id']);
                 $nameOldArr = explode("_", $may->sothutumay);
