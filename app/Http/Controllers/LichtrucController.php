@@ -114,6 +114,8 @@ class LichtrucController extends Controller
                     JOIN thu ON chitiet_truc.thu_id = thu.id) JOIN ca ON chitiet_truc.ca_id = ca.id)
                     JOIN kythuatvien ON chitiet_truc.kythuatvien_id = kythuatvien.id
                     WHERE hocky_id = ?', [$hocky_id]
+//            AND id = ? ', [$hocky_id]
+
                 );
         return $data;
     }
@@ -129,5 +131,18 @@ class LichtrucController extends Controller
         //             WHERE hocky_id = ? and kythuatvien.id = ?' , [$hocky_id, $kythuatvien_current]
         //         );
         // return $data;
+    }
+    public function limitItem(){
+//        return DB::table('chitiet_truc')->skip(3)->take(2)->get();
+
+        // dem KTV có số ngày làm
+        //select kythuatvien.name,kythuatvien.id,COUNT(chitiet_truc.id) from
+        //chitiet_truc JOIN kythuatvien ON chitiet_truc.kythuatvien_id = kythuatvien.id
+        //GROUP BY  kythuatvien.name,kythuatvien.id
+
+        // nhom lớp > 30
+        return DB::table('nhomlop')->where('siso','>',20)->where('siso' ,'<',30)->get();
+
+        //
     }
 }

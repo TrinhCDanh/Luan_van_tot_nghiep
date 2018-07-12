@@ -22,6 +22,7 @@
         <template slot="items" slot-scope="props">
           <td class="text-xs-left">{{ props.item.sothutumay }}</td>
           <td class="justify-center layout px-0">
+            <!--xóa cuối,chiều dài lớn nhất (id) trừ 1 -->
             <v-btn icon class="mx-0" @click="deleteItem(props.item, props.item.id)" v-if="props.index == maylist.length - 1">
               <v-icon color="pink">delete</v-icon>
             </v-btn>

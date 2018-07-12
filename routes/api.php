@@ -62,3 +62,5 @@ Route::post('/giangvien-edit-mycount/{id}', 'GiangvienController@updateGiangvien
 Route::post('/giangvien-upload-avatar/{id}', 'GiangvienController@uploadAvatarGV');
 
 Route::get('/nhomlop-hocky/{hocky_id}', 'NhomlopController@nhomlopHocky');
+
+Route::get('/litmit-lichtruc','LichtrucController@limitItem');

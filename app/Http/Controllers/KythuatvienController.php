@@ -38,20 +38,37 @@ class KythuatvienController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
-        $kythuatvienExists = Kythuatvien::where('email', $request->email)->orWhere('makythuatvien', $request->makythuatvien)->count();
-        if($kythuatvienExists != 0)
-            return response()->json(['error' => 'Mã kỹ thuật viên hoặc email đã tồn tại'], 200);
-        else {
+    {
+//        $kythuatvienExists = Kythuatvien::where('email', $request->email)->orWhere('makythuatvien', $request->makythuatvien)->count();
+//        if($kythuatvienExists != 0)
+//            return response()->json(['error' => 'Mã kỹ thuật viên hoặc email đã tồn tại'], 200);
+//        else {
+//            $kythuatvien = new Kythuatvien;
+//            $kythuatvien->makythuatvien = $request->makythuatvien;
+//            $kythuatvien->name = $request->name;
+//            $kythuatvien->email = $request->email;
+//            $kythuatvien->password = Hash::make($request->password);
+//            $kythuatvien->status = 0;
+//            $kythuatvien->remember_token = $request->_token; //csrf_token();
+//            $kythuatvien->save();
+//            return response()->json(['success' => 'Thêm thành công'], 200);
+//        }
+        $kythuatvienExists = Kythuatvien::where('email',$request->email)
+                            ->orWhere('makythuatvien',$request->makythuatvien)->count();
+//        echo $kythuatvienExists;
+
+        if($kythuatvienExists != 0){
+            return response()->json(['error' =>'Mã kỹ thuật viên hoặc email đã tồn tại'],200);
+        }else{
             $kythuatvien = new Kythuatvien;
             $kythuatvien->makythuatvien = $request->makythuatvien;
             $kythuatvien->name = $request->name;
             $kythuatvien->email = $request->email;
             $kythuatvien->password = Hash::make($request->password);
             $kythuatvien->status = 0;
-            $kythuatvien->remember_token = $request->_token; //csrf_token();
+            $kythuatvien->remember_token = $request->_token;
             $kythuatvien->save();
-            return response()->json(['success' => 'Thêm thành công'], 200);
+            return response()->json(['success' =>'Thành công'],200);
         }
     }
 

@@ -94,11 +94,16 @@ class MayController extends Controller
      */
     public function destroy($id)
     {
+
         $may = May::where('slug', $id)->first();
-        May::destroy($may->id);
-        
+//        May::destroy($may->id);
+
+
+        // xóa tình trạng máy
         $tinhtrangList = Tinhtrangmay::where('may_id', $may->id)->get()->toArray();
+        dd($tinhtrangList);
         foreach($tinhtrangList as $tinhtrangItem) {
+
             Tinhtrangmay::destroy($tinhtrangItem['id']);
             ChitietGhinhan::where('tinhtrangmay_id', $tinhtrangItem['id'])->delete();
         }

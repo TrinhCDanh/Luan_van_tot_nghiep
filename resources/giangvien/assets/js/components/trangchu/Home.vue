@@ -437,7 +437,7 @@ export default {
   .name-ktv {
     font-size: 14px;
   }
-  @keyframes displayLoading {
+  @Danh sách học kỳframes displayLoading {
     from { opacity: 0 }
     to { opacity: 1 }
   }
