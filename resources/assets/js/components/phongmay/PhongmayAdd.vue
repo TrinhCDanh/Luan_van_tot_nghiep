@@ -62,12 +62,13 @@
             setTimeout(function () {
                 console.log(_this.phongmay.tenphongmay);
                 if (_this.phongmayList.length == 0) {
+                    _this.phongmay.tenphongmay = 'PM01';
                 } else {
                     var lastIndex = _this.phongmayList.length - 1;
                     var somayCurrent = parseInt(_this.phongmayList[lastIndex].tenphongmay.replace('PM', ''));
                     var somayNext = somayCurrent + 1;
-                    var mayNext = 'PM' + somayNext;
-                    _this.phongmay.tenphongmay = mayNext;
+                    var phongmayNext = 'PM'+ ('0' + somayNext).slice(-2);
+                    _this.phongmay.tenphongmay = phongmayNext;
                 }
             }, 500)
         },
