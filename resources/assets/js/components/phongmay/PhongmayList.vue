@@ -31,7 +31,7 @@
                         <v-btn icon class="mx-0" @click="editItem(props.item.id)">
                             <v-icon color="teal">edit</v-icon>
                         </v-btn>
-                        <v-btn icon class="mx-0" @click="xacnhanxoa(props.item)">
+                        <v-btn icon class="mx-0"  v-if="props.index == phongmaylist.length - 1" @click="xacnhanxoa(props.item)">
                             <v-icon color="pink">delete</v-icon>
                         </v-btn>
                     </td>
@@ -76,19 +76,19 @@
                     {text: 'Actions', value: 'name', sortable: false, align: 'center'}
                 ],
                 phongmaylist: [],
-                selectedPhongmay: {}
+                selectedPhongmay: ''
             };
         },
         created: function () {
             var _this = this;
             _this.isLoading = true;
-            let uri = location.origin + '/api/phongmay';
-            Axios.get(uri).then((response) => {
-                setTimeout(() => {
+            var url = location.origin + '/api/phongmay';
+            setTimeout(() => {
+                axios.get(url).then((rep) => {
                     _this.isLoading = false;
-                    this.phongmaylist = response.data;
-                }, 2000);
-            });
+                    _this.phongmaylist = rep.data;
+                })
+            })
         },
         methods: {
             xacnhanxoa(item) {
@@ -97,24 +97,20 @@
                 _this.dialog = true;
             },
             editItem(id) {
-
                 this.$router.push({path: `/admin/phongmay/edit/` + id});
             },
-
             deleteItem(item, id) {
-                Axios.delete(location.origin + '/api/phongmay/' + id).then((response) => {
-                    const index = this.phongmaylist.indexOf(item)
-                    if (response.data.error) {
-                        this.error = response.data.error;
-                        setTimeout(() => {
-                            this.error = "";
-                        }, 5000);
-                    }
-                    else {
+                axios.delete(location.origin + '/api/phongmay/' + id).then((rep) => {
+                    const index = this.phongmaylist.indexOf(item);
+                    if (rep.data.error) {
+                        this.error = rep.data.error;
+                        setTimeout(() =>{
+                            this.error = '';
+                        },5000)
+                    } else {
                         this.phongmaylist.splice(index, 1);
                     }
-                });
-                // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') &&
+                })
             },
         },
         computed: {

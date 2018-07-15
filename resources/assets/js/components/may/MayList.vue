@@ -63,10 +63,10 @@ export default {
       this.isLoading = true;
       Axios.get(uri).then((response) => {
         this.phongmay = response.data.phongmay[0];
-        setTimeout(() =>{
+          console.log(response.data);
+          setTimeout(() =>{
             this.isLoading = false;
             this.maylist = response.data.mayList;
-            console.log(response.data);
         },2000)
       }).catch(function (error) {
         _this._fetchData();
@@ -76,8 +76,6 @@ export default {
         // this.$router.push({name: 'HockyList'})
         // console.log(response.data);
         //let lastMay = this.maylist.lastIndexOf(item);
-
-
         if(this.maylist.length == 0) {
           var tenphongmayArr = this.phongmay.tenphongmay.split("M");
           var sothutumayNext = "P" + tenphongmayArr[1] + "_" + "01" ;
@@ -116,7 +114,7 @@ export default {
       Axios.delete(location.origin+'/api/may/'+item.slug).then((response) => {
         const index = this.maylist.indexOf(item)
         this.maylist.splice(index, 1)
-      });;
+      })
       // confirm('Bạn có chắc chắn muốn xóa dữ liệu này?') && 
     },
   },

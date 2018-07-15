@@ -14,7 +14,7 @@
                             </v-alert>
 
                             <input type="hidden" name="_token" :value="kythuatvien._token">
-                            <v-text-field v-model="kythuatvien.makythuatvien" :rules="maktvRules"
+                            <v-text-field v-model="kythuatvien.makythuatvien" maxlength="15" :rules="maktvRules"
                                           label="Mã số kỹ thuật viên" required @change="matkhau()"></v-text-field>
                             <v-text-field v-model="kythuatvien.name" :rules="nameRules" label="Tên kỹ thuật viên"
                                           required></v-text-field>
@@ -79,8 +79,14 @@
             },
             createkythuatvien: function () {
                 var _this = this;
+                var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                console.log(_this.kythuatvien.makythuatvien.length);
                 if (_this.kythuatvien.makythuatvien == '' || _this.kythuatvien.name == '' || _this.kythuatvien.email == '' || _this.kythuatvien.password == '') {
                     _this.error = 'Chưa nhập đầy đủ thông tin';
+                }else if(!filter.test(_this.kythuatvien.email)){
+                    _this.error = 'Email không hợp lệ';
+                }else if(_this.kythuatvien.makythuatvien.length >=15){
+                    _this.error = 'Mã kỹ thuật viên không quá 15 ký tự';
                 }else{
                     _this.error = '';
                     axios.post(_this.urlCurrent + '/api/kythuatvien',this.kythuatvien).then((rep) =>{
@@ -88,7 +94,9 @@
                             _this.error = rep.data.error;
                             console.log(rep.data.error);
                         }
-                        console.log(rep.data.error);
+                        else{
+                            _this.$router.push({name: 'KythuatvienList'})
+                        }
                     })
                 }
             }

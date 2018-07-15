@@ -116,6 +116,7 @@
         this.kythuatvien = response.data;
         console.log(this.kythuatvien);
       });
+
     }
  }
 </script>

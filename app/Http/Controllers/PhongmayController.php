@@ -18,6 +18,7 @@ class PhongmayController extends Controller
     public function index()
     {
         return Phongmay::all();
+//        return Phongmay::select('slug','tenphongmay')->get();
     }
 
     /**
@@ -33,42 +34,64 @@ class PhongmayController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         // return Phongmay::create($request->all());
-        $phongmayExists = Phongmay::where('tenphongmay',$request->tenphongmay)->count();
 
-        if($phongmayExists != 0)
+//        $phongmayExists = Phongmay::where('tenphongmay',$request->tenphongmay)->count();
+//
+//        if($phongmayExists != 0)
+//            return response()->json(['error' => 'Phòng máy đã tồn tại'], 200);
+//        else {
+//            $phongmay = new Phongmay;
+//            $phongmay->tenphongmay = $request->tenphongmay;
+//            $phongmay->soluongmay = $request->soluongmay;
+//            $phongmay->slug = str_slug($phongmay->tenphongmay);
+//            $phongmay->save();
+//            $tenphongmayArr = explode("M", $phongmay->tenphongmay);
+//            $tenphongmay = $tenphongmayArr[0].$tenphongmayArr[1];
+//            for($i = 1; $i <= $phongmay->soluongmay; $i++) {
+//                $may = new May;
+//                $may->sothutumay = $tenphongmay. "_" .str_pad($i, 2, '0', STR_PAD_LEFT);
+//                print_r($may->sothutumay);
+//                $may->tinhtrang = 0;
+//                $may->phongmay_id = $phongmay->id;
+//                $may->slug = str_slug($may->sothutumay);
+//                $may->save();
+//            }
+//            return response()->json(['success' => 'Thêm thành công'], 200);
+//        }
+
+        $phongmayExists = Phongmay::where('tenphongmay', $request->tenphongmay)->count();
+        if ($phongmayExists != 0) {
             return response()->json(['error' => 'Phòng máy đã tồn tại'], 200);
-        else {
+        } else {
             $phongmay = new Phongmay;
             $phongmay->tenphongmay = $request->tenphongmay;
             $phongmay->soluongmay = $request->soluongmay;
             $phongmay->slug = str_slug($phongmay->tenphongmay);
             $phongmay->save();
-
-            $tenphongmayArr = explode("M", $phongmay->tenphongmay);
-            $tenphongmay = $tenphongmayArr[0].$tenphongmayArr[1];
-
-            for($i = 1; $i <= $phongmay->soluongmay; $i++) {
+            $tenphongmayArr = explode('M', $phongmay->tenphongmay);
+            $tenmay = $tenphongmayArr[0] . $tenphongmayArr[1];
+            for ($i = 1; $i <= $phongmay->soluongmay; $i++) {
                 $may = new May;
-                $may->sothutumay = $tenphongmay. "_" .str_pad($i, 2, '0', STR_PAD_LEFT);
+                $may->sothutumay = $tenmay . '_' . str_pad($i, 2, '0', STR_PAD_LEFT);
                 $may->tinhtrang = 0;
                 $may->phongmay_id = $phongmay->id;
                 $may->slug = str_slug($may->sothutumay);
                 $may->save();
             }
-            return response()->json(['success' => 'Thêm thành công'], 200);
-        }   
+            return response()->json(['success' => 'Thành công'], 200);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -79,7 +102,7 @@ class PhongmayController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -90,27 +113,47 @@ class PhongmayController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $phongmayExists = Phongmay::where('tenphongmay',$request->tenphongmay)->count();
-
-        if($phongmayExists != 0)
+//        $phongmayExists = Phongmay::where('tenphongmay', $request->tenphongmay)->count();
+//
+//        if ($phongmayExists != 0)
+//            return response()->json(['error' => 'Phòng máy đã tồn tại'], 200);
+//        else {
+//            $phongmay = Phongmay::find($id);
+//            $phongmay->tenphongmay = $request->tenphongmay;
+//            $phongmay->slug = str_slug($phongmay->tenphongmay);
+//            $phongmay->save();
+//
+//            $tenphongmayArr = explode("M", $phongmay->tenphongmay);
+//            print_r($tenphongmayArr);
+//            $tenphongmay = $tenphongmayArr[0] . $tenphongmayArr[1];
+//            $mayList = May::where('phongmay_id', $phongmay->id)->get()->toArray();
+//            foreach ($mayList as $mayItem) {
+//                $may = May::find($mayItem['id']);
+//                $nameOldArr = explode("_", $may->sothutumay);
+//                $may->sothutumay = $tenphongmay . "_" . $nameOldArr[1];
+//                $may->slug = str_slug($may->sothutumay);
+//                $may->save();
+//            }
+//            return response()->json(['success' => 'Cập nhật thành công'], 200);
+//        }
+        $phongmayExists = Phongmay::where('tenphongmay', $request->tenphongmay)->count();
+        if ($phongmayExists != 0) {
             return response()->json(['error' => 'Phòng máy đã tồn tại'], 200);
-        else {
+        } else {
             $phongmay = Phongmay::find($id);
             $phongmay->tenphongmay = $request->tenphongmay;
             $phongmay->slug = str_slug($phongmay->tenphongmay);
             $phongmay->save();
-
-            $tenphongmayArr = explode("M", $phongmay->tenphongmay);
-            print_r($tenphongmayArr);
-            $tenphongmay = $tenphongmayArr[0].$tenphongmayArr[1];
+            $tenphongmayArr = explode('M', $phongmay->tenphongmay);
+            $tenphongmay = $tenphongmayArr[0] . $tenphongmayArr[1];
             $mayList = May::where('phongmay_id', $phongmay->id)->get()->toArray();
-            foreach($mayList as $mayItem) {
+            foreach ($mayList as $mayItem){
                 $may = May::find($mayItem['id']);
                 $nameOldArr = explode("_", $may->sothutumay);
                 $may->sothutumay = $tenphongmay . "_" . $nameOldArr[1];
@@ -118,28 +161,28 @@ class PhongmayController extends Controller
                 $may->save();
             }
             return response()->json(['success' => 'Cập nhật thành công'], 200);
-        }  
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {   
+    {
         $phongmayLichday = Lichday::where('phongmay_id', $id)->count();
-        $phongmayMay = May::where('phongmay_id', $id)->count();
-        if($phongmayLichday != 0 || $phongmayMay != 0)
+        $phongMay = May::where('phongmay_id', $id)->count();
+        if ($phongMay != 0 || $phongmayLichday != 0) {
             return response()->json(['error' => 'Không xóa được phòng máy này'], 200);
-        else {
-            Phongmay::destroy($id); 
-            return response()->json(['success' => 'Xóa thành công'], 200);
-        }    
+        } else {
+            Phongmay::destroy($id);
+        }
     }
 
-    public function listMaybyPhongMay($id) {
+    public function listMaybyPhongMay($id)
+    {
         $mayList = May::where('phongmay_id', $id)->get();
         $phongmay = Phongmay::where('id', $id)->get();
 
